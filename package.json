@@ -4,7 +4,7 @@
   "description": "AI-powered news portal with automated journalism",
   "main": "src/index.js",
   "scripts": {
-    "start": "node src/index.js",
+    "start": "node src/server.js",
     "start:web": "node src/server.js",
     "dev": "nodemon src/index.js",
     "server": "node src/server.js",
