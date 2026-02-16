@@ -16,6 +16,8 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '../public')));
+// Serve data directory for JSON files
+app.use('/data', express.static(path.join(__dirname, '../data')));
 
 // Data paths
 const DATA_DIR = path.join(__dirname, '../data');
