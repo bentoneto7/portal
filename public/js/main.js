@@ -94,12 +94,12 @@ const newsLoader = {
             return;
         }
 
-        // Map de categorias antigas para novas
+        // Map de categorias do site para categorias dos artigos
         const categoryMap = {
             'serie-a': 'brasileirao',
-            'mercado': 'internacional', // Temporário: use internacional como mercado
-            'opiniao': 'copa', // Temporário: use copa como opinião
-            'taticas': 'libertadores' // Temporário: use libertadores como táticas
+            'mercado': 'mercado',
+            'opiniao': 'opiniao',
+            'taticas': 'taticas'
         };
 
         const actualCategory = categoryMap[category] || category;
@@ -169,6 +169,9 @@ const newsLoader = {
     getCategoryLabel(category) {
         const labels = {
             'brasileirao': 'Brasileirão',
+            'mercado': 'Mercado da Bola',
+            'opiniao': 'Opinião',
+            'taticas': 'Táticas e Dados',
             'copa': 'Copa do Mundo',
             'libertadores': 'Libertadores',
             'internacional': 'Internacional'
