@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Tabela - Brasileirão Série A 2026 | Bola na Rede</title>
+    <meta name="description" content="Simule os resultados da Série A e veja como fica a classificação. Ferramenta interativa para torcedores do Brasileirão.">
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .simulador-container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        .jogo-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .time {
+            flex: 1;
+            min-width: 120px;
+            font-weight: 700;
+            color: var(--text-color);
+        }
+        .time-casa { text-align: right; }
+        .time-fora { text-align: left; }
+        .placar {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .placar input {
+            width: 50px;
+            padding: 8px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 900;
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            color: var(--text-color);
+        }
+        .placar input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+        .vs {
+            color: var(--text-muted);
+            font-weight: 700;
+        }
+        .tabela-simulacao {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+        .tabela-simulacao table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .tabela-simulacao th {
+            background: var(--bg-secondary);
+            padding: 12px 8px;
+            text-align: left;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+        .tabela-simulacao td {
+            padding: 12px 8px;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-color);
+        }
+        .libertadores {
+            border-left: 4px solid var(--primary-color);
+        }
+        .rebaixamento {
+            border-left: 4px solid var(--secondary-color);
+        }
+        .btn-simular {
+            width: 100%;
+            padding: 16px;
+            background: var(--gradient-primary);
+            color: var(--bg-color);
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 900;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s;
+        }
+        .btn-simular:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-neon);
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1><a href="/">⚽ BOLA NA REDE</a></h1>
+                    <p class="tagline">O futebol sem filtro que você não vê na TV</p>
+                </div>
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/#serie-a">Série A</a></li>
+                        <li><a href="/clubes.html">Clubes</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="simulador-container">
+        <h1 style="font-size: 36px; margin-bottom: 10px;">🎮 Simulador de Tabela</h1>
+        <p style="color: var(--text-muted); font-size: 18px; margin-bottom: 30px;">Simule os resultados e veja como fica a classificação do Brasileirão</p>
+
+        <div style="background: var(--card-bg); border: 2px solid var(--accent-yellow); border-radius: 8px; padding: 20px; margin-bottom: 30px;">
+            <h2 style="margin-top: 0; color: var(--accent-yellow);">⚠️ Como funciona</h2>
+            <ol style="line-height: 1.8;">
+                <li>Escolha os placares dos jogos abaixo</li>
+                <li>Click em "Calcular Classificação"</li>
+                <li>Veja como fica a tabela com seus resultados</li>
+            </ol>
+            <p style="margin-bottom: 0; color: var(--text-muted); font-size: 14px;">
+                <strong>Dica:</strong> Os times já vêm com pontuação atual. Você simula apenas a próxima rodada.
+            </p>
+        </div>
+
+        <h2 style="margin-bottom: 20px;">📅 Próxima Rodada (Rodada 29)</h2>
+
+        <div id="jogos-container"></div>
+
+        <button class="btn-simular" onclick="calcularTabela()">🔮 Calcular Classificação</button>
+
+        <div id="resultado" class="tabela-simulacao" style="display: none;">
+            <h2 style="margin-top: 0;">📊 Classificação Simulada</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Time</th>
+                        <th>PTS</th>
+                        <th>J</th>
+                        <th>V</th>
+                        <th>E</th>
+                        <th>D</th>
+                    </tr>
+                </thead>
+                <tbody id="tabela-body"></tbody>
+            </table>
+
+            <div style="margin-top: 20px; font-size: 13px; color: var(--text-muted);">
+                <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                    <div>
+                        <span style="display: inline-block; width: 12px; height: 12px; background: var(--primary-color); margin-right: 5px;"></span>
+                        Zona de Libertadores (1º ao 4º)
+                    </div>
+                    <div>
+                        <span style="display: inline-block; width: 12px; height: 12px; background: var(--secondary-color); margin-right: 5px;"></span>
+                        Zona de Rebaixamento (17º ao 20º)
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 60px; padding: 20px;">
+            <a href="/" style="color: var(--text-muted); text-decoration: none;">← Voltar para Home</a>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2026 Bola na Rede</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Dados iniciais (pontuação atual)
+        const times = [
+            { nome: 'Botafogo', pontos: 52, jogos: 28, vitorias: 16, empates: 4, derrotas: 8 },
+            { nome: 'Palmeiras', pontos: 50, jogos: 28, vitorias: 15, empates: 5, derrotas: 8 },
+            { nome: 'Flamengo', pontos: 48, jogos: 28, vitorias: 14, empates: 6, derrotas: 8 },
+            { nome: 'Fluminense', pontos: 45, jogos: 28, vitorias: 13, empates: 6, derrotas: 9 },
+            { nome: 'São Paulo', pontos: 43, jogos: 28, vitorias: 12, empates: 7, derrotas: 9 },
+            { nome: 'Grêmio', pontos: 42, jogos: 28, vitorias: 12, empates: 6, derrotas: 10 },
+            { nome: 'Internacional', pontos: 40, jogos: 28, vitorias: 11, empates: 7, derrotas: 10 },
+            { nome: 'Atlético-MG', pontos: 38, jogos: 28, vitorias: 11, empates: 5, derrotas: 12 },
+            { nome: 'Santos', pontos: 36, jogos: 28, vitorias: 10, empates: 6, derrotas: 12 },
+            { nome: 'Corinthians', pontos: 35, jogos: 28, vitorias: 10, empates: 5, derrotas: 13 }
+        ];
+
+        // Jogos da próxima rodada (mock data)
+        const jogos = [
+            { casa: 'Botafogo', fora: 'Palmeiras' },
+            { casa: 'Flamengo', fora: 'Fluminense' },
+            { casa: 'São Paulo', fora: 'Grêmio' },
+            { casa: 'Internacional', fora: 'Atlético-MG' },
+            { casa: 'Santos', fora: 'Corinthians' }
+        ];
+
+        // Renderizar jogos
+        const container = document.getElementById('jogos-container');
+        jogos.forEach((jogo, i) => {
+            container.innerHTML += `
+                <div class="jogo-card">
+                    <div class="time time-casa">${jogo.casa}</div>
+                    <div class="placar">
+                        <input type="number" id="casa-${i}" min="0" max="20" value="0">
+                        <span class="vs">X</span>
+                        <input type="number" id="fora-${i}" min="0" max="20" value="0">
+                    </div>
+                    <div class="time time-fora">${jogo.fora}</div>
+                </div>
+            `;
+        });
+
+        function calcularTabela() {
+            // Clonar dados
+            const timesAtualizado = JSON.parse(JSON.stringify(times));
+
+            // Processar resultados
+            jogos.forEach((jogo, i) => {
+                const golsCasa = parseInt(document.getElementById(`casa-${i}`).value) || 0;
+                const golsFora = parseInt(document.getElementById(`fora-${i}`).value) || 0;
+
+                const timeCasa = timesAtualizado.find(t => t.nome === jogo.casa);
+                const timeFora = timesAtualizado.find(t => t.nome === jogo.fora);
+
+                if (timeCasa && timeFora) {
+                    timeCasa.jogos++;
+                    timeFora.jogos++;
+
+                    if (golsCasa > golsFora) {
+                        timeCasa.pontos += 3;
+                        timeCasa.vitorias++;
+                        timeFora.derrotas++;
+                    } else if (golsFora > golsCasa) {
+                        timeFora.pontos += 3;
+                        timeFora.vitorias++;
+                        timeCasa.derrotas++;
+                    } else {
+                        timeCasa.pontos++;
+                        timeFora.pontos++;
+                        timeCasa.empates++;
+                        timeFora.empates++;
+                    }
+                }
+            });
+
+            // Ordenar
+            timesAtualizado.sort((a, b) => {
+                if (b.pontos !== a.pontos) return b.pontos - a.pontos;
+                return b.vitorias - a.vitorias;
+            });
+
+            // Renderizar
+            const tbody = document.getElementById('tabela-body');
+            tbody.innerHTML = '';
+
+            timesAtualizado.forEach((time, i) => {
+                const pos = i + 1;
+                let classe = '';
+                if (pos <= 4) classe = 'libertadores';
+                else if (pos >= 7) classe = 'rebaixamento';
+
+                tbody.innerHTML += `
+                    <tr class="${classe}">
+                        <td style="font-weight: 900; color: var(--primary-color);">${pos}</td>
+                        <td style="font-weight: 700;">${time.nome}</td>
+                        <td style="font-weight: 900; color: var(--accent-yellow);">${time.pontos}</td>
+                        <td>${time.jogos}</td>
+                        <td>${time.vitorias}</td>
+                        <td>${time.empates}</td>
+                        <td>${time.derrotas}</td>
+                    </tr>
+                `;
+            });
+
+            document.getElementById('resultado').style.display = 'block';
+            document.getElementById('resultado').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
