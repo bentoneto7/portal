@@ -1,9 +1,9 @@
-/* Reset e Variáveis - Estilo Portal Brasileiro */
+/* Reset e Variáveis - Portal Esportivo Brasil */
 :root {
-    --primary-color: #d32f2f;
+    --primary-color: #009739;
     --secondary-color: #1a1a1a;
-    --accent-color: #ff5722;
-    --blue-accent: #1976d2;
+    --accent-color: #FFDF00;
+    --blue-accent: #002776;
     --bg-color: #f8f9fa;
     --card-bg: #ffffff;
     --text-color: #212121;
@@ -50,9 +50,9 @@ a:hover {
     padding: 0 20px;
 }
 
-/* Header - Estilo Portal Moderno */
+/* Header - Portal Esportivo Brasil */
 .site-header {
-    background: linear-gradient(135deg, var(--primary-color) 0%, #c62828 100%);
+    background: linear-gradient(135deg, var(--primary-color) 0%, #007d2f 100%);
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     position: sticky;
     top: 0;
@@ -202,8 +202,8 @@ a:hover {
     position: absolute;
     top: 25px;
     left: 25px;
-    background: linear-gradient(135deg, var(--accent-color), #ff6f42);
-    color: white;
+    background: linear-gradient(135deg, var(--accent-color), #FFB800);
+    color: #1a1a1a;
     padding: 10px 20px;
     border-radius: 25px;
     font-size: 13px;
@@ -326,7 +326,7 @@ a:hover {
     position: absolute;
     top: 15px;
     left: 15px;
-    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    background: linear-gradient(135deg, var(--primary-color), #007d2f);
     color: white;
     padding: 6px 14px;
     border-radius: 20px;

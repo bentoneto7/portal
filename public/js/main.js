@@ -30,22 +30,22 @@ const languageSelector = {
 const newsLoader = {
     categories: {
         'pt-BR': {
-            brasil: 'brazil',
-            mundo: 'world',
-            economia: 'business',
-            tecnologia: 'technology'
+            brasileirao: 'brasileirao',
+            copa: 'copa',
+            libertadores: 'libertadores',
+            internacional: 'internacional'
         },
         'en-US': {
-            brasil: 'us',
-            mundo: 'world',
-            economia: 'business',
-            tecnologia: 'technology'
+            brasileirao: 'brasileirao',
+            copa: 'copa',
+            libertadores: 'libertadores',
+            internacional: 'internacional'
         },
         'es': {
-            brasil: 'mexico',
-            mundo: 'world',
-            economia: 'business',
-            tecnologia: 'technology'
+            brasileirao: 'brasileirao',
+            copa: 'copa',
+            libertadores: 'libertadores',
+            internacional: 'internacional'
         }
     },
 
