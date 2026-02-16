@@ -1,0 +1,22 @@
+# News Portal - Robots.txt
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://seudominio.com/sitemap.xml
+
+# Crawl delay (optional, adjust as needed)
+Crawl-delay: 1
+
+# Disallow admin areas (if any)
+Disallow: /admin/
+Disallow: /api/
+
+# Allow all articles
+Allow: /articles/
+
+# Allow CSS and JS for Google
+Allow: /css/
+Allow: /js/
+Allow: /images/
