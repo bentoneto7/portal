@@ -4,22 +4,22 @@
     <!-- SEO Meta Tags -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Portal de esportes com cobertura completa de futebol brasileiro, Copa do Mundo, campeonatos nacionais e internacionais. Notícias em tempo real do mundo esportivo.">
-    <meta name="keywords" content="futebol brasileiro, copa do mundo, brasileirão, libertadores, seleção brasileira, campeonatos, esportes, futebol">
-    <meta name="author" content="Portal do Esporte">
+    <meta name="description" content="Bola na Rede - O blog de futebol que não tem medo de falar a verdade. Análises sem filtro do Brasileirão Série A, mercado da bola, táticas e polêmicas que a imprensa tradicional não mostra.">
+    <meta name="keywords" content="brasileirão série a, futebol brasileiro, tabela brasileirão 2026, mercado da bola, análise tática futebol, simulador brasileirão, classificação série a, artilharia brasileirão, rebaixamento série a">
+    <meta name="author" content="Bola na Rede">
     <meta name="robots" content="index, follow">
 
     <!-- Open Graph Meta Tags -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Portal do Esporte - Notícias de Futebol e Esportes em Tempo Real">
-    <meta property="og:description" content="Cobertura completa de futebol brasileiro, Copa do Mundo e campeonatos"
+    <meta property="og:title" content="Bola na Rede - Futebol Brasileiro Sem Filtro | Brasileirão Série A 2026">
+    <meta property="og:description" content="O blog que fala o que a imprensa não fala. Análises diretas, polêmicas, táticas e bastidores do Brasileirão."
     <meta property="og:image" content="/images/og-image.jpg">
     <meta property="og:url" content="https://seudominio.com">
 
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Portal do Esporte - Futebol Brasileiro e Copa">
-    <meta name="twitter:description" content="Cobertura completa de futebol brasileiro, Copa do Mundo e campeonatos">
+    <meta name="twitter:title" content="Bola na Rede - Futebol Brasileiro Sem Filtro">
+    <meta name="twitter:description" content="Análises diretas, polêmicas e bastidores do Brasileirão que você não vê em outro lugar."
     <meta name="twitter:image" content="/images/twitter-card.jpg">
 
     <!-- Canonical URL -->
@@ -40,7 +40,7 @@
     {
         "@context": "https://schema.org",
         "@type": "SportsOrganization",
-        "name": "Portal do Esporte",
+        "name": "Bola na Rede",
         "url": "https://seudominio.com",
         "logo": "https://seudominio.com/images/logo.png",
         "sport": "Soccer",
@@ -52,7 +52,7 @@
     }
     </script>
 
-    <title>Portal do Esporte - Futebol Brasileiro, Copa e Campeonatos em Tempo Real</title>
+    <title>Bola na Rede - Brasileirão Série A 2026 | Análises, Tabela, Mercado e Bastidores</title>
 </head>
 <body>
     <!-- Header -->
@@ -60,24 +60,25 @@
         <div class="container">
             <div class="header-content">
                 <div class="logo">
-                    <h1><a href="/">⚽ PORTAL DO ESPORTE</a></h1>
-                    <p class="tagline">Futebol e Esportes em Tempo Real</p>
+                    <h1><a href="/">⚽ BOLA NA REDE</a></h1>
+                    <p class="tagline">O futebol sem filtro que você não vê na TV</p>
                 </div>
 
                 <nav class="main-nav">
                     <ul>
-                        <li><a href="#brasileirao">Brasileirão</a></li>
-                        <li><a href="#copa">Copa</a></li>
-                        <li><a href="#libertadores">Libertadores</a></li>
-                        <li><a href="#internacional">Internacional</a></li>
-                        <li><a href="#selecao">Seleção</a></li>
+                        <li><a href="#serie-a">Série A</a></li>
+                        <li><a href="#mercado">Mercado</a></li>
+                        <li><a href="#opiniao">Opinião</a></li>
+                        <li><a href="#taticas">Táticas</a></li>
+                        <li><a href="#clubes">Clubes</a></li>
+                        <li><a href="#simulador">Simulador</a></li>
                     </ul>
                 </nav>
 
-                <div class="language-selector">
-                    <button data-lang="pt-BR" class="active">🇧🇷 PT</button>
-                    <button data-lang="en-US">🇺🇸 EN</button>
-                    <button data-lang="es">🇲🇽 ES</button>
+                <!-- Busca rápida -->
+                <div class="search-box">
+                    <input type="search" placeholder="Buscar time, jogador..." aria-label="Buscar">
+                    <button type="submit">🔍</button>
                 </div>
             </div>
         </div>
@@ -125,12 +126,12 @@
             <div class="content-grid">
                 <!-- Coluna Principal -->
                 <div class="main-column">
-                    <!-- Brasileirão -->
-                    <section id="brasileirao" class="news-section">
-                        <h2 class="section-title">🏆 Brasileirão</h2>
-                        <div class="news-grid" id="news-brasileirao">
+                    <!-- Série A -->
+                    <section id="serie-a" class="news-section">
+                        <h2 class="section-title">🏆 Série A - Última Rodada</h2>
+                        <div class="news-grid" id="news-serie-a">
                             <!-- Articles will be loaded here by JavaScript -->
-                            <div class="loading">Carregando notícias...</div>
+                            <div class="loading">Carregando as últimas do Brasileirão...</div>
                         </div>
                     </section>
 
@@ -147,33 +148,44 @@
                         </script>
                     </div>
 
-                    <!-- Copa -->
-                    <section id="copa" class="news-section">
-                        <h2 class="section-title">⚽ Copa do Mundo</h2>
-                        <div class="news-grid" id="news-copa">
-                            <div class="loading">Carregando notícias...</div>
+                    <!-- Mercado da Bola -->
+                    <section id="mercado" class="news-section">
+                        <h2 class="section-title">💰 Mercado da Bola</h2>
+                        <div class="news-grid" id="news-mercado">
+                            <div class="loading">Carregando transferências...</div>
                         </div>
                     </section>
 
-                    <!-- Libertadores -->
-                    <section id="libertadores" class="news-section">
-                        <h2 class="section-title">🏅 Libertadores</h2>
-                        <div class="news-grid" id="news-libertadores">
-                            <div class="loading">Carregando notícias...</div>
+                    <!-- Opinião -->
+                    <section id="opiniao" class="news-section section-opiniao">
+                        <h2 class="section-title">🔥 Opinião - Sem Filtro</h2>
+                        <div class="news-grid" id="news-opiniao">
+                            <div class="loading">Carregando colunas...</div>
                         </div>
                     </section>
 
-                    <!-- Internacional -->
-                    <section id="internacional" class="news-section">
-                        <h2 class="section-title">🌎 Futebol Internacional</h2>
-                        <div class="news-grid" id="news-internacional">
-                            <div class="loading">Carregando notícias...</div>
+                    <!-- Táticas e Dados -->
+                    <section id="taticas" class="news-section section-taticas">
+                        <h2 class="section-title">📊 Táticas e Dados</h2>
+                        <div class="news-grid" id="news-taticas">
+                            <div class="loading">Carregando análises...</div>
                         </div>
                     </section>
                 </div>
 
                 <!-- Sidebar -->
                 <aside class="sidebar">
+                    <!-- Classificação Série A -->
+                    <div class="widget classificacao-widget">
+                        <h3 class="widget-title">📊 Classificação Série A</h3>
+                        <div id="tabela-serie-a" class="tabela-classificacao">
+                            <div class="loading">Carregando tabela...</div>
+                        </div>
+                        <a href="/simulador.html" class="btn-simulador">
+                            🎮 Simular Tabela
+                        </a>
+                    </div>
+
                     <!-- Adsense Sidebar -->
                     <div class="ad-container ad-sidebar">
                         <ins class="adsbygoogle"
@@ -189,7 +201,7 @@
 
                     <!-- Mais Lidas -->
                     <div class="widget trending-news">
-                        <h3 class="widget-title">Mais Lidas</h3>
+                        <h3 class="widget-title">🔥 Mais Lidas</h3>
                         <div id="trending-list">
                             <div class="loading">Carregando...</div>
                         </div>
@@ -197,12 +209,21 @@
 
                     <!-- Newsletter -->
                     <div class="widget newsletter">
-                        <h3 class="widget-title">Newsletter Esportiva</h3>
-                        <p>Receba as melhores notícias do futebol no seu email</p>
+                        <h3 class="widget-title">📧 Receba o Resumo do Dia</h3>
+                        <p>As polêmicas, bastidores e análises direto no seu email. Todo dia, 7h da manhã.</p>
                         <form class="newsletter-form">
-                            <input type="email" placeholder="Seu email" required>
-                            <button type="submit">⚽ Inscrever</button>
+                            <input type="email" placeholder="Seu melhor email" required aria-label="Email para newsletter">
+                            <button type="submit">⚽ Quero Receber</button>
                         </form>
+                        <small class="newsletter-privacy">Sem spam. Cancele quando quiser.</small>
+                    </div>
+
+                    <!-- Enquete -->
+                    <div class="widget poll-widget">
+                        <h3 class="widget-title">🗳️ Enquete da Semana</h3>
+                        <div id="poll-container">
+                            <div class="loading">Carregando enquete...</div>
+                        </div>
                     </div>
                 </aside>
             </div>
@@ -214,31 +235,40 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h4>Sobre Nós</h4>
-                    <p>Portal de esportes com cobertura completa de futebol brasileiro, Copa do Mundo e campeonatos nacionais e internacionais.</p>
+                    <h4>Sobre o Bola na Rede</h4>
+                    <p>O blog de futebol brasileiro que não tem medo de falar a verdade. Análises diretas, polêmicas e bastidores do Brasileirão Série A que você não vê na imprensa tradicional.</p>
+                    <a href="/sobre.html" class="footer-link">Saiba mais →</a>
                 </div>
                 <div class="footer-section">
-                    <h4>Categorias</h4>
+                    <h4>Navegação</h4>
                     <ul>
-                        <li><a href="#brasileirao">Brasileirão</a></li>
-                        <li><a href="#copa">Copa do Mundo</a></li>
-                        <li><a href="#libertadores">Libertadores</a></li>
-                        <li><a href="#internacional">Internacional</a></li>
+                        <li><a href="#serie-a">Série A</a></li>
+                        <li><a href="#mercado">Mercado da Bola</a></li>
+                        <li><a href="#opiniao">Opinião</a></li>
+                        <li><a href="#taticas">Táticas e Dados</a></li>
+                        <li><a href="/clubes.html">Todos os Clubes</a></li>
+                        <li><a href="/simulador.html">Simulador</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h4>Contato</h4>
-                    <p>contato@portaldoesporte.com</p>
+                    <h4>Institucional</h4>
+                    <ul>
+                        <li><a href="/sobre.html">Sobre Nós</a></li>
+                        <li><a href="/contato.html">Contato</a></li>
+                        <li><a href="/anuncie.html">Anuncie Conosco</a></li>
+                        <li><a href="/privacy.html">Privacidade</a></li>
+                        <li><a href="/terms.html">Termos de Uso</a></li>
+                    </ul>
                     <div class="social-links">
-                        <a href="#" aria-label="Facebook">FB</a>
-                        <a href="#" aria-label="Twitter">TW</a>
-                        <a href="#" aria-label="Instagram">IG</a>
+                        <a href="#" aria-label="Twitter">🐦</a>
+                        <a href="#" aria-label="Instagram">📸</a>
+                        <a href="#" aria-label="YouTube">📺</a>
                     </div>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2026 Portal do Esporte. Todos os direitos reservados.</p>
-                <p><a href="/privacy.html">Política de Privacidade</a> | <a href="/terms.html">Termos de Uso</a></p>
+                <p>&copy; 2026 Bola na Rede. Futebol sem filtro desde 2026.</p>
+                <p>Feito com ⚽ e muita opinião | <a href="/privacy.html">Privacidade</a> | <a href="/terms.html">Termos</a></p>
             </div>
         </div>
     </footer>
