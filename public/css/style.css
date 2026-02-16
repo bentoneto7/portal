@@ -1,17 +1,36 @@
-/* Reset e Variáveis - Portal Esportivo Brasil */
+/* Reset e Variáveis - Bola na Rede (Dark Mode) */
 :root {
-    --primary-color: #009739;
-    --secondary-color: #1a1a1a;
-    --accent-color: #FFDF00;
-    --blue-accent: #002776;
-    --bg-color: #f8f9fa;
-    --card-bg: #ffffff;
-    --text-color: #212121;
-    --text-light: #757575;
-    --border-color: #e0e0e0;
-    --shadow: 0 2px 10px rgba(0,0,0,0.08);
-    --shadow-hover: 0 6px 20px rgba(0,0,0,0.12);
+    /* Cores principais - Dark Mode */
+    --bg-color: #0a0e14;
+    --bg-secondary: #141b24;
+    --card-bg: #1a2332;
+    --card-bg-hover: #1f2937;
+
+    /* Cores de destaque */
+    --primary-color: #00ff88;        /* Verde neon vibrante */
+    --secondary-color: #ff3366;      /* Rosa/vermelho vibrante */
+    --accent-yellow: #ffd700;        /* Amarelo ouro */
+    --accent-blue: #00d4ff;          /* Azul cyan */
+
+    /* Texto */
+    --text-color: #e5e7eb;
+    --text-muted: #9ca3af;
+    --text-light: #6b7280;
+
+    /* Bordas e sombras */
+    --border-color: #2d3748;
+    --shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    --shadow-hover: 0 8px 30px rgba(0, 255, 136, 0.2);
+    --shadow-neon: 0 0 20px rgba(0, 255, 136, 0.3);
+
+    /* Layout */
     --header-height: 70px;
+    --border-radius: 8px;
+
+    /* Gradientes */
+    --gradient-primary: linear-gradient(135deg, #00ff88 0%, #00d4ff 100%);
+    --gradient-secondary: linear-gradient(135deg, #ff3366 0%, #ff6b9d 100%);
+    --gradient-dark: linear-gradient(180deg, #0a0e14 0%, #141b24 100%);
 }
 
 * {
@@ -50,13 +69,15 @@ a:hover {
     padding: 0 20px;
 }
 
-/* Header - Portal Esportivo Brasil */
+/* Header - Bola na Rede (Dark Mode) */
 .site-header {
-    background: linear-gradient(135deg, var(--primary-color) 0%, #007d2f 100%);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    background: var(--bg-secondary);
+    border-bottom: 2px solid var(--primary-color);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
     position: sticky;
     top: 0;
     z-index: 1000;
+    backdrop-filter: blur(10px);
 }
 
 .header-content {
@@ -71,23 +92,31 @@ a:hover {
 .logo h1 {
     font-size: 36px;
     font-weight: 900;
-    color: #ffffff;
+    color: var(--primary-color);
     margin-bottom: 0;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    text-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
     letter-spacing: -1px;
+    transition: all 0.3s ease;
+}
+
+.logo h1:hover {
+    text-shadow: 0 0 30px rgba(0, 255, 136, 0.8);
+    transform: scale(1.02);
 }
 
 .logo h1 a {
-    color: #ffffff;
+    color: var(--primary-color);
+    text-decoration: none;
 }
 
 .tagline {
     font-size: 13px;
-    color: rgba(255,255,255,0.9);
+    color: var(--text-muted);
     margin-top: -3px;
-    font-weight: 500;
+    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
+    font-style: italic;
 }
 
 .main-nav ul {
@@ -97,48 +126,69 @@ a:hover {
 }
 
 .main-nav a {
-    font-weight: 600;
-    color: #ffffff;
-    padding: 10px 18px;
-    border-radius: 6px;
+    font-weight: 700;
+    color: var(--text-color);
+    padding: 10px 16px;
+    border-radius: var(--border-radius);
     transition: all 0.3s ease;
     text-transform: uppercase;
-    font-size: 13px;
-    letter-spacing: 0.5px;
+    font-size: 12px;
+    letter-spacing: 1px;
+    border: 1px solid transparent;
 }
 
 .main-nav a:hover {
-    background: rgba(255,255,255,0.2);
+    color: var(--primary-color);
+    background: rgba(0, 255, 136, 0.1);
+    border-color: var(--primary-color);
     transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 255, 136, 0.2);
 }
 
-.language-selector {
+/* Busca rápida (substituiu seletor de idiomas) */
+.search-box {
     display: flex;
-    gap: 8px;
+    gap: 4px;
+    align-items: center;
 }
 
-.language-selector button {
-    padding: 8px 14px;
-    border: 2px solid rgba(255,255,255,0.3);
-    background: rgba(255,255,255,0.1);
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 13px;
-    font-weight: 600;
-    color: #ffffff;
+.search-box input {
+    padding: 10px 16px;
+    border: 2px solid var(--border-color);
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    font-size: 14px;
+    color: var(--text-color);
+    width: 200px;
     transition: all 0.3s ease;
 }
 
-.language-selector button:hover {
-    background: rgba(255,255,255,0.2);
-    border-color: rgba(255,255,255,0.5);
-    transform: translateY(-2px);
+.search-box input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(0, 255, 136, 0.1);
 }
 
-.language-selector button.active {
-    background: #ffffff;
-    color: var(--primary-color);
-    border-color: #ffffff;
+.search-box input::placeholder {
+    color: var(--text-light);
+}
+
+.search-box button {
+    padding: 10px 16px;
+    border: none;
+    background: var(--primary-color);
+    color: var(--bg-color);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    font-weight: 700;
+}
+
+.search-box button:hover {
+    background: var(--accent-blue);
+    transform: scale(1.05);
+    box-shadow: var(--shadow-neon);
 }
 
 /* Ads */
@@ -167,16 +217,16 @@ a:hover {
 
 .main-story {
     background: var(--card-bg);
-    border-radius: 16px;
+    border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+    box-shadow: var(--shadow);
     transition: all 0.4s ease;
-    border: 2px solid transparent;
+    border: 2px solid var(--border-color);
 }
 
 .main-story:hover {
     transform: translateY(-8px);
-    box-shadow: 0 12px 40px rgba(0,0,0,0.18);
+    box-shadow: var(--shadow-hover);
     border-color: var(--primary-color);
 }
 
@@ -202,15 +252,16 @@ a:hover {
     position: absolute;
     top: 25px;
     left: 25px;
-    background: linear-gradient(135deg, var(--accent-color), #FFB800);
-    color: #1a1a1a;
-    padding: 10px 20px;
-    border-radius: 25px;
-    font-size: 13px;
-    font-weight: 800;
+    background: var(--gradient-primary);
+    color: var(--bg-color);
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 900;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    letter-spacing: 2px;
+    box-shadow: var(--shadow-neon);
+    border: 1px solid rgba(0, 255, 136, 0.5);
 }
 
 .article-content {
@@ -263,24 +314,27 @@ a:hover {
 }
 
 .section-title {
-    font-size: 32px;
-    font-weight: 800;
+    font-size: 28px;
+    font-weight: 900;
     margin-bottom: 30px;
     padding-bottom: 15px;
-    border-bottom: 4px solid var(--primary-color);
+    border-bottom: 3px solid var(--border-color);
     position: relative;
     text-transform: uppercase;
-    letter-spacing: -0.5px;
+    letter-spacing: 1px;
+    color: var(--text-color);
+    display: inline-block;
 }
 
 .section-title::before {
     content: '';
     position: absolute;
-    bottom: -4px;
+    bottom: -3px;
     left: 0;
-    width: 80px;
-    height: 4px;
-    background: var(--accent-color);
+    width: 60px;
+    height: 3px;
+    background: var(--gradient-primary);
+    box-shadow: var(--shadow-neon);
 }
 
 .news-grid {
@@ -289,20 +343,22 @@ a:hover {
     gap: 30px;
 }
 
-/* News Card - Estilo Portal Moderno */
+/* News Card - Dark Mode Vibrante */
 .news-card {
     background: var(--card-bg);
-    border-radius: 12px;
+    border-radius: var(--border-radius);
     overflow: hidden;
     box-shadow: var(--shadow);
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    border: 1px solid transparent;
+    transition: all 0.3s ease;
+    border: 1px solid var(--border-color);
+    cursor: pointer;
 }
 
 .news-card:hover {
-    transform: translateY(-8px);
+    transform: translateY(-6px);
     box-shadow: var(--shadow-hover);
     border-color: var(--primary-color);
+    background: var(--card-bg-hover);
 }
 
 .news-card-image {
@@ -324,17 +380,18 @@ a:hover {
 
 .news-card-category {
     position: absolute;
-    top: 15px;
-    left: 15px;
-    background: linear-gradient(135deg, var(--primary-color), #007d2f);
+    top: 12px;
+    left: 12px;
+    background: var(--gradient-secondary);
     color: white;
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 11px;
-    font-weight: 700;
+    padding: 5px 12px;
+    border-radius: 16px;
+    font-size: 10px;
+    font-weight: 900;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    letter-spacing: 1px;
+    box-shadow: 0 4px 12px rgba(255, 51, 102, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .news-card-content {
@@ -396,13 +453,14 @@ a:hover {
 }
 
 .widget-title {
-    font-size: 22px;
-    font-weight: 800;
-    margin-bottom: 22px;
-    padding-bottom: 12px;
-    border-bottom: 3px solid var(--primary-color);
+    font-size: 18px;
+    font-weight: 900;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--border-color);
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
+    color: var(--primary-color);
 }
 
 /* Trending News */
@@ -455,35 +513,54 @@ a:hover {
 }
 
 .newsletter-form input {
-    padding: 12px;
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
+    padding: 14px;
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius);
     font-size: 14px;
+    background: var(--bg-secondary);
+    color: var(--text-color);
+    transition: all 0.3s ease;
+}
+
+.newsletter-form input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(0, 255, 136, 0.1);
 }
 
 .newsletter-form button {
-    padding: 12px;
-    background: var(--primary-color);
-    color: white;
+    padding: 14px;
+    background: var(--gradient-primary);
+    color: var(--bg-color);
     border: none;
-    border-radius: 4px;
+    border-radius: var(--border-radius);
     font-size: 14px;
-    font-weight: bold;
+    font-weight: 900;
     cursor: pointer;
-    transition: background 0.3s ease;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .newsletter-form button:hover {
-    background: var(--secondary-color);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-neon);
 }
 
-/* Footer */
+.newsletter-privacy {
+    font-size: 11px;
+    color: var(--text-light);
+    margin-top: 8px;
+    display: block;
+}
+
+/* Footer - Dark Mode */
 .site-footer {
-    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-    color: white;
-    padding: 50px 0 25px;
+    background: var(--bg-secondary);
+    border-top: 2px solid var(--border-color);
+    color: var(--text-color);
+    padding: 60px 0 30px;
     margin-top: 80px;
-    box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
 }
 
 .footer-content {
@@ -500,8 +577,15 @@ a:hover {
 
 .footer-section p,
 .footer-section a {
-    color: rgba(255,255,255,0.8);
+    color: var(--text-muted);
     font-size: 14px;
+    line-height: 1.8;
+}
+
+.footer-link {
+    color: var(--primary-color) !important;
+    font-weight: 600;
+    text-decoration: underline;
 }
 
 .footer-section ul {
@@ -524,31 +608,242 @@ a:hover {
 
 .social-links a {
     display: inline-block;
-    width: 40px;
-    height: 40px;
-    background: rgba(255,255,255,0.1);
+    width: 44px;
+    height: 44px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
     border-radius: 50%;
     text-align: center;
-    line-height: 40px;
-    transition: background 0.3s ease;
+    line-height: 44px;
+    font-size: 20px;
+    transition: all 0.3s ease;
 }
 
 .social-links a:hover {
-    background: var(--primary-color);
-    color: white;
+    background: var(--gradient-primary);
+    border-color: var(--primary-color);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-neon);
 }
 
 .footer-bottom {
     text-align: center;
-    padding-top: 20px;
-    border-top: 1px solid rgba(255,255,255,0.1);
-    font-size: 14px;
-    color: rgba(255,255,255,0.6);
+    padding-top: 30px;
+    border-top: 1px solid var(--border-color);
+    font-size: 13px;
+    color: var(--text-light);
 }
 
 .footer-bottom a {
-    color: rgba(255,255,255,0.6);
+    color: var(--text-muted);
     margin: 0 10px;
+    transition: color 0.3s ease;
+}
+
+.footer-bottom a:hover {
+    color: var(--primary-color);
+}
+
+/* ========================================
+   NOVOS COMPONENTES - BOLA NA REDE
+   ======================================== */
+
+/* Widget de Classificação da Série A */
+.classificacao-widget {
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    border: 1px solid var(--border-color);
+    margin-bottom: 30px;
+}
+
+.tabela-classificacao {
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.tabela-classificacao table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tabela-classificacao th {
+    background: var(--bg-secondary);
+    color: var(--text-muted);
+    padding: 8px 6px;
+    text-align: left;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.tabela-classificacao td {
+    padding: 10px 6px;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-color);
+}
+
+.tabela-classificacao tr:hover {
+    background: var(--bg-secondary);
+}
+
+.tabela-classificacao .pos {
+    font-weight: 900;
+    color: var(--primary-color);
+    width: 30px;
+    text-align: center;
+}
+
+.tabela-classificacao .time {
+    font-weight: 600;
+}
+
+.tabela-classificacao .pontos {
+    font-weight: 900;
+    color: var(--accent-yellow);
+    text-align: center;
+    width: 40px;
+}
+
+/* Zona de Libertadores */
+.tabela-classificacao tr.libertadores {
+    border-left: 4px solid var(--primary-color);
+}
+
+/* Zona de Rebaixamento */
+.tabela-classificacao tr.rebaixamento {
+    border-left: 4px solid var(--secondary-color);
+}
+
+.btn-simulador {
+    display: block;
+    width: 100%;
+    margin-top: 15px;
+    padding: 12px;
+    background: var(--gradient-primary);
+    color: var(--bg-color);
+    text-align: center;
+    border-radius: var(--border-radius);
+    font-weight: 900;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    border: 1px solid var(--primary-color);
+}
+
+.btn-simulador:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-neon);
+}
+
+/* Widget de Enquete */
+.poll-widget {
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    border: 1px solid var(--border-color);
+}
+
+.poll-question {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: var(--text-color);
+}
+
+.poll-option {
+    padding: 12px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.poll-option:hover {
+    border-color: var(--primary-color);
+    background: var(--card-bg-hover);
+}
+
+.poll-option input[type="radio"] {
+    accent-color: var(--primary-color);
+}
+
+.poll-option label {
+    cursor: pointer;
+    flex: 1;
+    font-size: 13px;
+}
+
+.poll-btn {
+    width: 100%;
+    padding: 12px;
+    background: var(--gradient-secondary);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    font-weight: 900;
+    font-size: 13px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.poll-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 51, 102, 0.4);
+}
+
+.poll-results {
+    margin-top: 15px;
+}
+
+.poll-result-item {
+    margin-bottom: 12px;
+}
+
+.poll-result-label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 4px;
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.poll-result-bar {
+    height: 8px;
+    background: var(--bg-secondary);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.poll-result-fill {
+    height: 100%;
+    background: var(--gradient-primary);
+    transition: width 0.5s ease;
+}
+
+/* Seção Opinião - Destaque visual */
+.section-opiniao {
+    background: linear-gradient(135deg, rgba(255, 51, 102, 0.05), transparent);
+    padding: 30px;
+    border-radius: var(--border-radius);
+    border-left: 4px solid var(--secondary-color);
+}
+
+/* Seção Táticas - Destaque visual */
+.section-taticas {
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.05), transparent);
+    padding: 30px;
+    border-radius: var(--border-radius);
+    border-left: 4px solid var(--accent-blue);
 }
 
 /* Loading State */
