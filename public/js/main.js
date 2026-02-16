@@ -181,7 +181,6 @@ const newsLoader = {
 
     formatDate(dateString) {
         const date = new Date(dateString);
-        const lang = languageSelector.currentLang;
 
         const options = {
             year: 'numeric',
@@ -189,7 +188,7 @@ const newsLoader = {
             day: 'numeric'
         };
 
-        return date.toLocaleDateString(lang, options);
+        return date.toLocaleDateString(config.language, options);
     },
 
     escapeHtml(text) {
