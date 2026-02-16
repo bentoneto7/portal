@@ -9,8 +9,8 @@ yarn.lock
 .env.production
 
 # Generated data
-data/
-public/articles/
+# data/  ← Temporariamente comentado para enviar dados iniciais
+# public/articles/  ← Temporariamente comentado
 
 # Logs
 logs/
