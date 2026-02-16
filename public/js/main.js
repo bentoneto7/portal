@@ -1,30 +1,10 @@
-// News Portal - Main JavaScript (Static Version)
-// Carrega artigos diretamente do articles-index.json
+// Bola na Rede - Main JavaScript
+// Blog 100% focado em futebol brasileiro
 
-// Language Management
-const languageSelector = {
-    currentLang: 'pt-BR',
-
-    init() {
-        const buttons = document.querySelectorAll('.language-selector button');
-        buttons.forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                this.switchLanguage(e.target.dataset.lang);
-            });
-        });
-    },
-
-    switchLanguage(lang) {
-        this.currentLang = lang;
-
-        // Update active button
-        document.querySelectorAll('.language-selector button').forEach(btn => {
-            btn.classList.toggle('active', btn.dataset.lang === lang);
-        });
-
-        // Reload news in new language
-        newsLoader.loadAllNews();
-    }
+// Configuração
+const config = {
+    language: 'pt-BR', // Fixo em português
+    apiUrl: '/data/articles-index.json'
 };
 
 // News Loader - Static Version
@@ -32,30 +12,30 @@ const newsLoader = {
     articlesData: null,
 
     async loadAllNews() {
-        const lang = languageSelector.currentLang;
-
         // Load articles index
         if (!this.articlesData) {
             try {
-                const response = await fetch('/data/articles-index.json');
+                const response = await fetch(config.apiUrl);
                 this.articlesData = await response.json();
             } catch (error) {
-                console.error('Error loading articles:', error);
+                console.error('❌ Erro ao carregar artigos:', error);
                 return;
             }
         }
 
-        // Filter by language
-        const articles = this.articlesData.filter(a => a.language === lang);
+        // Filter by language (pt-BR apenas)
+        const articles = this.articlesData.filter(a => a.language === config.language);
+
+        console.log(`⚽ ${articles.length} artigos carregados`);
 
         // Load featured story (first article)
         this.loadFeaturedStory(articles);
 
-        // Load category news
-        this.loadCategoryNews('brasileirao', articles);
-        this.loadCategoryNews('copa', articles);
-        this.loadCategoryNews('libertadores', articles);
-        this.loadCategoryNews('internacional', articles);
+        // Load category news - NOVAS CATEGORIAS
+        this.loadCategoryNews('serie-a', articles); // Série A (Brasileirão)
+        this.loadCategoryNews('mercado', articles); // Mercado da Bola
+        this.loadCategoryNews('opiniao', articles); // Opinião
+        this.loadCategoryNews('taticas', articles); // Táticas e Dados
 
         // Load trending (top 5 most recent)
         this.loadTrending(articles);
@@ -109,10 +89,23 @@ const newsLoader = {
 
     loadCategoryNews(category, articles) {
         const container = document.getElementById(`news-${category}`);
-        if (!container) return;
+        if (!container) {
+            console.warn(`⚠️ Container #news-${category} não encontrado`);
+            return;
+        }
+
+        // Map de categorias antigas para novas
+        const categoryMap = {
+            'serie-a': 'brasileirao',
+            'mercado': 'internacional', // Temporário: use internacional como mercado
+            'opiniao': 'copa', // Temporário: use copa como opinião
+            'taticas': 'libertadores' // Temporário: use libertadores como táticas
+        };
+
+        const actualCategory = categoryMap[category] || category;
 
         // Filter articles by category
-        const categoryArticles = articles.filter(a => a.category === category);
+        const categoryArticles = articles.filter(a => a.category === actualCategory);
 
         if (!categoryArticles || categoryArticles.length === 0) {
             container.innerHTML = '<div class="loading">Nenhuma notícia disponível no momento.</div>';
@@ -313,16 +306,140 @@ window.addEventListener('unhandledrejection', (e) => {
     console.error('Unhandled promise rejection:', e.reason);
 });
 
+// Tabela de Classificação (Mock Data)
+const tabelaSerieA = {
+    data: [
+        { pos: 1, time: 'Botafogo', pontos: 52, jogos: 28, zona: 'libertadores' },
+        { pos: 2, time: 'Palmeiras', pontos: 50, jogos: 28, zona: 'libertadores' },
+        { pos: 3, time: 'Flamengo', pontos: 48, jogos: 28, zona: 'libertadores' },
+        { pos: 4, time: 'Fluminense', pontos: 45, jogos: 28, zona: 'libertadores' },
+        { pos: 5, time: 'São Paulo', pontos: 43, jogos: 28, zona: '' },
+        { pos: 6, time: 'Grêmio', pontos: 42, jogos: 28, zona: '' },
+        { pos: 7, time: 'Internacional', pontos: 40, jogos: 28, zona: '' },
+        { pos: 8, time: 'Atlético-MG', pontos: 38, jogos: 28, zona: '' },
+        { pos: 17, time: 'Cuiabá', pontos: 28, jogos: 28, zona: 'rebaixamento' },
+        { pos: 18, time: 'Coritiba', pontos: 26, jogos: 28, zona: 'rebaixamento' },
+        { pos: 19, time: 'Goiás', pontos: 24, jogos: 28, zona: 'rebaixamento' },
+        { pos: 20, time: 'América-MG', pontos: 22, jogos: 28, zona: 'rebaixamento' }
+    ],
+
+    render() {
+        const container = document.getElementById('tabela-serie-a');
+        if (!container) return;
+
+        const top8 = this.data.slice(0, 8);
+        const bottom4 = this.data.slice(-4);
+        const display = [...top8, ...bottom4];
+
+        container.innerHTML = `
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Time</th>
+                        <th>PTS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${display.map(team => `
+                        <tr class="${team.zona}">
+                            <td class="pos">${team.pos}</td>
+                            <td class="time">${team.time}</td>
+                            <td class="pontos">${team.pontos}</td>
+                        </tr>
+                    `).join('')}
+                </tbody>
+            </table>
+        `;
+    }
+};
+
+// Enquete da Semana (Mock Data)
+const enquete = {
+    question: 'Quem leva o Brasileirão 2026?',
+    options: [
+        { id: 1, text: 'Botafogo', votes: 342 },
+        { id: 2, text: 'Palmeiras', votes: 298 },
+        { id: 3, text: 'Flamengo', votes: 456 },
+        { id: 4, text: 'Outro time', votes: 124 }
+    ],
+    voted: false,
+
+    render() {
+        const container = document.getElementById('poll-container');
+        if (!container) return;
+
+        if (!this.voted) {
+            container.innerHTML = `
+                <div class="poll-question">${this.question}</div>
+                <form id="poll-form">
+                    ${this.options.map(opt => `
+                        <div class="poll-option">
+                            <input type="radio" name="poll" id="opt${opt.id}" value="${opt.id}">
+                            <label for="opt${opt.id}">${opt.text}</label>
+                        </div>
+                    `).join('')}
+                    <button type="submit" class="poll-btn">🗳️ Votar</button>
+                </form>
+            `;
+
+            document.getElementById('poll-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                this.vote();
+            });
+        } else {
+            this.showResults();
+        }
+    },
+
+    vote() {
+        this.voted = true;
+        this.showResults();
+    },
+
+    showResults() {
+        const container = document.getElementById('poll-container');
+        const total = this.options.reduce((sum, opt) => sum + opt.votes, 0);
+
+        container.innerHTML = `
+            <div class="poll-question">${this.question}</div>
+            <div class="poll-results">
+                ${this.options.map(opt => {
+                    const percentage = ((opt.votes / total) * 100).toFixed(1);
+                    return `
+                        <div class="poll-result-item">
+                            <div class="poll-result-label">
+                                <span>${opt.text}</span>
+                                <span><strong>${percentage}%</strong></span>
+                            </div>
+                            <div class="poll-result-bar">
+                                <div class="poll-result-fill" style="width: ${percentage}%"></div>
+                            </div>
+                        </div>
+                    `;
+                }).join('')}
+            </div>
+            <small style="display: block; margin-top: 10px; color: var(--text-light);">
+                Total de votos: ${total.toLocaleString()}
+            </small>
+        `;
+    }
+};
+
 // Initialize everything when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('🚀 Portal de Notícias de Futebol iniciado!');
+    console.log('⚽ Bola na Rede iniciado!');
 
-    languageSelector.init();
+    // Carregadores principais
     newsLoader.loadAllNews();
     newsletter.init();
     smoothScroll.init();
     analytics.init();
     imageLazyLoad.init();
+
+    // Novos widgets
+    tabelaSerieA.render();
+    enquete.render();
 });
 
 // Refresh news every 5 minutes (for dynamic content updates)
