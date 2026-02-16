@@ -1,0 +1,20 @@
+# Bola na Rede - Robots.txt
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://bolanarede.com/sitemap.xml
+
+# Crawl delay
+Crawl-delay: 1
+
+# Disallow admin areas
+Disallow: /admin/
+Disallow: /api/
+
+# Allow all content
+Allow: /articles/
+Allow: /css/
+Allow: /js/
+Allow: /images/

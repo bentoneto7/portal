@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todos os Clubes da Série A - Bola na Rede</title>
+    <meta name="description" content="Cobertura completa dos 20 clubes do Brasileirão Série A 2026. Notícias, análises táticas, mercado e estatísticas.">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1><a href="/">⚽ BOLA NA REDE</a></h1>
+                    <p class="tagline">O futebol sem filtro que você não vê na TV</p>
+                </div>
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="/#serie-a">Série A</a></li>
+                        <li><a href="/#mercado">Mercado</a></li>
+                        <li><a href="/#opiniao">Opinião</a></li>
+                        <li><a href="/simulador.html">Simulador</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <h1 style="font-size: 36px; margin-bottom: 10px;">⚽ Todos os Clubes da Série A</h1>
+            <p style="color: var(--text-muted); font-size: 18px; margin-bottom: 40px;">Cobertura completa dos 20 times do Brasileirão 2026</p>
+
+            <div id="clubes-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;"></div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2026 Bola na Rede</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const clubes = [
+            { nome: 'Atlético-MG', escudo: '⚪⚫', slug: 'atletico-mg' },
+            { nome: 'Athletico-PR', escudo: '🔴⚫', slug: 'athletico-pr' },
+            { nome: 'Bahia', escudo: '🔵⚪🔴', slug: 'bahia' },
+            { nome: 'Botafogo', escudo: '⚫⚪', slug: 'botafogo' },
+            { nome: 'Corinthians', escudo: '⚫⚪', slug: 'corinthians' },
+            { nome: 'Cruzeiro', escudo: '🔵⚪', slug: 'cruzeiro' },
+            { nome: 'Cuiabá', escudo: '🟢🟡', slug: 'cuiaba' },
+            { nome: 'Flamengo', escudo: '🔴⚫', slug: 'flamengo' },
+            { nome: 'Fluminense', escudo: '🔴🟢⚪', slug: 'fluminense' },
+            { nome: 'Fortaleza', escudo: '🔴🔵⚪', slug: 'fortaleza' },
+            { nome: 'Grêmio', escudo: '🔵⚫⚪', slug: 'gremio' },
+            { nome: 'Internacional', escudo: '🔴⚪', slug: 'internacional' },
+            { nome: 'Juventude', escudo: '🟢⚪', slug: 'juventude' },
+            { nome: 'Palmeiras', escudo: '🟢⚪', slug: 'palmeiras' },
+            { nome: 'Red Bull Bragantino', escudo: '⚪🔴', slug: 'bragantino' },
+            { nome: 'Santos', escudo: '⚪⚫', slug: 'santos' },
+            { nome: 'São Paulo', escudo: '🔴⚫⚪', slug: 'sao-paulo' },
+            { nome: 'Vasco', escudo: '⚫⚪', slug: 'vasco' },
+            { nome: 'Vitória', escudo: '🔴⚫', slug: 'vitoria' },
+            { nome: 'Criciúma', escudo: '🟡⚫', slug: 'criciuma' }
+        ];
+
+        const grid = document.getElementById('clubes-grid');
+        
+        clubes.forEach(clube => {
+            grid.innerHTML += `
+                <a href="/clubes/${clube.slug}.html" style="text-decoration: none;">
+                    <div style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 8px; padding: 25px; text-align: center; transition: all 0.3s; cursor: pointer;">
+                        <div style="font-size: 48px; margin-bottom: 15px;">${clube.escudo}</div>
+                        <h3 style="color: var(--text-color); font-size: 18px; font-weight: 700;">${clube.nome}</h3>
+                        <p style="color: var(--text-muted); font-size: 13px; margin-top: 8px;">Ver cobertura →</p>
+                    </div>
+                </a>
+            `;
+        });
+    </script>
+</body>
+</html>
