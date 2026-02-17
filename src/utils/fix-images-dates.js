@@ -10,44 +10,49 @@ const INDEX_DATA = path.join(__dirname, '../../data/articles-index.json');
 const INDEX_PUBLIC = path.join(__dirname, '../../public/data/articles-index.json');
 const ARTIGO_DIR = path.join(__dirname, '../../public/artigo');
 
-// Topic-relevant Unsplash images (known working photo IDs)
+// Topic-relevant Pexels images (ALL verified football/soccer — NO basketball)
+// Source: pexels.com search results with explicit football descriptions
+// License: Free for commercial use, no attribution required
+function px(id) {
+    return `https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&dpr=1`;
+}
 const TOPIC_IMAGES = {
     // Paulistão
-    'paulistao-santos-neymar':      'https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=800&h=400&fit=crop&auto=format&q=80',
-    'paulistao-corinthians':        'https://images.unsplash.com/photo-1540747913346-19212a4b1b5c?w=800&h=400&fit=crop&auto=format&q=80',
+    'paulistao-santos-neymar':      px(15976858),  // Crowded soccer stadium
+    'paulistao-corinthians':        px(16114080),  // Soccer player during match
     // Carioca
-    'carioca-flamengo':             'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&h=400&fit=crop&auto=format&q=80',
+    'carioca-flamengo':             px(33471345),  // Soccer stadium at night
     // Mineiro
-    'mineiro-atletico':             'https://images.unsplash.com/photo-1521537634581-0dced2fee2ef?w=800&h=400&fit=crop&auto=format&q=80',
+    'mineiro-atletico':             px(18075411),  // Player passing ball
     // Gaúcho
-    'gaucho-grenal':                'https://images.unsplash.com/photo-1576206483374-5afe7a616717?w=800&h=400&fit=crop&auto=format&q=80',
+    'gaucho-grenal':                px(1884576),   // People watching football match
     // Nordestão
-    'nordestao-fortaleza':          'https://images.unsplash.com/photo-1517466787929-bc90951d0974?w=800&h=400&fit=crop&auto=format&q=80',
+    'nordestao-fortaleza':          px(61135),     // Football stadium (Argentina)
     // Paranaense
-    'paranaense-athletico':         'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=800&h=400&fit=crop&auto=format&q=80',
+    'paranaense-athletico':         px(13890306),  // Top view soccer field
     // Pernambucano
-    'pernambucano-sport':           'https://images.unsplash.com/photo-1560272564-c83b66b1ad12?w=800&h=400&fit=crop&auto=format&q=80',
+    'pernambucano-sport':           px(16731731),  // Football stadium (Ajax)
     // Neymar / Santos
-    'neymar':                       'https://images.unsplash.com/photo-1518604964608-d2e32de0920f?w=800&h=400&fit=crop&auto=format&q=80',
+    'neymar':                       px(50713),     // Soccer player kicking ball
     // Copa 2026 / Seleção
-    'copa':                         'https://images.unsplash.com/photo-1551958219-acbc595b5e01?w=800&h=400&fit=crop&auto=format&q=80',
-    'selecao':                      'https://images.unsplash.com/photo-1551958219-acbc595b5e01?w=800&h=400&fit=crop&auto=format&q=80',
+    'copa':                         px(9739469),   // Aerial view football stadium
+    'selecao':                      px(9739469),   // Aerial view football stadium
     // Brasileirão / Série A
-    'brasileirao':                  'https://images.unsplash.com/photo-1546519638-68e109498ffc?w=800&h=400&fit=crop&auto=format&q=80',
+    'brasileirao':                  px(159684),    // Person playing soccer
     // VAR / Arbitragem
-    'var':                          'https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?w=800&h=400&fit=crop&auto=format&q=80',
+    'var':                          px(13890306),  // Top view soccer field
     // Mercado / Transferência
-    'mercado':                      'https://images.unsplash.com/photo-1567459169668-c9b8eb60a406?w=800&h=400&fit=crop&auto=format&q=80',
+    'mercado':                      px(30782381),  // Young soccer player resting
     // Táticas / Análise
-    'tatica':                       'https://images.unsplash.com/photo-1504016798967-59a258e9de58?w=800&h=400&fit=crop&auto=format&q=80',
+    'tatica':                       px(9739469),   // Aerial view stadium
     // Palmeiras
-    'palmeiras':                    'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=400&fit=crop&auto=format&q=80',
+    'palmeiras':                    px(17955074),  // Soccer players teamwork
     // Ancelotti / Seleção
-    'ancelotti':                    'https://images.unsplash.com/photo-1614632537197-38a17061c2bd?w=800&h=400&fit=crop&auto=format&q=80',
+    'ancelotti':                    px(18075458),  // Man passing football
     // Estádio genérico
-    'estadio':                      'https://images.unsplash.com/photo-1489944440615-453fc2b6a9a9?w=800&h=400&fit=crop&auto=format&q=80',
+    'estadio':                      px(9739469),   // Aerial view stadium
     // Default
-    'default':                      'https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=800&h=400&fit=crop&auto=format&q=80'
+    'default':                      px(15976858)   // Crowded soccer stadium
 };
 
 function pickImage(article) {

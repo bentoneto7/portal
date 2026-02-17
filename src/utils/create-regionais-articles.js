@@ -18,7 +18,7 @@ const ARTICLES = [
         regional: 'paulistao',
         title: 'Neymar nas Quartas do Paulistão: Santos Sonha com o Título Inédito em Décadas',
         excerpt: 'Com Neymar em crescente, Santos chega às quartas do Paulistão 2026 como grande favorito. Torcida do Peixe já projeta título após quase 10 anos de espera.',
-        image: 'https://images.unsplash.com/photo-1518604964608-d2e32de0920f?w=800&h=400&fit=crop&auto=format&q=80',
+        image: 'https://images.pexels.com/photos/15976858/pexels-photo-15976858.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&dpr=1',
         readingTime: 5,
         body: `<p>O Santos Futebol Clube chega às quartas de final do Campeonato Paulista 2026 embalado pela melhor fase de Neymar Jr. desde o seu retorno à Vila Belmiro. O camisa 10, que ainda vai aquecer a torcida santista antes da Copa do Mundo, acumula 4 gols e 6 assistências na fase de grupos — números que fazem a Prainha viver um misto de esperança e nervosismo.</p>
 
@@ -42,7 +42,7 @@ const ARTICLES = [
         regional: 'paulistao',
         title: 'Corinthians nas Quartas: Como o Timão Pode Surpreender no Paulistão 2026',
         excerpt: 'Apesar das turbulências fora de campo, Corinthians montou um time competitivo. Análise tática mostra como o Timão pode chegar à final do Paulistão.',
-        image: 'https://images.unsplash.com/photo-1546519638-68e109498ffc?w=800&h=400&fit=crop&auto=format&q=80',
+        image: 'https://images.pexels.com/photos/15976858/pexels-photo-15976858.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&dpr=1',
         readingTime: 4,
         body: `<p>Toda temporada o Corinthians vive crises. E toda temporada a Fiel continua acreditando. O Paulistão 2026 não é diferente: mesmo com problemas financeiros crônicos e contratações modestas, o Timão chegou às quartas de final jogando um futebol funcional e baseado numa defesa sólida.</p>
 
@@ -60,7 +60,7 @@ const ARTICLES = [
         regional: 'carioca',
         title: 'Flamengo Rumo ao Bicampeonato Carioca: Elenco Recheado e Favoritismo Absoluto',
         excerpt: 'Com Gabigol, Gerson e Pedro no auge, Flamengo chega às semifinais do Carioca 2026 como favorito absoluto. Mas os rivais prometem dificultar.',
-        image: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&h=400&fit=crop&auto=format&q=80',
+        image: 'https://images.pexels.com/photos/15976858/pexels-photo-15976858.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&dpr=1',
         readingTime: 5,
         body: `<p>Se existe um time construído para ganhar campeonatos estaduais com tranquilidade, esse time é o Flamengo de 2026. Com um elenco que mistura experientes e jovens promessas, Filipe Luís conduziu os rubro-negros com autoridade pela fase de grupos do Campeonato Carioca — 6 vitórias em 6 jogos, 18 gols marcados, apenas 2 sofridos.</p>
 
@@ -78,7 +78,7 @@ const ARTICLES = [
         regional: 'mineiro',
         title: 'Clássico Mineiro na Semifinal: Atlético-MG e Cruzeiro pelo Título Estadual 2026',
         excerpt: 'Atletico-MG e Cruzeiro se enfrentam nas semifinais do Campeonato Mineiro 2026. O clássico estadual vai definir quem chega à grande final.',
-        image: 'https://images.unsplash.com/photo-1521537634581-0dced2fee2ef?w=800&h=400&fit=crop&auto=format&q=80',
+        image: 'https://images.pexels.com/photos/15976858/pexels-photo-15976858.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&dpr=1',
         readingTime: 5,
         body: `<p>O clássico mais intenso de Minas Gerais vai acontecer na semifinal do Campeonato Mineiro 2026. Atlético-MG, bicampeão estadual, e Cruzeiro, reconstruído e sedento por títulos, se enfrentarão em dois jogos que prometem paralisar o estado.</p>
 
@@ -98,7 +98,7 @@ const ARTICLES = [
         regional: 'gaucho',
         title: 'Grenal nas Semifinais do Gauchão: O Clássico que Paralisa o Rio Grande do Sul',
         excerpt: 'Grêmio e Internacional se encontram nas semifinais do Gauchão 2026. O Grenal que definirá quem disputa o título do campeonato estadual gaúcho.',
-        image: 'https://images.unsplash.com/photo-1576206483374-5afe7a616717?w=800&h=400&fit=crop&auto=format&q=80',
+        image: 'https://images.pexels.com/photos/15976858/pexels-photo-15976858.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&dpr=1',
         readingTime: 4,
         body: `<p>Poucos eventos esportivos no Brasil têm a capacidade de paralisar uma cidade como o Grenal. A rivalidade entre Grêmio e Internacional vai além do futebol — é identidade, pertencimento e paixão geração após geração. E em 2026, o Grenal acontece nas semifinais do Gaúcho, elevando ainda mais a tensão.</p>
 
@@ -116,7 +116,7 @@ const ARTICLES = [
         regional: 'nordestao',
         title: 'Fortaleza Domina o Nordestão 2026: Vojvoda Construiu uma Máquina Vencedora',
         excerpt: 'Fortaleza lidera o grupo A do Nordestão com 100% de aproveitamento. O trabalho de Vojvoda transformou o Leão no maior favorito à Copa do Nordeste.',
-        image: 'https://images.unsplash.com/photo-1517466787929-bc90951d0974?w=800&h=400&fit=crop&auto=format&q=80',
+        image: 'https://images.pexels.com/photos/15976858/pexels-photo-15976858.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&dpr=1',
         readingTime: 4,
         body: `<p>O Fortaleza de Juan Pablo Vojvoda está jogando um futebol de outro nível no Nordestão 2026. Liderando o Grupo A com 100% de aproveitamento — 4 vitórias em 4 jogos, 12 gols marcados e apenas 1 sofrido — o Leão do Pici tem mostrado porque é considerado o melhor trabalho em andamento no futebol nordestino.</p>
 
@@ -136,7 +136,7 @@ const ARTICLES = [
         regional: 'paranaense',
         title: 'Athletico-PR é Favorito no Paranaense 2026 e Busca o Tetracampeonato Estadual',
         excerpt: 'Athletico-PR defende o título paranaense em 2026 e busca o tetracampeonato. Furacão chega às semifinais com o elenco mais qualificado do estado.',
-        image: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=800&h=400&fit=crop&auto=format&q=80',
+        image: 'https://images.pexels.com/photos/15976858/pexels-photo-15976858.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&dpr=1',
         readingTime: 4,
         body: `<p>O Athletico Paranaense não para. Tricampeão paranaense, o Furacão da Baixada chega às semifinais do Campeonato Paranaense 2026 com o objetivo claro de conquistar o tetracampeonato estadual. Com um dos elencos mais qualificados do interior do Paraná e uma estrutura de clube que inveja muitos times de Série A, o Athletico é sim o grande favorito.</p>
 
@@ -156,7 +156,7 @@ const ARTICLES = [
         regional: 'pernambucano',
         title: 'Sport Recife Busca o Título Pernambucano 2026 e Manda Recado para a Série B',
         excerpt: 'Sport Recife é o favorito no Pernambucano 2026. Leão da Ilha mira título estadual como trampolim para recuperar o acesso à Série A.',
-        image: 'https://images.unsplash.com/photo-1560272564-c83b66b1ad12?w=800&h=400&fit=crop&auto=format&q=80',
+        image: 'https://images.pexels.com/photos/15976858/pexels-photo-15976858.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&dpr=1',
         readingTime: 4,
         body: `<p>O Sport Recife de 2026 quer mandatos. O Leão da Ilha, disputando a Série B em busca do retorno à elite nacional, usa o Campeonato Pernambucano como laboratório e aquecimento. Com o melhor elenco do estado mais uma vez, o Sport é o favorito ao título estadual e quer usar esse troféu como combustível emocional para uma temporada nacional ambiciosa.</p>
 

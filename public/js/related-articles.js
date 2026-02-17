@@ -199,7 +199,7 @@ class RelatedArticles {
                 <div style="position: relative; height: 160px; overflow: hidden;">
                     <img src="${article.image}" alt="${article.title}" loading="lazy"
                          style="width:100%; height:100%; object-fit:cover;"
-                         onerror="this.src='https://images.unsplash.com/photo-1546519638-68e109498ffc?w=400&h=200&fit=crop'">
+                         onerror="this.src='https://images.pexels.com/photos/15976858/pexels-photo-15976858.jpeg?auto=compress&cs=tinysrgb&w=400&h=200&dpr=1'">
                     ${teamLogo ? `
                         <div style="position: absolute; top: 8px; right: 8px; background: rgba(255,255,255,0.95); padding: 6px; border-radius: 50%; box-shadow: 0 2px 8px rgba(0,0,0,0.2);">
                             <img src="${teamLogo}" alt="${team}" style="width: 28px; height: 28px; display: block;">

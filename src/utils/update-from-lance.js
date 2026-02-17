@@ -345,7 +345,7 @@ class LanceSiteUpdater {
             category: category,
             language: 'pt-BR',
             url: `/articles/pt-BR/${category}/${slug}.html`,
-            image: original.image || 'https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=800&h=600&fit=crop&auto=format&q=80',
+            image: original.image || 'https://images.pexels.com/photos/15976858/pexels-photo-15976858.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&dpr=1',
             publishedAt: new Date().toISOString(),
             readingTime: Math.ceil(rewritten.content.split(/\s+/).length / 200)
         };

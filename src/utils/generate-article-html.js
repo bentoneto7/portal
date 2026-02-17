@@ -125,7 +125,7 @@ class ArticleHTMLGenerator {
     <link rel="manifest" href="/manifest.json">
 
     <!-- Preconnect -->
-    <link rel="preconnect" href="https://images.unsplash.com">
+    <link rel="preconnect" href="https://images.pexels.com">
     <link rel="preconnect" href="https://www.googletagmanager.com">
 
     <!-- Google Analytics 4 -->

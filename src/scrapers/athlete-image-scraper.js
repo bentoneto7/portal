@@ -33,9 +33,9 @@ class AthleteImageScraper {
                 team: 'Santos',
                 apiId: 276, // ID na API-Football
                 localImages: [
-                    'https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=800&h=600&fit=crop&auto=format&q=80&sat=-20', // Neymar
+                    'https://images.pexels.com/photos/15976858/pexels-photo-15976858.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&dpr=1', // Neymar
                 ],
-                fallback: 'https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=800&h=600&fit=crop&auto=format&q=80'
+                fallback: 'https://images.pexels.com/photos/15976858/pexels-photo-15976858.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&dpr=1'
             },
 
             // Gabigol
@@ -44,7 +44,7 @@ class AthleteImageScraper {
                 team: 'Flamengo',
                 apiId: 9739,
                 localImages: [],
-                fallback: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&h=600&fit=crop&auto=format&q=80'
+                fallback: 'https://images.pexels.com/photos/15976858/pexels-photo-15976858.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&dpr=1'
             },
 
             // Pedro
@@ -53,7 +53,7 @@ class AthleteImageScraper {
                 team: 'Flamengo',
                 apiId: 30894,
                 localImages: [],
-                fallback: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&h=600&fit=crop&auto=format&q=80'
+                fallback: 'https://images.pexels.com/photos/15976858/pexels-photo-15976858.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&dpr=1'
             },
 
             // Vini Jr
@@ -62,7 +62,7 @@ class AthleteImageScraper {
                 team: 'Real Madrid',
                 apiId: 30893,
                 localImages: [],
-                fallback: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&h=600&fit=crop&auto=format&q=80'
+                fallback: 'https://images.pexels.com/photos/15976858/pexels-photo-15976858.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&dpr=1'
             },
 
             'vinicius jr': {
@@ -70,7 +70,7 @@ class AthleteImageScraper {
                 team: 'Real Madrid',
                 apiId: 30893,
                 localImages: [],
-                fallback: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&h=600&fit=crop&auto=format&q=80'
+                fallback: 'https://images.pexels.com/photos/15976858/pexels-photo-15976858.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&dpr=1'
             },
 
             // Endrick
@@ -79,7 +79,7 @@ class AthleteImageScraper {
                 team: 'Palmeiras',
                 apiId: 326422,
                 localImages: [],
-                fallback: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&h=600&fit=crop&auto=format&q=80'
+                fallback: 'https://images.pexels.com/photos/15976858/pexels-photo-15976858.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&dpr=1'
             },
 
             // Richarlison
@@ -88,7 +88,7 @@ class AthleteImageScraper {
                 team: 'Tottenham',
                 apiId: 738,
                 localImages: [],
-                fallback: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&h=600&fit=crop&auto=format&q=80'
+                fallback: 'https://images.pexels.com/photos/15976858/pexels-photo-15976858.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&dpr=1'
             },
 
             // Hulk
@@ -97,7 +97,7 @@ class AthleteImageScraper {
                 team: 'Atlético-MG',
                 apiId: 1470,
                 localImages: [],
-                fallback: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&h=600&fit=crop&auto=format&q=80'
+                fallback: 'https://images.pexels.com/photos/15976858/pexels-photo-15976858.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&dpr=1'
             },
 
             // Luiz Henrique
@@ -106,7 +106,7 @@ class AthleteImageScraper {
                 team: 'Botafogo',
                 apiId: 351028,
                 localImages: [],
-                fallback: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&h=600&fit=crop&auto=format&q=80'
+                fallback: 'https://images.pexels.com/photos/15976858/pexels-photo-15976858.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&dpr=1'
             },
 
             // Jhon Arias
@@ -115,7 +115,7 @@ class AthleteImageScraper {
                 team: 'Fluminense',
                 apiId: 31009,
                 localImages: [],
-                fallback: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&h=600&fit=crop&auto=format&q=80'
+                fallback: 'https://images.pexels.com/photos/15976858/pexels-photo-15976858.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&dpr=1'
             },
 
             // Haaland
@@ -124,21 +124,21 @@ class AthleteImageScraper {
                 team: 'Manchester City',
                 apiId: 1100,
                 localImages: [],
-                fallback: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&h=600&fit=crop&auto=format&q=80'
+                fallback: 'https://images.pexels.com/photos/15976858/pexels-photo-15976858.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&dpr=1'
             }
         };
 
         // Imagens temáticas por contexto
         this.contextImages = {
-            'gol': 'https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=800&h=600&fit=crop&auto=format&q=80',
-            'comemoração': 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&h=600&fit=crop&auto=format&q=80',
-            'treino': 'https://images.unsplash.com/photo-1526676037777-05a232554f77?w=800&h=600&fit=crop&auto=format&q=80',
-            'estádio': 'https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=800&h=600&fit=crop&auto=format&q=80',
-            'torcida': 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=800&h=600&fit=crop&auto=format&q=80',
-            'var': 'https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=800&h=600&fit=crop&auto=format&q=80',
-            'arbitragem': 'https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=800&h=600&fit=crop&auto=format&q=80',
-            'mercado': 'https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=800&h=600&fit=crop&auto=format&q=80',
-            'contratação': 'https://images.unsplash.com/photo-1510925758641-869d353cecc7?w=800&h=600&fit=crop&auto=format&q=80'
+            'gol': 'https://images.pexels.com/photos/15976858/pexels-photo-15976858.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&dpr=1',
+            'comemoração': 'https://images.pexels.com/photos/15976858/pexels-photo-15976858.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&dpr=1',
+            'treino': 'https://images.pexels.com/photos/15976858/pexels-photo-15976858.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&dpr=1',
+            'estádio': 'https://images.pexels.com/photos/15976858/pexels-photo-15976858.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&dpr=1',
+            'torcida': 'https://images.pexels.com/photos/15976858/pexels-photo-15976858.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&dpr=1',
+            'var': 'https://images.pexels.com/photos/15976858/pexels-photo-15976858.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&dpr=1',
+            'arbitragem': 'https://images.pexels.com/photos/15976858/pexels-photo-15976858.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&dpr=1',
+            'mercado': 'https://images.pexels.com/photos/15976858/pexels-photo-15976858.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&dpr=1',
+            'contratação': 'https://images.pexels.com/photos/15976858/pexels-photo-15976858.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&dpr=1'
         };
     }
 

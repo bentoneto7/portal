@@ -253,7 +253,7 @@ class RSSNewsScraper {
         }
 
         // 6. Fallback final (imagem temática do atleta ou contexto)
-        return athleteImage || 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&h=600&fit=crop&auto=format&q=80';
+        return athleteImage || 'https://images.pexels.com/photos/15976858/pexels-photo-15976858.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&dpr=1';
     }
 
     /**
