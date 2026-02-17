@@ -8,6 +8,8 @@
     "start:web": "node src/server.js",
     "dev": "nodemon src/index.js",
     "server": "node src/server.js",
+    "update:lance": "node src/utils/update-from-lance.js",
+    "update:images": "node src/utils/update-article-images.js",
     "test": "echo \"Tests coming soon\" && exit 0"
   },
   "keywords": [
