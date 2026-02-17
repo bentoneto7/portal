@@ -42,11 +42,12 @@ const newsLoader = {
         // Load featured story (first article)
         this.loadFeaturedStory(articles);
 
-        // Load category news - NOVAS CATEGORIAS
+        // Load category news - TODAS AS CATEGORIAS
         this.loadCategoryNews('serie-a', articles); // Série A (Brasileirão)
         this.loadCategoryNews('mercado', articles); // Mercado da Bola
         this.loadCategoryNews('opiniao', articles); // Opinião
         this.loadCategoryNews('taticas', articles); // Táticas e Dados
+        this.loadCategoryNews('copa', articles);    // Copa do Mundo 2026
 
         // Load trending (top 5 most recent)
         this.loadTrending(articles);
@@ -110,7 +111,8 @@ const newsLoader = {
             'serie-a': 'brasileirao',
             'mercado': 'mercado',
             'opiniao': 'opiniao',
-            'taticas': 'taticas'
+            'taticas': 'taticas',
+            'copa': 'copa'
         };
 
         const actualCategory = categoryMap[category] || category;
@@ -439,6 +441,109 @@ const enquete = {
     }
 };
 
+// Copa 2026 Countdown
+const copaCountdown = {
+    // Copa 2026 starts June 11, 2026
+    targetDate: new Date('2026-06-11T18:00:00Z'),
+
+    init() {
+        this.update();
+        setInterval(() => this.update(), 1000);
+    },
+
+    update() {
+        const now = new Date();
+        const diff = this.targetDate - now;
+
+        if (diff <= 0) {
+            document.getElementById('countdown-days').textContent = '0';
+            document.getElementById('countdown-hours').textContent = '00';
+            document.getElementById('countdown-minutes').textContent = '00';
+            document.getElementById('countdown-seconds').textContent = '00';
+            return;
+        }
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+        document.getElementById('countdown-days').textContent = days;
+        document.getElementById('countdown-hours').textContent = String(hours).padStart(2, '0');
+        document.getElementById('countdown-minutes').textContent = String(minutes).padStart(2, '0');
+        document.getElementById('countdown-seconds').textContent = String(seconds).padStart(2, '0');
+    }
+};
+
+// Matches Widget
+const matchesWidget = {
+    matches: [
+        { league: 'Brasileirão Série A', home: 'Santos', away: 'Novorizontino', homeShield: '🐟', awayShield: '🟡', score: '6 x 0', status: 'finished', time: '12/02 - 21h30' },
+        { league: 'Brasileirão Série A', home: 'São Paulo', away: 'Grêmio', homeShield: '🔴⚪⚫', awayShield: '🔵⚫⚪', score: '2 x 0', status: 'finished', time: '12/02 - 19h00' },
+        { league: 'Brasileirão Série A', home: 'Vitória', away: 'Flamengo', homeShield: '🔴⚫', awayShield: '🔴⚫', score: '1 x 2', status: 'finished', time: '12/02 - 21h30' },
+        { league: 'Brasileirão Série A', home: 'Atlético-MG', away: 'Remo', homeShield: '⚫⚪', awayShield: '🔵', score: '3 x 3', status: 'finished', time: '12/02 - 19h00' },
+        { league: 'Brasileirão Série A', home: 'Vasco', away: 'Bahia', homeShield: '⚫⚪', awayShield: '🔵🔴⚪', score: '0 x 1', status: 'finished', time: '12/02 - 21h30' },
+        { league: 'Amistoso', home: 'Brasil', away: 'França', homeShield: '🇧🇷', awayShield: '🇫🇷', score: '26/03', status: 'upcoming', time: 'Boston - 16h00' },
+        { league: 'Amistoso', home: 'Brasil', away: 'Croácia', homeShield: '🇧🇷', awayShield: '🇭🇷', score: '31/03', status: 'upcoming', time: 'Orlando - 16h00' },
+    ],
+
+    render() {
+        const track = document.getElementById('matches-track');
+        if (!track) return;
+
+        track.innerHTML = this.matches.map(m => `
+            <div class="match-card">
+                <div class="match-league">${m.league}</div>
+                <div class="match-teams">
+                    <div class="match-team">
+                        <span class="match-team-shield">${m.homeShield}</span>
+                        <span class="match-team-name">${m.home}</span>
+                    </div>
+                    <div class="match-score ${m.status === 'live' ? 'live' : ''}">${m.score}</div>
+                    <div class="match-team">
+                        <span class="match-team-shield">${m.awayShield}</span>
+                        <span class="match-team-name">${m.away}</span>
+                    </div>
+                </div>
+                <div class="match-time">${m.time}</div>
+                <span class="match-status ${m.status}">${m.status === 'finished' ? 'Encerrado' : m.status === 'live' ? 'AO VIVO' : 'Em Breve'}</span>
+            </div>
+        `).join('');
+
+        // Carousel controls
+        const prev = document.querySelector('.carousel-prev');
+        const next = document.querySelector('.carousel-next');
+        if (prev && next) {
+            prev.addEventListener('click', () => track.scrollBy({ left: -220, behavior: 'smooth' }));
+            next.addEventListener('click', () => track.scrollBy({ left: 220, behavior: 'smooth' }));
+        }
+    }
+};
+
+// Mobile Menu
+const mobileMenu = {
+    init() {
+        const btn = document.getElementById('mobile-menu-btn');
+        const nav = document.getElementById('main-nav');
+        if (btn && nav) {
+            btn.addEventListener('click', () => {
+                btn.classList.toggle('active');
+                nav.classList.toggle('active');
+            });
+        }
+    }
+};
+
+// News Ticker - duplicate content for seamless loop
+const newsTicker = {
+    init() {
+        const content = document.getElementById('ticker-content');
+        if (content) {
+            content.innerHTML += content.innerHTML;
+        }
+    }
+};
+
 // Initialize everything when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
     console.log('⚽ Bola na Rede iniciado!');
@@ -453,6 +558,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Novos widgets
     tabelaSerieA.render();
     enquete.render();
+
+    // Novas funcionalidades
+    copaCountdown.init();
+    matchesWidget.render();
+    mobileMenu.init();
+    newsTicker.init();
 });
 
 // Refresh news every 5 minutes (for dynamic content updates)
@@ -461,13 +572,3 @@ setInterval(() => {
     newsLoader.articlesData = null; // Force reload
     newsLoader.loadAllNews();
 }, 5 * 60 * 1000);
-
-// Service Worker registration (for PWA - optional)
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        // Uncomment to enable PWA features
-        // navigator.serviceWorker.register('/sw.js')
-        //     .then(reg => console.log('✅ Service Worker registered'))
-        //     .catch(err => console.error('❌ Service Worker registration failed:', err));
-    });
-}

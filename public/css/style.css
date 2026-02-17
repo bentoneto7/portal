@@ -918,3 +918,491 @@ a:hover {
         font-size: 13px;
     }
 }
+
+/* ========================================
+   NEWS TICKER
+   ======================================== */
+.news-ticker {
+    background: linear-gradient(90deg, #1a0000 0%, #2d0a0a 50%, #1a0000 100%);
+    border-bottom: 1px solid rgba(255, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    height: 36px;
+}
+
+.ticker-label {
+    background: #ff0000;
+    color: white;
+    padding: 6px 16px;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    z-index: 2;
+    animation: pulse-label 2s infinite;
+}
+
+@keyframes pulse-label {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+.ticker-wrapper {
+    overflow: hidden;
+    flex: 1;
+    position: relative;
+}
+
+.ticker-content {
+    display: flex;
+    white-space: nowrap;
+    animation: ticker-scroll 30s linear infinite;
+}
+
+.ticker-item {
+    color: var(--text-muted);
+    font-size: 13px;
+    padding: 0 8px;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.ticker-item:hover {
+    color: var(--primary-color);
+}
+
+@keyframes ticker-scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+/* ========================================
+   TRENDING BAR (EM ALTA)
+   ======================================== */
+.trending-bar {
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+    padding: 8px 0;
+}
+
+.trending-bar .container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.trending-bar .container::-webkit-scrollbar { display: none; }
+
+.trending-bar-label {
+    font-size: 11px;
+    font-weight: 900;
+    color: var(--secondary-color);
+    white-space: nowrap;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.trending-bar-items {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.trending-bar-items::-webkit-scrollbar { display: none; }
+
+.trending-bar-item {
+    background: var(--card-bg);
+    color: var(--text-muted);
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s;
+}
+
+.trending-bar-item:hover {
+    background: rgba(0, 255, 136, 0.1);
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+/* ========================================
+   COPA 2026 COUNTDOWN
+   ======================================== */
+.copa-countdown {
+    background: linear-gradient(135deg, #1a3a1a 0%, #0a2a0a 40%, #1a2a00 100%);
+    border-bottom: 2px solid var(--accent-yellow);
+    padding: 12px 0;
+}
+
+.countdown-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.countdown-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.countdown-flag {
+    font-size: 20px;
+}
+
+.countdown-title {
+    font-size: 14px;
+    font-weight: 900;
+    color: var(--accent-yellow);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.countdown-timer {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.countdown-unit {
+    text-align: center;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    border-radius: 6px;
+    padding: 4px 10px;
+    min-width: 52px;
+}
+
+.countdown-unit span {
+    display: block;
+    font-size: 22px;
+    font-weight: 900;
+    color: white;
+    font-variant-numeric: tabular-nums;
+}
+
+.countdown-unit small {
+    font-size: 9px;
+    color: var(--text-light);
+    letter-spacing: 1px;
+}
+
+.countdown-separator {
+    font-size: 20px;
+    font-weight: 900;
+    color: var(--accent-yellow);
+    padding: 0 2px;
+}
+
+.countdown-link {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent-yellow);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: 1px solid var(--accent-yellow);
+    padding: 6px 16px;
+    border-radius: 20px;
+    transition: all 0.3s;
+}
+
+.countdown-link:hover {
+    background: var(--accent-yellow);
+    color: var(--bg-color);
+}
+
+/* ========================================
+   MATCHES WIDGET
+   ======================================== */
+.matches-widget {
+    background: var(--bg-secondary);
+    border-bottom: 2px solid var(--border-color);
+    padding: 16px 0;
+}
+
+.matches-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+}
+
+.matches-header h3 {
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--text-color);
+}
+
+.matches-tabs {
+    display: flex;
+    gap: 4px;
+}
+
+.match-tab {
+    background: transparent;
+    color: var(--text-light);
+    border: 1px solid var(--border-color);
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.match-tab.active {
+    background: var(--primary-color);
+    color: var(--bg-color);
+    border-color: var(--primary-color);
+}
+
+.matches-carousel {
+    position: relative;
+    overflow: hidden;
+}
+
+.matches-track {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 4px 0;
+    scrollbar-width: none;
+}
+
+.matches-track::-webkit-scrollbar { display: none; }
+
+.match-card {
+    flex-shrink: 0;
+    width: 200px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 14px;
+    text-align: center;
+    transition: all 0.3s;
+}
+
+.match-card:hover {
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow-hover);
+}
+
+.match-league {
+    font-size: 10px;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+}
+
+.match-teams {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.match-team {
+    text-align: center;
+    flex: 1;
+}
+
+.match-team-shield {
+    font-size: 28px;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.match-team-name {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-color);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.match-score {
+    font-size: 20px;
+    font-weight: 900;
+    color: var(--primary-color);
+    min-width: 50px;
+}
+
+.match-score.live {
+    color: #ff0000;
+    animation: pulse-score 1.5s infinite;
+}
+
+@keyframes pulse-score {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.match-time {
+    font-size: 11px;
+    color: var(--text-light);
+    margin-top: 8px;
+}
+
+.match-status {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 10px;
+    display: inline-block;
+    margin-top: 6px;
+}
+
+.match-status.finished { background: var(--border-color); color: var(--text-muted); }
+.match-status.live { background: #ff0000; color: white; }
+.match-status.upcoming { background: rgba(0, 255, 136, 0.15); color: var(--primary-color); }
+
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    font-size: 20px;
+    cursor: pointer;
+    z-index: 2;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel-btn:hover {
+    background: var(--primary-color);
+    color: var(--bg-color);
+    border-color: var(--primary-color);
+}
+
+.carousel-prev { left: 0; }
+.carousel-next { right: 0; }
+
+/* ========================================
+   COLUNISTAS WIDGET
+   ======================================== */
+.colunista-item {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.colunista-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.colunista-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 2px solid var(--primary-color);
+    flex-shrink: 0;
+    object-fit: cover;
+}
+
+.colunista-info strong {
+    font-size: 13px;
+    color: var(--primary-color);
+    display: block;
+    margin-bottom: 4px;
+}
+
+.colunista-info p {
+    font-size: 12px;
+    color: var(--text-light);
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* ========================================
+   COPA 2026 SECTION
+   ======================================== */
+.section-copa {
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.05), transparent);
+    padding: 30px;
+    border-radius: var(--border-radius);
+    border-left: 4px solid var(--accent-yellow);
+    margin-top: 30px;
+}
+
+/* ========================================
+   MOBILE MENU
+   ======================================== */
+.mobile-menu-btn {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    z-index: 1001;
+}
+
+.mobile-menu-btn span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--text-color);
+    transition: all 0.3s;
+    border-radius: 2px;
+}
+
+.mobile-menu-btn.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.mobile-menu-btn.active span:nth-child(2) { opacity: 0; }
+.mobile-menu-btn.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+@media (max-width: 768px) {
+    .mobile-menu-btn { display: flex; }
+
+    .main-nav {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--bg-secondary);
+        border-bottom: 2px solid var(--primary-color);
+        padding: 20px;
+        z-index: 1000;
+    }
+
+    .main-nav.active { display: block; }
+
+    .main-nav ul {
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .main-nav a {
+        display: block;
+        padding: 12px 16px;
+    }
+
+    .countdown-content { gap: 12px; }
+    .countdown-title { font-size: 11px; }
+    .countdown-unit span { font-size: 16px; }
+    .countdown-unit { min-width: 40px; padding: 3px 6px; }
+}

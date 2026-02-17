@@ -56,6 +56,21 @@
     <title>Bola na Rede - Brasileirão Série A 2026 | Análises, Tabela, Mercado e Bastidores</title>
 </head>
 <body>
+    <!-- News Ticker -->
+    <div class="news-ticker">
+        <div class="ticker-label">🔴 AO VIVO</div>
+        <div class="ticker-wrapper">
+            <div class="ticker-content" id="ticker-content">
+                <span class="ticker-item">⚽ Neymar volta e dá assistência na goleada do Santos 6x0 | </span>
+                <span class="ticker-item">🔥 Ancelotti revela: 18 dos 26 convocados da Copa já estão definidos | </span>
+                <span class="ticker-item">💰 Palmeiras e Flamengo travam guerra por Luiz Henrique - €25M | </span>
+                <span class="ticker-item">📊 VAR já causou 3 polêmicas em apenas 2 rodadas | </span>
+                <span class="ticker-item">🏟️ FIFA aprova estádios brasileiros para Copa 2026 | </span>
+                <span class="ticker-item">⚡ Brasileirão em pausa para Carnaval - volta na Quarta de Cinzas | </span>
+            </div>
+        </div>
+    </div>
+
     <!-- Header -->
     <header class="site-header">
         <div class="container">
@@ -65,14 +80,19 @@
                     <p class="tagline">O futebol sem filtro que você não vê na TV</p>
                 </div>
 
-                <nav class="main-nav">
+                <!-- Mobile menu button -->
+                <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Menu">
+                    <span></span><span></span><span></span>
+                </button>
+
+                <nav class="main-nav" id="main-nav">
                     <ul>
                         <li><a href="#serie-a">Série A</a></li>
                         <li><a href="#mercado">Mercado</a></li>
                         <li><a href="#opiniao">Opinião</a></li>
                         <li><a href="#taticas">Táticas</a></li>
-                        <li><a href="#clubes">Clubes</a></li>
-                        <li><a href="#simulador">Simulador</a></li>
+                        <li><a href="#copa">Copa 2026</a></li>
+                        <li><a href="/clubes.html">Clubes</a></li>
                     </ul>
                 </nav>
 
@@ -85,18 +105,63 @@
         </div>
     </header>
 
-    <!-- Adsense Banner Top - Descomente quando tiver ID real do AdSense -->
-    <!--
-    <div class="ad-container ad-top">
-        <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-client="ca-pub-SEUIDDOADSENSE"
-             data-ad-slot="SEUSLOT"
-             data-ad-format="auto"
-             data-full-width-responsive="true"></ins>
-        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    <!-- Em Alta / Trending Bar -->
+    <div class="trending-bar">
+        <div class="container">
+            <span class="trending-bar-label">🔥 EM ALTA</span>
+            <div class="trending-bar-items" id="trending-bar-items">
+                <a href="#" class="trending-bar-item">Neymar Santos</a>
+                <a href="#" class="trending-bar-item">Copa 2026</a>
+                <a href="#" class="trending-bar-item">Luiz Henrique</a>
+                <a href="#" class="trending-bar-item">VAR Polêmica</a>
+                <a href="#" class="trending-bar-item">Ancelotti</a>
+                <a href="#" class="trending-bar-item">Palmeiras</a>
+                <a href="#" class="trending-bar-item">Flamengo</a>
+            </div>
+        </div>
     </div>
-    -->
+
+    <!-- Copa 2026 Countdown Banner -->
+    <div class="copa-countdown">
+        <div class="container">
+            <div class="countdown-content">
+                <div class="countdown-info">
+                    <span class="countdown-flag">🇧🇷🇺🇸🇲🇽</span>
+                    <span class="countdown-title">COPA DO MUNDO 2026</span>
+                </div>
+                <div class="countdown-timer" id="copa-countdown">
+                    <div class="countdown-unit"><span id="countdown-days">---</span><small>DIAS</small></div>
+                    <div class="countdown-separator">:</div>
+                    <div class="countdown-unit"><span id="countdown-hours">--</span><small>HORAS</small></div>
+                    <div class="countdown-separator">:</div>
+                    <div class="countdown-unit"><span id="countdown-minutes">--</span><small>MIN</small></div>
+                    <div class="countdown-separator">:</div>
+                    <div class="countdown-unit"><span id="countdown-seconds">--</span><small>SEG</small></div>
+                </div>
+                <a href="#copa" class="countdown-link">Ver Cobertura →</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Jogos em Destaque -->
+    <div class="matches-widget">
+        <div class="container">
+            <div class="matches-header">
+                <h3>⚽ Jogos em Destaque</h3>
+                <div class="matches-tabs">
+                    <button class="match-tab active" data-tab="destaque">Destaques</button>
+                    <button class="match-tab" data-tab="finalizados">Finalizados</button>
+                </div>
+            </div>
+            <div class="matches-carousel" id="matches-carousel">
+                <button class="carousel-btn carousel-prev" aria-label="Anterior">‹</button>
+                <div class="matches-track" id="matches-track">
+                    <!-- Loaded by JS -->
+                </div>
+                <button class="carousel-btn carousel-next" aria-label="Próximo">›</button>
+            </div>
+        </div>
+    </div>
 
     <!-- Main Content -->
     <main class="main-content">
@@ -219,6 +284,32 @@
                         <small class="newsletter-privacy">Sem spam. Cancele quando quiser.</small>
                     </div>
 
+                    <!-- Colunistas -->
+                    <div class="widget colunistas-widget">
+                        <h3 class="widget-title">✍️ Colunistas</h3>
+                        <div class="colunista-item">
+                            <img src="https://i.pravatar.cc/80?img=12" alt="Ricardo Melo" class="colunista-avatar">
+                            <div class="colunista-info">
+                                <strong>Ricardo Melo</strong>
+                                <p>VAR virou piada no Brasil. A tecnologia existe, o problema é quem opera.</p>
+                            </div>
+                        </div>
+                        <div class="colunista-item">
+                            <img src="https://i.pravatar.cc/80?img=33" alt="Ana Thaís Matos" class="colunista-avatar">
+                            <div class="colunista-info">
+                                <strong>Ana Thaís Matos</strong>
+                                <p>Palmeiras tem elenco bilionário, mas precisa de alma para ser campeão.</p>
+                            </div>
+                        </div>
+                        <div class="colunista-item">
+                            <img src="https://i.pravatar.cc/80?img=59" alt="Paulo Vinícius Coelho" class="colunista-avatar">
+                            <div class="colunista-info">
+                                <strong>Paulo V. Coelho</strong>
+                                <p>Neymar voltou, mas Copa depende do joelho e de Ancelotti.</p>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Enquete -->
                     <div class="widget poll-widget">
                         <h3 class="widget-title">🗳️ Enquete da Semana</h3>
@@ -228,6 +319,14 @@
                     </div>
                 </aside>
             </div>
+
+            <!-- Copa 2026 Section -->
+            <section id="copa" class="news-section section-copa">
+                <h2 class="section-title">🏆 Copa do Mundo 2026</h2>
+                <div class="news-grid" id="news-copa">
+                    <div class="loading">Carregando cobertura da Copa...</div>
+                </div>
+            </section>
         </div>
     </main>
 
