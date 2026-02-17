@@ -16,9 +16,12 @@ const axios = require('axios');
 const cheerio = require('cheerio');
 const fs = require('fs').promises;
 const path = require('path');
+const { AthleteImageScraper } = require('./athlete-image-scraper');
 
 class RSSNewsScraper {
     constructor() {
+        this.athleteImages = new AthleteImageScraper();
+
         this.parser = new Parser({
             customFields: {
                 item: [
@@ -59,6 +62,7 @@ class RSSNewsScraper {
     async init() {
         await this.ensureCacheDir();
         await this.loadCache();
+        await this.athleteImages.init();
         console.log('✅ RSS News Scraper initialized');
     }
 
@@ -135,7 +139,7 @@ class RSSNewsScraper {
                     title: this.cleanText(item.title),
                     url: item.link,
                     subtitle: this.extractSubtitle(item),
-                    image: this.extractImage(item),
+                    image: await this.extractImage(item), // ← AWAIT para buscar imagem real
                     publishedAt: item.pubDate || item.isoDate || new Date().toISOString(),
                     source: feedName.toUpperCase(),
                     section: this.detectCategory(item),
@@ -212,33 +216,44 @@ class RSSNewsScraper {
     }
 
     /**
-     * Extrai imagem
+     * Extrai imagem (ATUALIZADO com imagens reais de atletas)
      */
-    extractImage(item) {
-        // Tenta media:content
+    async extractImage(item) {
+        // 1. PRIMEIRO: Busca imagem REAL do atleta
+        const athleteImage = await this.athleteImages.getImage(
+            item.title,
+            item.description || item.contentSnippet || ''
+        );
+
+        if (athleteImage && !athleteImage.includes('unsplash')) {
+            // Encontrou imagem real do atleta!
+            return athleteImage;
+        }
+
+        // 2. Tenta media:content do feed
         if (item.media && item.media.$) {
             return item.media.$.url;
         }
 
-        // Tenta media:thumbnail
+        // 3. Tenta media:thumbnail
         if (item.thumbnail && item.thumbnail.$) {
             return item.thumbnail.$.url;
         }
 
-        // Tenta enclosure
+        // 4. Tenta enclosure
         if (item.enclosure && item.enclosure.url) {
             return item.enclosure.url;
         }
 
-        // Tenta extrair da descrição HTML
+        // 5. Tenta extrair da descrição HTML
         if (item.description) {
             const $ = cheerio.load(item.description);
             const img = $('img').first().attr('src');
             if (img) return img;
         }
 
-        // Fallback para Unsplash genérico
-        return 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&h=600&fit=crop&auto=format&q=80';
+        // 6. Fallback final (imagem temática do atleta ou contexto)
+        return athleteImage || 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&h=600&fit=crop&auto=format&q=80';
     }
 
     /**
