@@ -22,6 +22,22 @@ class ArticleHTMLGenerator {
         this.publicDir = path.join(__dirname, '../../public');
         this.templatesDir = path.join(__dirname, '../templates');
         this.generatedCount = 0;
+        this.categoryLabels = {
+            'champions': 'Champions League',
+            'estaduais': 'Estaduais',
+            'neymar': 'Neymar Jr',
+            'messi': 'Lionel Messi',
+            'cr7': 'Cristiano Ronaldo',
+            'copa': 'Copa 2026',
+            'brasileirao': 'Brasileirão',
+            'mercado': 'Mercado',
+            'opiniao': 'Opinião',
+            'taticas': 'Táticas'
+        };
+    }
+
+    getCategoryLabel(category) {
+        return this.categoryLabels[category] || category || 'Notícias';
     }
 
     /**
@@ -132,10 +148,12 @@ class ArticleHTMLGenerator {
             </div>
             <ul class="main-nav">
                 <li><a href="/">Início</a></li>
-                <li><a href="/brasileirao">Brasileirão</a></li>
-                <li><a href="/internacional">Internacional</a></li>
-                <li><a href="/mercado">Mercado</a></li>
-                <li><a href="/opiniao">Opinião</a></li>
+                <li><a href="/#champions">Champions</a></li>
+                <li><a href="/#estaduais">Estaduais</a></li>
+                <li><a href="/#neymar">Neymar</a></li>
+                <li><a href="/#messi">Messi</a></li>
+                <li><a href="/#cr7">CR7</a></li>
+                <li><a href="/#copa">Copa 2026</a></li>
                 <li><button data-search-toggle aria-label="Buscar">🔍</button></li>
             </ul>
         </nav>
@@ -148,14 +166,14 @@ class ArticleHTMLGenerator {
             <nav class="breadcrumb" aria-label="Breadcrumb">
                 <ol>
                     <li><a href="/">Home</a></li>
-                    <li><a href="/${this.seo.slugify(article.section || 'noticias')}">${article.section || 'Notícias'}</a></li>
+                    <li><a href="/${this.seo.slugify(article.section || 'noticias')}">${this.getCategoryLabel(article.category || article.section)}</a></li>
                     <li aria-current="page">${article.title}</li>
                 </ol>
             </nav>
 
             <!-- Article Header -->
             <div class="article-header">
-                <span class="article-category">${article.section || 'Notícias'}</span>
+                <span class="article-category">${this.getCategoryLabel(article.category || article.section)}</span>
                 <h1 class="article-title">${article.title}</h1>
                 <p class="article-subtitle">${article.excerpt || article.subtitle || ''}</p>
 

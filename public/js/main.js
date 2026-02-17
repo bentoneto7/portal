@@ -43,11 +43,12 @@ const newsLoader = {
         this.loadFeaturedStory(articles);
 
         // Load category news - TODAS AS CATEGORIAS
-        this.loadCategoryNews('serie-a', articles); // Série A (Brasileirão)
-        this.loadCategoryNews('mercado', articles); // Mercado da Bola
-        this.loadCategoryNews('opiniao', articles); // Opinião
-        this.loadCategoryNews('taticas', articles); // Táticas e Dados
-        this.loadCategoryNews('copa', articles);    // Copa do Mundo 2026
+        this.loadCategoryNews('brasileirao', articles); // Brasileirão Série A
+        this.loadCategoryNews('neymar', articles);      // Neymar Jr
+        this.loadCategoryNews('copa', articles);        // Copa do Mundo 2026
+        this.loadCategoryNews('mercado', articles);     // Mercado da Bola
+        this.loadCategoryNews('opiniao', articles);     // Opinião
+        this.loadCategoryNews('taticas', articles);     // Táticas e Dados
 
         // Load trending (top 5 most recent)
         this.loadTrending(articles);
@@ -108,11 +109,12 @@ const newsLoader = {
 
         // Map de categorias do site para categorias dos artigos
         const categoryMap = {
-            'serie-a': 'brasileirao',
+            'brasileirao': 'brasileirao',
+            'neymar': 'neymar',
+            'copa': 'copa',
             'mercado': 'mercado',
             'opiniao': 'opiniao',
-            'taticas': 'taticas',
-            'copa': 'copa'
+            'taticas': 'taticas'
         };
 
         const actualCategory = categoryMap[category] || category;
@@ -181,13 +183,16 @@ const newsLoader = {
 
     getCategoryLabel(category) {
         const labels = {
+            'champions': 'Champions League',
+            'estaduais': 'Estaduais',
+            'neymar': 'Neymar Jr',
+            'messi': 'Lionel Messi',
+            'cr7': 'Cristiano Ronaldo',
+            'copa': 'Copa 2026',
             'brasileirao': 'Brasileirão',
             'mercado': 'Mercado da Bola',
             'opiniao': 'Opinião',
-            'taticas': 'Táticas e Dados',
-            'copa': 'Copa do Mundo',
-            'libertadores': 'Libertadores',
-            'internacional': 'Internacional'
+            'taticas': 'Táticas e Dados'
         };
         return labels[category] || category;
     },
@@ -321,62 +326,59 @@ window.addEventListener('unhandledrejection', (e) => {
     console.error('Unhandled promise rejection:', e.reason);
 });
 
-// Tabela de Classificação (Mock Data)
+// Tabela de Classificação Série A (Mock Data)
 const tabelaSerieA = {
     data: [
-        { pos: 1, time: 'Botafogo', pontos: 52, jogos: 28, zona: 'libertadores' },
-        { pos: 2, time: 'Palmeiras', pontos: 50, jogos: 28, zona: 'libertadores' },
-        { pos: 3, time: 'Flamengo', pontos: 48, jogos: 28, zona: 'libertadores' },
-        { pos: 4, time: 'Fluminense', pontos: 45, jogos: 28, zona: 'libertadores' },
-        { pos: 5, time: 'São Paulo', pontos: 43, jogos: 28, zona: '' },
-        { pos: 6, time: 'Grêmio', pontos: 42, jogos: 28, zona: '' },
-        { pos: 7, time: 'Internacional', pontos: 40, jogos: 28, zona: '' },
-        { pos: 8, time: 'Atlético-MG', pontos: 38, jogos: 28, zona: '' },
-        { pos: 17, time: 'Cuiabá', pontos: 28, jogos: 28, zona: 'rebaixamento' },
-        { pos: 18, time: 'Coritiba', pontos: 26, jogos: 28, zona: 'rebaixamento' },
-        { pos: 19, time: 'Goiás', pontos: 24, jogos: 28, zona: 'rebaixamento' },
-        { pos: 20, time: 'América-MG', pontos: 22, jogos: 28, zona: 'rebaixamento' }
+        { pos: 1, time: 'Palmeiras', pontos: 6, jogos: 2, zona: 'libertadores' },
+        { pos: 2, time: 'Flamengo', pontos: 6, jogos: 2, zona: 'libertadores' },
+        { pos: 3, time: 'Atlético-MG', pontos: 4, jogos: 2, zona: 'libertadores' },
+        { pos: 4, time: 'São Paulo', pontos: 4, jogos: 2, zona: 'libertadores' },
+        { pos: 5, time: 'Fluminense', pontos: 3, jogos: 2, zona: '' },
+        { pos: 6, time: 'Botafogo', pontos: 3, jogos: 2, zona: '' },
+        { pos: 7, time: 'Santos', pontos: 3, jogos: 2, zona: '' },
+        { pos: 8, time: 'Corinthians', pontos: 1, jogos: 2, zona: '' },
+        { pos: 9, time: 'Grêmio', pontos: 1, jogos: 2, zona: '' },
+        { pos: 10, time: 'Bahia', pontos: 1, jogos: 2, zona: '' }
     ],
 
     render() {
         const container = document.getElementById('tabela-serie-a');
         if (!container) return;
 
-        const top8 = this.data.slice(0, 8);
-        const bottom4 = this.data.slice(-4);
-        const display = [...top8, ...bottom4];
-
         container.innerHTML = `
-            <table>
+            <table style="width:100%; border-collapse:collapse; font-size:12px;">
                 <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Time</th>
-                        <th>PTS</th>
+                    <tr style="background:#1a472a; color:white;">
+                        <th style="padding:6px 4px; text-align:left;">#</th>
+                        <th style="padding:6px 4px; text-align:left;">Time</th>
+                        <th style="padding:6px 4px; text-align:center;">J</th>
+                        <th style="padding:6px 4px; text-align:center; font-weight:800;">Pts</th>
                     </tr>
                 </thead>
                 <tbody>
-                    ${display.map(team => `
-                        <tr class="${team.zona}">
-                            <td class="pos">${team.pos}</td>
-                            <td class="time">${team.time}</td>
-                            <td class="pontos">${team.pontos}</td>
+                    ${this.data.map(t => `
+                        <tr style="border-bottom:1px solid #eee; ${t.zona === 'libertadores' ? 'border-left:3px solid #1a472a;' : ''}">
+                            <td style="padding:5px 4px; color:${t.zona === 'libertadores' ? '#1a472a' : '#666'}; font-weight:${t.zona === 'libertadores' ? '700' : '400'};">${t.pos}</td>
+                            <td style="padding:5px 4px; font-weight:600;">${t.time}</td>
+                            <td style="padding:5px 4px; text-align:center; color:#666;">${t.jogos}</td>
+                            <td style="padding:5px 4px; text-align:center; font-weight:800; color:#1a472a;">${t.pontos}</td>
                         </tr>
                     `).join('')}
                 </tbody>
             </table>
+            <small style="display:block; padding:6px 4px; color:#999; font-size:10px;">* 2 rodadas disputadas. Atualizado em 17/02/2026</small>
         `;
     }
 };
 
 // Enquete da Semana (Mock Data)
 const enquete = {
-    question: 'Quem leva o Brasileirão 2026?',
+    question: 'Neymar vai ser convocado para a Copa 2026?',
     options: [
-        { id: 1, text: 'Botafogo', votes: 342 },
-        { id: 2, text: 'Palmeiras', votes: 298 },
-        { id: 3, text: 'Flamengo', votes: 456 },
-        { id: 4, text: 'Outro time', votes: 124 }
+        { id: 1, text: 'Sim, ele merece ir!', votes: 687 },
+        { id: 2, text: 'Não, é risco demais', votes: 312 },
+        { id: 3, text: 'Depende da saúde dele', votes: 523 },
+        { id: 4, text: 'Ancelotti que decide', votes: 198 }
     ],
     voted: false,
 
@@ -477,31 +479,33 @@ const copaCountdown = {
 
 // Matches Widget
 const matchesWidget = {
-    // Logos reais do Wikimedia Commons
     teamLogos: {
-        'Santos': 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Santos_logo.svg/40px-Santos_logo.svg.png',
-        'Novorizontino': '🟡',
-        'São Paulo': 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Brasao_do_Sao_Paulo_Futebol_Clube.svg/40px-Brasao_do_Sao_Paulo_Futebol_Clube.svg.png',
-        'Grêmio': 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Gremio.svg/40px-Gremio.svg.png',
-        'Vitória': 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Vit%C3%B3ria_logo.svg/40px-Vit%C3%B3ria_logo.svg.png',
-        'Flamengo': 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Flamengo-RJ_%28BRA%29.png/40px-Flamengo-RJ_%28BRA%29.png',
-        'Atlético-MG': 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Atletico_mineiro_galo.png/40px-Atletico_mineiro_galo.png',
-        'Remo': 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Clube_do_Remo.svg/40px-Clube_do_Remo.svg.png',
-        'Vasco': 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Vasco_da_Gama.svg/40px-Vasco_da_Gama.svg.png',
-        'Bahia': 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Escudo_do_Esporte_Clube_Bahia.svg/40px-Escudo_do_Esporte_Clube_Bahia.svg.png',
+        'Real Madrid': '🇪🇸',
+        'Man City': '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
+        'Barcelona': '🇪🇸',
+        'PSG': '🇫🇷',
+        'Bayern': '🇩🇪',
+        'Arsenal': '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
+        'Inter Miami': '🇺🇸',
+        'Al Nassr': '🇸🇦',
+        'Santos': '🇧🇷',
+        'Palmeiras': '🇧🇷',
+        'Corinthians': '🇧🇷',
+        'Flamengo': '🇧🇷',
+        'Fluminense': '🇧🇷',
         'Brasil': '🇧🇷',
         'França': '🇫🇷',
         'Croácia': '🇭🇷'
     },
 
     matches: [
-        { league: 'Brasileirão Série A', home: 'Santos', away: 'Novorizontino', score: '6 x 0', status: 'finished', time: '12/02 - 21h30' },
-        { league: 'Brasileirão Série A', home: 'São Paulo', away: 'Grêmio', score: '2 x 0', status: 'finished', time: '12/02 - 19h00' },
-        { league: 'Brasileirão Série A', home: 'Vitória', away: 'Flamengo', score: '1 x 2', status: 'finished', time: '12/02 - 21h30' },
-        { league: 'Brasileirão Série A', home: 'Atlético-MG', away: 'Remo', score: '3 x 3', status: 'finished', time: '12/02 - 19h00' },
-        { league: 'Brasileirão Série A', home: 'Vasco', away: 'Bahia', score: '0 x 1', status: 'finished', time: '12/02 - 21h30' },
+        { league: 'Champions League', home: 'Real Madrid', away: 'Man City', score: '2 x 1', status: 'finished', time: '11/03 - 17h00' },
+        { league: 'Champions League', home: 'Barcelona', away: 'PSG', score: '3 x 2', status: 'finished', time: '12/03 - 17h00' },
+        { league: 'Champions League', home: 'Bayern', away: 'Arsenal', score: '1 x 1', status: 'finished', time: '11/03 - 17h00' },
+        { league: 'Paulistão', home: 'Palmeiras', away: 'Corinthians', score: '19/02', status: 'upcoming', time: 'Allianz Parque - 21h30' },
+        { league: 'Carioca', home: 'Flamengo', away: 'Fluminense', score: '20/02', status: 'upcoming', time: 'Maracanã - 21h00' },
+        { league: 'MLS', home: 'Inter Miami', away: 'LAFC', score: '01/03', status: 'upcoming', time: 'Miami - 20h00' },
         { league: 'Amistoso', home: 'Brasil', away: 'França', score: '26/03', status: 'upcoming', time: 'Boston - 16h00' },
-        { league: 'Amistoso', home: 'Brasil', away: 'Croácia', score: '31/03', status: 'upcoming', time: 'Orlando - 16h00' },
     ],
 
     getShield(team) {

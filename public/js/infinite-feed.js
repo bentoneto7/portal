@@ -196,7 +196,7 @@ class InfiniteFeed {
                         alt="${article.title}"
                         loading="lazy"
                     >
-                    <span class="feed-article-category">${article.section || 'Notícias'}</span>
+                    <span class="feed-article-category">${this.getCategoryLabel(article.category) || 'Notícias'}</span>
                 </div>
                 <div class="feed-article-content">
                     <h3>${article.title}</h3>
@@ -279,6 +279,21 @@ class InfiniteFeed {
             day: 'numeric',
             month: 'short'
         });
+    }
+
+    /**
+     * Retorna label da categoria
+     */
+    getCategoryLabel(category) {
+        const labels = {
+            'champions': 'Champions League',
+            'estaduais': 'Estaduais',
+            'neymar': 'Neymar Jr',
+            'messi': 'Lionel Messi',
+            'cr7': 'Cristiano Ronaldo',
+            'copa': 'Copa 2026'
+        };
+        return labels[category] || category || 'Notícias';
     }
 
     /**
