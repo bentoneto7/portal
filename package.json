@@ -15,6 +15,7 @@
     "generate:html": "node src/utils/generate-article-html.js",
     "rewrite:all": "node src/utils/rewrite-all-articles.js",
     "test:api-football": "node src/utils/test-api-football.js",
+    "publish:football": "node src/publisher/football-publisher.js",
     "test": "echo \"Tests coming soon\" && exit 0"
   },
   "keywords": [
