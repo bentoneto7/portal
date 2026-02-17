@@ -71,6 +71,17 @@
             border-bottom: 3px solid #009739;
         }
         .tab-emoji { font-size: 16px; margin-right: 6px; }
+        .tab-flag {
+            width: 22px;
+            height: auto;
+            margin-right: 7px;
+            border-radius: 2px;
+            vertical-align: middle;
+            opacity: 0.85;
+            box-shadow: 0 1px 3px rgba(0,0,0,.4);
+        }
+        .tab-btn.active .tab-flag { opacity: 1; }
+        .tab-btn:hover .tab-flag { opacity: 1; }
 
         /* Regional Content */
         .regional-panel { display: none; }
@@ -281,13 +292,13 @@
     <!-- Tab Bar -->
     <div class="tab-bar">
         <ul class="tab-list">
-            <li><button class="tab-btn active" onclick="switchTab('paulistao', this)"><span class="tab-emoji">🔴⚫</span>Paulistão</button></li>
-            <li><button class="tab-btn" onclick="switchTab('carioca', this)"><span class="tab-emoji">⬛🔴</span>Carioca</button></li>
-            <li><button class="tab-btn" onclick="switchTab('mineiro', this)"><span class="tab-emoji">⚫⬜</span>Mineiro</button></li>
-            <li><button class="tab-btn" onclick="switchTab('gaucho', this)"><span class="tab-emoji">💙🖤</span>Gaúcho</button></li>
-            <li><button class="tab-btn" onclick="switchTab('nordestao', this)"><span class="tab-emoji">🟡🔴</span>Nordestão</button></li>
-            <li><button class="tab-btn" onclick="switchTab('paranaense', this)"><span class="tab-emoji">🔴⚫</span>Paranaense</button></li>
-            <li><button class="tab-btn" onclick="switchTab('pernambucano', this)"><span class="tab-emoji">🔴⬛</span>Pernambucano</button></li>
+            <li><button class="tab-btn active" onclick="switchTab('paulistao', this)"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Bandeira_do_estado_de_S%C3%A3o_Paulo.svg/28px-Bandeira_do_estado_de_S%C3%A3o_Paulo.svg.png" class="tab-flag" alt="SP">Paulistão</button></li>
+            <li><button class="tab-btn" onclick="switchTab('carioca', this)"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Bandeira_do_estado_do_Rio_de_Janeiro.svg/28px-Bandeira_do_estado_do_Rio_de_Janeiro.svg.png" class="tab-flag" alt="RJ">Carioca</button></li>
+            <li><button class="tab-btn" onclick="switchTab('mineiro', this)"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Bandeira_do_estado_de_Minas_Gerais.svg/28px-Bandeira_do_estado_de_Minas_Gerais.svg.png" class="tab-flag" alt="MG">Mineiro</button></li>
+            <li><button class="tab-btn" onclick="switchTab('gaucho', this)"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Bandeira_do_Rio_Grande_do_Sul.svg/28px-Bandeira_do_Rio_Grande_do_Sul.svg.png" class="tab-flag" alt="RS">Gaúcho</button></li>
+            <li><button class="tab-btn" onclick="switchTab('nordestao', this)"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Bandeira_do_Cear%C3%A1.svg/28px-Bandeira_do_Cear%C3%A1.svg.png" class="tab-flag" alt="NE">Nordestão</button></li>
+            <li><button class="tab-btn" onclick="switchTab('paranaense', this)"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Bandeira_do_estado_do_Paran%C3%A1.svg/28px-Bandeira_do_estado_do_Paran%C3%A1.svg.png" class="tab-flag" alt="PR">Paranaense</button></li>
+            <li><button class="tab-btn" onclick="switchTab('pernambucano', this)"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Bandeira_de_Pernambuco.svg/28px-Bandeira_de_Pernambuco.svg.png" class="tab-flag" alt="PE">Pernambucano</button></li>
         </ul>
     </div>
 
@@ -296,7 +307,9 @@
         <div class="regional-header">
             <div class="container">
                 <div class="regional-title">
-                    <div class="regional-badge" style="background:#f5f5f5;">⚽</div>
+                    <div class="regional-badge" style="background:#f5f5f5;padding:4px;overflow:hidden;">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Bandeira_do_estado_de_S%C3%A3o_Paulo.svg/120px-Bandeira_do_estado_de_S%C3%A3o_Paulo.svg.png" alt="Bandeira SP" style="width:64px;height:auto;display:block;border-radius:4px;" onerror="this.parentElement.textContent='SP'">
+                    </div>
                     <div class="regional-info">
                         <h2>Paulistão 2026</h2>
                         <p>Campeonato Paulista — Fase: Quartas de Final</p>
@@ -341,7 +354,9 @@
         <div class="regional-header">
             <div class="container">
                 <div class="regional-title">
-                    <div class="regional-badge" style="background:#f5f5f5;">🏖️</div>
+                    <div class="regional-badge" style="background:#f5f5f5;padding:4px;overflow:hidden;">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Bandeira_do_estado_do_Rio_de_Janeiro.svg/120px-Bandeira_do_estado_do_Rio_de_Janeiro.svg.png" alt="Bandeira RJ" style="width:64px;height:auto;display:block;border-radius:4px;" onerror="this.parentElement.textContent='RJ'">
+                    </div>
                     <div class="regional-info">
                         <h2>Carioca 2026</h2>
                         <p>Campeonato Carioca — Fase: Semifinais</p>
@@ -382,7 +397,9 @@
         <div class="regional-header">
             <div class="container">
                 <div class="regional-title">
-                    <div class="regional-badge" style="background:#f5f5f5;">⛰️</div>
+                    <div class="regional-badge" style="background:#f5f5f5;padding:4px;overflow:hidden;">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Bandeira_do_estado_de_Minas_Gerais.svg/120px-Bandeira_do_estado_de_Minas_Gerais.svg.png" alt="Bandeira MG" style="width:64px;height:auto;display:block;border-radius:4px;" onerror="this.parentElement.textContent='MG'">
+                    </div>
                     <div class="regional-info">
                         <h2>Campeonato Mineiro 2026</h2>
                         <p>Módulo I — Fase: Semifinais</p>
@@ -423,7 +440,9 @@
         <div class="regional-header">
             <div class="container">
                 <div class="regional-title">
-                    <div class="regional-badge" style="background:#f5f5f5;">🐎</div>
+                    <div class="regional-badge" style="background:#f5f5f5;padding:4px;overflow:hidden;">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Bandeira_do_Rio_Grande_do_Sul.svg/120px-Bandeira_do_Rio_Grande_do_Sul.svg.png" alt="Bandeira RS" style="width:64px;height:auto;display:block;border-radius:4px;" onerror="this.parentElement.textContent='RS'">
+                    </div>
                     <div class="regional-info">
                         <h2>Gauchão 2026</h2>
                         <p>Campeonato Gaúcho — Fase: Semifinais</p>
@@ -464,7 +483,12 @@
         <div class="regional-header">
             <div class="container">
                 <div class="regional-title">
-                    <div class="regional-badge" style="background:#f5f5f5;">🌵</div>
+                    <div class="regional-badge" style="background:#f5f5f5;padding:3px;overflow:hidden;display:grid;grid-template-columns:1fr 1fr;gap:2px;border-radius:8px;">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Bandeira_do_Cear%C3%A1.svg/60px-Bandeira_do_Cear%C3%A1.svg.png" alt="CE" style="width:30px;height:auto;border-radius:2px;" onerror="this.style.display='none'">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Bandeira_de_Pernambuco.svg/60px-Bandeira_de_Pernambuco.svg.png" alt="PE" style="width:30px;height:auto;border-radius:2px;" onerror="this.style.display='none'">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Bandeira_da_Para%C3%ADba.svg/60px-Bandeira_da_Para%C3%ADba.svg.png" alt="PB" style="width:30px;height:auto;border-radius:2px;" onerror="this.style.display='none'">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Bandeira_do_Maranh%C3%A3o.svg/60px-Bandeira_do_Maranh%C3%A3o.svg.png" alt="MA" style="width:30px;height:auto;border-radius:2px;" onerror="this.style.display='none'">
+                    </div>
                     <div class="regional-info">
                         <h2>Copa do Nordeste 2026</h2>
                         <p>Nordestão — Fase de Grupos</p>
@@ -507,7 +531,9 @@
         <div class="regional-header">
             <div class="container">
                 <div class="regional-title">
-                    <div class="regional-badge" style="background:#f5f5f5;">🌲</div>
+                    <div class="regional-badge" style="background:#f5f5f5;padding:4px;overflow:hidden;">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Bandeira_do_estado_do_Paran%C3%A1.svg/120px-Bandeira_do_estado_do_Paran%C3%A1.svg.png" alt="Bandeira PR" style="width:64px;height:auto;display:block;border-radius:4px;" onerror="this.parentElement.textContent='PR'">
+                    </div>
                     <div class="regional-info">
                         <h2>Paranaense 2026</h2>
                         <p>Campeonato Paranaense — Fase: Semifinais</p>
@@ -548,7 +574,9 @@
         <div class="regional-header">
             <div class="container">
                 <div class="regional-title">
-                    <div class="regional-badge" style="background:#f5f5f5;">🦁</div>
+                    <div class="regional-badge" style="background:#f5f5f5;padding:4px;overflow:hidden;">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Bandeira_de_Pernambuco.svg/120px-Bandeira_de_Pernambuco.svg.png" alt="Bandeira PE" style="width:64px;height:auto;display:block;border-radius:4px;" onerror="this.parentElement.textContent='PE'">
+                    </div>
                     <div class="regional-info">
                         <h2>Pernambucano 2026</h2>
                         <p>Campeonato Pernambucano — Fase: Semifinais</p>
