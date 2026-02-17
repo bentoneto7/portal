@@ -452,27 +452,41 @@ const copaCountdown = {
 // Matches Widget
 const matchesWidget = {
     teamLogos: {
-        'Flamengo': '🔴⚫', 'Palmeiras': '🟢', 'Corinthians': '⚪⚫',
-        'Santos': '⚪⚫', 'São Paulo': '🔴⚪⚫', 'Fluminense': '🟢🔴⚪',
-        'Botafogo': '⚫⚪', 'Grêmio': '🔵⚫⚪', 'Internacional': '🔴⚪',
-        'Atlético-MG': '⚫⚪', 'Cruzeiro': '🔵⚪', 'Remo': '🔵⚪',
-        'Athletico-PR': '🔴⚫', 'Coritiba': '🟢⚪', 'Vitória': '🔴⚫',
-        'Mirassol': '🟡⚫', 'RB Bragantino': '🔴⚪',
-        'Velo Clube': '🔴⚫', 'São Bernardo': '🔵⚪',
-        'Ponte Preta': '⚫⚪', 'Portuguesa': '🔴🟢',
-        'Novorizontino': '🟡⚫', 'Capivariano': '🔴⚪',
-        'Bangu': '🔴⚪',
-        'Brasil': '🇧🇷', 'França': '🇫🇷'
+        'Flamengo':      'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Flamengo_logo.svg/64px-Flamengo_logo.svg.png',
+        'Palmeiras':     'https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Palmeiras_logo.svg/64px-Palmeiras_logo.svg.png',
+        'Corinthians':   'https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Corinthians_crest.svg/64px-Corinthians_crest.svg.png',
+        'Santos':        'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Santos_futebol_clube_escudo.svg/64px-Santos_futebol_clube_escudo.svg.png',
+        'São Paulo':     'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Coat_of_arms_of_S%C3%A3o_Paulo_FC.svg/64px-Coat_of_arms_of_S%C3%A3o_Paulo_FC.svg.png',
+        'Fluminense':    'https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/Logo_Fluminense_Football_Club.png/64px-Logo_Fluminense_Football_Club.png',
+        'Botafogo':      'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Botafogo_de_Futebol_e_Regatas.svg/64px-Botafogo_de_Futebol_e_Regatas.svg.png',
+        'Grêmio':        'https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Gr%C3%AAmio_FB_PortoAlegrense.svg/64px-Gr%C3%AAmio_FB_PortoAlegrense.svg.png',
+        'Internacional': 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Escudo_do_Sport_Club_Internacional.svg/64px-Escudo_do_Sport_Club_Internacional.svg.png',
+        'Atlético-MG':   'https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Atletico_mineiro_galo.png/64px-Atletico_mineiro_galo.png',
+        'Cruzeiro':      'https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Escudo_do_Cruzeiro.svg/64px-Escudo_do_Cruzeiro.svg.png',
+        'Vitória':       'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/EC_Vit%C3%B3ria.svg/64px-EC_Vit%C3%B3ria.svg.png',
+        'Athletico-PR':  'https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Athletico_Paranaense_logo.svg/64px-Athletico_Paranaense_logo.svg.png',
+        'Coritiba':      'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Coritiba_FC_escudo.svg/64px-Coritiba_FC_escudo.svg.png',
+        'RB Bragantino': 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/RB_Bragantino_logo.svg/64px-RB_Bragantino_logo.svg.png',
+        'Mirassol':      'https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Mirassol_FC.png/64px-Mirassol_FC.png',
+        'Remo':          'https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Clube_do_Remo_logo.svg/64px-Clube_do_Remo_logo.svg.png',
+        'Novorizontino': 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Novorizontino_logo.svg/64px-Novorizontino_logo.svg.png',
+        'Ponte Preta':   'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Associa%C3%A7%C3%A3o_Atletica_Ponte_Preta.svg/64px-Associa%C3%A7%C3%A3o_Atletica_Ponte_Preta.svg.png',
+        'Portuguesa':    'https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Portuguesa_Desportos.svg/64px-Portuguesa_Desportos.svg.png',
+        'Bangu':         'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Escudo_Bangu.svg/64px-Escudo_Bangu.svg.png',
+        'Velo Clube':    'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Velo_Clube_Rioclarense.svg/64px-Velo_Clube_Rioclarense.svg.png',
+        'São Bernardo':  'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/S%C3%A3o_Bernardo_FC.svg/64px-S%C3%A3o_Bernardo_FC.svg.png',
+        'Capivariano':   'https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Capivariano_FC.png/64px-Capivariano_FC.png',
+        'Brasil':        'https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Flag_of_Brazil.svg/64px-Flag_of_Brazil.svg.png',
+        'França':        'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Flag_of_France.svg/64px-Flag_of_France.svg.png'
     },
 
     matches: [
-        // Brasileirão 3ª Rodada (10-12/02)
-        { league: 'Brasileirão', home: 'Vitória', away: 'Flamengo', score: '1 x 2', status: 'finished', time: '10/02 - 20h00' },
-        { league: 'Brasileirão', home: 'São Paulo', away: 'Grêmio', score: '2 x 0', status: 'finished', time: '11/02 - 21h30' },
-        { league: 'Brasileirão', home: 'Atlético-MG', away: 'Remo', score: '3 x 3', status: 'finished', time: '11/02 - 21h30' },
-        { league: 'Brasileirão', home: 'Fluminense', away: 'Botafogo', score: '1 x 0', status: 'finished', time: '12/02 - 20h00' },
-        { league: 'Brasileirão', home: 'Corinthians', away: 'RB Bragantino', score: '2 x 0', status: 'finished', time: '12/02 - 21h30' },
-        { league: 'Brasileirão', home: 'Internacional', away: 'Palmeiras', score: '1 x 3', status: 'finished', time: '12/02 - 21h30' },
+        // Paulistão – Fase de Grupos (15/02)
+        { league: 'Paulistão', home: 'Santos', away: 'Velo Clube', score: '7 x 0', status: 'finished', time: '15/02 - 18h30' },
+        { league: 'Paulistão', home: 'São Paulo', away: 'Ponte Preta', score: '2 x 1', status: 'finished', time: '15/02 - 18h30' },
+        { league: 'Paulistão', home: 'Corinthians', away: 'São Bernardo', score: '1 x 0', status: 'finished', time: '15/02 - 18h30' },
+        // Carioca – Semifinal (16/02)
+        { league: 'Carioca', home: 'Fluminense', away: 'Bangu', score: '3 x 1', status: 'finished', time: '16/02 - 16h00' },
         // Paulistão última rodada (15/02)
         { league: 'Paulistão', home: 'Santos', away: 'Velo Clube', score: '7 x 0', status: 'finished', time: '15/02 - 18h30' },
         { league: 'Paulistão', home: 'São Paulo', away: 'Ponte Preta', score: '2 x 1', status: 'finished', time: '15/02 - 18h30' },
