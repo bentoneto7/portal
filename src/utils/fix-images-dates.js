@@ -18,39 +18,48 @@ function px(id) {
 }
 const TOPIC_IMAGES = {
     // Paulistão
-    'paulistao-santos-neymar':      px(15976858),  // Crowded soccer stadium
-    'paulistao-corinthians':        px(16114080),  // Soccer player during match
+    'paulistao-santos-neymar':      px(17955074),  // Soccer players in action
+    'paulistao-corinthians':        px(18075411),  // Player passing ball
     // Carioca
-    'carioca-flamengo':             px(33471345),  // Soccer stadium at night
+    'carioca-flamengo':             px(3131405),   // Night match with fans
     // Mineiro
-    'mineiro-atletico':             px(18075411),  // Player passing ball
+    'mineiro-atletico':             px(3131405),   // Night match with fans
     // Gaúcho
-    'gaucho-grenal':                px(15976858),  // Crowded soccer stadium
+    'gaucho-grenal':                px(17071576),  // Soccer fans in stadium
     // Nordestão
-    'nordestao-fortaleza':          px(16731731),  // Football stadium
+    'nordestao-fortaleza':          px(3131405),   // Night match with fans
     // Paranaense
-    'paranaense-athletico':         px(13890306),  // Top view soccer field
+    'paranaense-athletico':         px(32179248),  // Player dribbling
     // Pernambucano
-    'pernambucano-sport':           px(16731731),  // Football stadium (Ajax)
+    'pernambucano-sport':           px(16731731),  // Football stadium
     // Neymar / Santos
-    'neymar':                       px(17955074),  // Soccer player in action
+    'neymar':                       px(17955074),  // Soccer players in action
     // Copa 2026 / Seleção
-    'copa':                         px(9739469),   // Aerial view football stadium
-    'selecao':                      px(9739469),   // Aerial view football stadium
+    'copa':                         px(15976858),  // Crowded soccer stadium
+    'selecao':                      px(18075458),  // Player passing football
     // Brasileirão / Série A
-    'brasileirao':                  px(18075411),  // Player passing ball during match
+    'brasileirao':                  px(33257251),  // Goal celebration
     // VAR / Arbitragem
-    'var':                          px(13890306),  // Top view soccer field
+    'var':                          px(5817858),   // Referee talking to player
+    'arbitragem':                   px(5817858),   // Referee talking to player
     // Mercado / Transferência
-    'mercado':                      px(16114080),  // Soccer player during match
-    // Táticas / Análise
-    'tatica':                       px(9739469),   // Aerial view stadium
+    'mercado':                      px(32179248),  // Player dribbling
+    // Táticas / Análise / Treino
+    'tatica':                       px(15153169),  // Football players training
+    'pressing':                     px(15153169),  // Training drill
+    'analytics':                    px(15153169),  // Training drill
     // Palmeiras
     'palmeiras':                    px(17955074),  // Soccer players teamwork
     // Ancelotti / Seleção
-    'ancelotti':                    px(18075458),  // Man passing football
+    'ancelotti':                    px(18075458),  // Player passing football
     // Estádio genérico
-    'estadio':                      px(9739469),   // Aerial view stadium
+    'estadio':                      px(15976858),  // Crowded soccer stadium
+    // Lesão
+    'joelho':                       px(32228926),  // Player with bandage
+    'lesao':                        px(32228926),  // Player with bandage
+    // Resultado / Gol
+    'resultado':                    px(33257251),  // Goal celebration
+    'gol':                          px(33257251),  // Goal celebration
     // Default
     'default':                      px(15976858)   // Crowded soccer stadium
 };

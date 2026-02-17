@@ -20,39 +20,18 @@ const ARTIGO_DIR = path.join(__dirname, '../../public/artigo');
 const ARTICLES_INDEX = path.join(DATA_DIR, 'articles-index.json');
 const PUBLISHED_TITLES = path.join(DATA_DIR, 'published-titles.json');
 
-// Imagens Unsplash por categoria (pool rotativo)
+// Imagens Pexels por categoria (pool rotativo com diversidade visual)
+function px(id) {
+    return `https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&dpr=1`;
+}
 const CATEGORY_IMAGES = {
-    brasileirao: [
-        'https://images.pexels.com/photos/15976858/pexels-photo-15976858.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&dpr=1',
-        'https://images.pexels.com/photos/15976858/pexels-photo-15976858.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&dpr=1',
-        'https://images.pexels.com/photos/15976858/pexels-photo-15976858.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&dpr=1',
-        'https://images.pexels.com/photos/15976858/pexels-photo-15976858.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&dpr=1',
-    ],
-    neymar: [
-        'https://images.pexels.com/photos/15976858/pexels-photo-15976858.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&dpr=1',
-        'https://images.pexels.com/photos/15976858/pexels-photo-15976858.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&dpr=1',
-        'https://images.pexels.com/photos/15976858/pexels-photo-15976858.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&dpr=1',
-    ],
-    copa: [
-        'https://images.pexels.com/photos/15976858/pexels-photo-15976858.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&dpr=1',
-        'https://images.pexels.com/photos/15976858/pexels-photo-15976858.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&dpr=1',
-        'https://images.pexels.com/photos/15976858/pexels-photo-15976858.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&dpr=1',
-    ],
-    mercado: [
-        'https://images.pexels.com/photos/15976858/pexels-photo-15976858.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&dpr=1',
-        'https://images.pexels.com/photos/15976858/pexels-photo-15976858.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&dpr=1',
-        'https://images.pexels.com/photos/15976858/pexels-photo-15976858.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&dpr=1',
-    ],
-    opiniao: [
-        'https://images.pexels.com/photos/15976858/pexels-photo-15976858.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&dpr=1',
-        'https://images.pexels.com/photos/15976858/pexels-photo-15976858.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&dpr=1',
-        'https://images.pexels.com/photos/15976858/pexels-photo-15976858.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&dpr=1',
-    ],
-    taticas: [
-        'https://images.pexels.com/photos/15976858/pexels-photo-15976858.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&dpr=1',
-        'https://images.pexels.com/photos/15976858/pexels-photo-15976858.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&dpr=1',
-        'https://images.pexels.com/photos/15976858/pexels-photo-15976858.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&dpr=1',
-    ]
+    brasileirao: [px(33257251), px(18075411), px(17955074), px(3131405)],
+    neymar:      [px(17955074), px(33257251), px(32179248)],
+    copa:        [px(15976858), px(18075458), px(17071576)],
+    mercado:     [px(32179248), px(16114080), px(18075411)],
+    opiniao:     [px(5817858),  px(17071576), px(15976858)],
+    taticas:     [px(15153169), px(17955074), px(18075411)],
+    regionais:   [px(3131405),  px(17071576), px(16731731)],
 };
 
 const CATEGORY_LABELS = {

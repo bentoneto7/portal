@@ -29,24 +29,22 @@ function px(id, w = 800, h = 500) {
 const IMG = {
     // STADIUMS
     stadium_crowded:     px(15976858),   // Soccer field in crowded stadium, bright day
-    stadium_aerial:      px(9739469),    // Aerial view of a football stadium
-    stadium_night:       px(33471345),   // Soccer stadium field at night
-    stadium_argentina:   px(16731731),   // Football stadium
-    field_topview:       px(13890306),   // Top view of a soccer field
-    stadium_ajax:        px(16731731),   // Football stadium (Ajax Amsterdam)
+    stadium_architecture:px(16731731),   // Football stadium (Ajax Amsterdam)
 
-    // PLAYERS IN ACTION
+    // MATCH ACTION
     player_passing:      px(18075411),   // Player passing ball during soccer match
-    player_red:          px(18075411),   // Player passing ball during match
     players_teamwork:    px(17955074),   // Soccer players passing a football
-    player_resting:      px(16114080),   // Soccer player during match on pitch
     player_dribbling:    px(32179248),   // Soccer player dribbling during match
     player_match:        px(16114080),   // Soccer player during match on pitch
-    player_kicking:      px(17955074),   // Soccer player in action
     player_outdoor:      px(18075458),   // Man passing football ball
 
-    // FANS / CROWD
-    fans_watching:       px(15976858),   // Crowded soccer stadium
+    // SPECIFIC CONTEXTS
+    referee:             px(5817858),    // Referee talking to a football player
+    fans_stadium:        px(17071576),   // Soccer fans cheering in stadium
+    night_match:         px(3131405),    // Night match with fans in stadium
+    training:            px(15153169),   // Football players training on pitch
+    goal_celebration:    px(33257251),   // Goal celebration during match
+    player_injury:       px(32228926),   // Football player with bandage on field
 };
 
 // ─────────────────────────────────────────────────────────
@@ -54,43 +52,44 @@ const IMG = {
 // ─────────────────────────────────────────────────────────
 
 const ARTICLE_MAP = [
-    // Neymar / Santos
-    { keywords: ['neymar', 'santos-invest'],          img: IMG.player_kicking },
+    // Neymar / Santos (lesão específica)
+    { keywords: ['joelho', 'lesao', 'lesion'],         img: IMG.player_injury },
+    { keywords: ['neymar', 'santos-invest'],           img: IMG.players_teamwork },
     // Paulistão
-    { keywords: ['paulistao-santos'],                  img: IMG.stadium_crowded },
-    { keywords: ['paulistao-corinthians', 'corinthians'], img: IMG.player_match },
-    { keywords: ['paulistao'],                         img: IMG.stadium_crowded },
+    { keywords: ['paulistao-santos'],                   img: IMG.players_teamwork },
+    { keywords: ['paulistao-corinthians', 'corinthians'], img: IMG.player_passing },
+    { keywords: ['paulistao'],                          img: IMG.player_match },
     // Carioca / Flamengo
-    { keywords: ['carioca', 'flamengo'],               img: IMG.stadium_night },
+    { keywords: ['carioca', 'flamengo'],                img: IMG.night_match },
     // Mineiro
-    { keywords: ['mineiro', 'atletico-mg', 'cruzeiro'], img: IMG.player_passing },
+    { keywords: ['mineiro', 'atletico-mg', 'cruzeiro'], img: IMG.night_match },
     // Gaúcho / Gre-Nal
-    { keywords: ['gaucho', 'grenal', 'gremio', 'internacional'], img: IMG.fans_watching },
+    { keywords: ['gaucho', 'grenal', 'gremio', 'internacional'], img: IMG.fans_stadium },
     // Nordestão
-    { keywords: ['nordestao', 'fortaleza', 'ceara'],   img: IMG.stadium_argentina },
+    { keywords: ['nordestao', 'fortaleza', 'ceara'],    img: IMG.night_match },
     // Paranaense
-    { keywords: ['paranaense', 'athletico-pr'],         img: IMG.field_topview },
+    { keywords: ['paranaense', 'athletico-pr'],          img: IMG.player_dribbling },
     // Pernambucano
-    { keywords: ['pernambucano', 'sport'],              img: IMG.stadium_ajax },
-    // Palmeiras
-    { keywords: ['palmeiras', 'abel'],                  img: IMG.players_teamwork },
-    // Copa 2026 / Seleção
-    { keywords: ['copa-mundo', 'estadio', 'copa'],     img: IMG.stadium_aerial },
-    { keywords: ['ancelotti', 'selecao', 'convoca'],   img: IMG.player_outdoor },
-    { keywords: ['amistoso', 'franca', 'croacia'],     img: IMG.stadium_crowded },
-    // Brasileirão
-    { keywords: ['brasileirao', 'serie-a', 'rodada', 'resultado'], img: IMG.player_red },
-    { keywords: ['pausa', 'carnaval'],                 img: IMG.stadium_crowded },
+    { keywords: ['pernambucano', 'sport'],               img: IMG.stadium_architecture },
+    // Palmeiras / Abel (táticas)
+    { keywords: ['abel'],                                img: IMG.training },
+    { keywords: ['palmeiras-melhor-ataque'],             img: IMG.goal_celebration },
+    { keywords: ['palmeiras'],                           img: IMG.players_teamwork },
+    // Copa 2026 / Seleção / Estádios
+    { keywords: ['estadio', 'copa-mundo'],               img: IMG.stadium_crowded },
+    { keywords: ['ancelotti', 'selecao', 'convoca'],     img: IMG.player_outdoor },
+    { keywords: ['amistoso', 'franca', 'croacia'],       img: IMG.stadium_crowded },
+    // Brasileirão / Resultados
+    { keywords: ['resultado', 'rodada', 'gol'],          img: IMG.goal_celebration },
+    { keywords: ['brasileirao', 'serie-a'],              img: IMG.player_passing },
+    { keywords: ['pausa', 'carnaval'],                   img: IMG.stadium_crowded },
     // VAR / Arbitragem
-    { keywords: ['var', 'arbitragem', 'arbitro'],      img: IMG.field_topview },
-    { keywords: ['cbf-iphone', 'cbf'],                 img: IMG.stadium_aerial },
+    { keywords: ['var', 'arbitragem', 'arbitro', 'cbf-iphone'], img: IMG.referee },
     // Mercado / Transferências
-    { keywords: ['mercado', 'transfer', 'janela', 'contrat'], img: IMG.player_resting },
-    { keywords: ['jhon-arias', 'arias', 'luiz-henrique'], img: IMG.player_dribbling },
-    // Táticas / Análise
-    { keywords: ['tatica', 'xg', 'pressing', 'anali'], img: IMG.stadium_aerial },
-    // Data / Analytics
-    { keywords: ['data', 'analytics'],                 img: IMG.field_topview },
+    { keywords: ['mercado', 'transfer', 'janela', 'contrat'], img: IMG.player_dribbling },
+    { keywords: ['jhon-arias', 'arias', 'luiz-henrique'], img: IMG.player_passing },
+    // Táticas / Análise / Analytics
+    { keywords: ['tatica', 'xg', 'pressing', 'anali', 'analytics', 'data'], img: IMG.training },
     // Neymar catch-all (after more specific patterns)
     { keywords: ['neymar'],                            img: IMG.player_kicking },
 ];

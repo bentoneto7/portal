@@ -452,32 +452,40 @@ const copaCountdown = {
 // Matches Widget
 const matchesWidget = {
     teamLogos: {
-        'Real Madrid': '🇪🇸',
-        'Man City': '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
-        'Barcelona': '🇪🇸',
-        'PSG': '🇫🇷',
-        'Bayern': '🇩🇪',
-        'Arsenal': '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
-        'Inter Miami': '🇺🇸',
-        'Al Nassr': '🇸🇦',
-        'Santos': '🇧🇷',
-        'Palmeiras': '🇧🇷',
-        'Corinthians': '🇧🇷',
-        'Flamengo': '🇧🇷',
-        'Fluminense': '🇧🇷',
-        'Brasil': '🇧🇷',
-        'França': '🇫🇷',
-        'Croácia': '🇭🇷'
+        'Flamengo': '🔴⚫', 'Palmeiras': '🟢', 'Corinthians': '⚪⚫',
+        'Santos': '⚪⚫', 'São Paulo': '🔴⚪⚫', 'Fluminense': '🟢🔴⚪',
+        'Botafogo': '⚫⚪', 'Grêmio': '🔵⚫⚪', 'Internacional': '🔴⚪',
+        'Atlético-MG': '⚫⚪', 'Cruzeiro': '🔵⚪', 'Remo': '🔵⚪',
+        'Athletico-PR': '🔴⚫', 'Coritiba': '🟢⚪', 'Vitória': '🔴⚫',
+        'Mirassol': '🟡⚫', 'RB Bragantino': '🔴⚪',
+        'Velo Clube': '🔴⚫', 'São Bernardo': '🔵⚪',
+        'Ponte Preta': '⚫⚪', 'Portuguesa': '🔴🟢',
+        'Novorizontino': '🟡⚫', 'Capivariano': '🔴⚪',
+        'Bangu': '🔴⚪',
+        'Brasil': '🇧🇷', 'França': '🇫🇷'
     },
 
     matches: [
-        { league: 'Champions League', home: 'Real Madrid', away: 'Man City', score: '2 x 1', status: 'finished', time: '11/03 - 17h00' },
-        { league: 'Champions League', home: 'Barcelona', away: 'PSG', score: '3 x 2', status: 'finished', time: '12/03 - 17h00' },
-        { league: 'Champions League', home: 'Bayern', away: 'Arsenal', score: '1 x 1', status: 'finished', time: '11/03 - 17h00' },
-        { league: 'Paulistão', home: 'Palmeiras', away: 'Corinthians', score: '19/02', status: 'upcoming', time: 'Allianz Parque - 21h30' },
-        { league: 'Carioca', home: 'Flamengo', away: 'Fluminense', score: '20/02', status: 'upcoming', time: 'Maracanã - 21h00' },
-        { league: 'MLS', home: 'Inter Miami', away: 'LAFC', score: '01/03', status: 'upcoming', time: 'Miami - 20h00' },
-        { league: 'Amistoso', home: 'Brasil', away: 'França', score: '26/03', status: 'upcoming', time: 'Boston - 16h00' },
+        // Brasileirão 3ª Rodada (10-12/02)
+        { league: 'Brasileirão', home: 'Vitória', away: 'Flamengo', score: '1 x 2', status: 'finished', time: '10/02 - 20h00' },
+        { league: 'Brasileirão', home: 'São Paulo', away: 'Grêmio', score: '2 x 0', status: 'finished', time: '11/02 - 21h30' },
+        { league: 'Brasileirão', home: 'Atlético-MG', away: 'Remo', score: '3 x 3', status: 'finished', time: '11/02 - 21h30' },
+        { league: 'Brasileirão', home: 'Fluminense', away: 'Botafogo', score: '1 x 0', status: 'finished', time: '12/02 - 20h00' },
+        { league: 'Brasileirão', home: 'Corinthians', away: 'RB Bragantino', score: '2 x 0', status: 'finished', time: '12/02 - 21h30' },
+        { league: 'Brasileirão', home: 'Internacional', away: 'Palmeiras', score: '1 x 3', status: 'finished', time: '12/02 - 21h30' },
+        // Paulistão última rodada (15/02)
+        { league: 'Paulistão', home: 'Santos', away: 'Velo Clube', score: '7 x 0', status: 'finished', time: '15/02 - 18h30' },
+        { league: 'Paulistão', home: 'São Paulo', away: 'Ponte Preta', score: '2 x 1', status: 'finished', time: '15/02 - 18h30' },
+        { league: 'Paulistão', home: 'Corinthians', away: 'São Bernardo', score: '1 x 0', status: 'finished', time: '15/02 - 18h30' },
+        // Carioca Semifinal (16/02)
+        { league: 'Carioca', home: 'Fluminense', away: 'Bangu', score: '3 x 1', status: 'finished', time: '16/02 - 16h00' },
+        // Paulistão Quartas de Final (22/02)
+        { league: 'Paulistão QF', home: 'Novorizontino', away: 'Santos', score: '22/02', status: 'upcoming', time: '22/02 - 18h30' },
+        { league: 'Paulistão QF', home: 'Palmeiras', away: 'Capivariano', score: '22/02', status: 'upcoming', time: '22/02 - 20h30' },
+        { league: 'Paulistão QF', home: 'Portuguesa', away: 'Corinthians', score: '22/02', status: 'upcoming', time: '22/02 - 18h30' },
+        // Brasileirão 4ª Rodada (25-26/02)
+        { league: 'Brasileirão', home: 'Flamengo', away: 'Mirassol', score: '25/02', status: 'upcoming', time: '25/02 - 20h00' },
+        { league: 'Brasileirão', home: 'Palmeiras', away: 'Fluminense', score: '25/02', status: 'upcoming', time: '25/02 - 21h30' },
     ],
 
     getShield(team) {
