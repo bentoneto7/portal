@@ -1,415 +1,329 @@
-# 🗞️ Portal de Notícias com IA Jornalista
-
-Portal de notícias automatizado que usa Inteligência Artificial para criar conteúdo original baseado em múltiplas fontes. Sistema completo para monetização com Google Adsense.
-
-## 🎯 Características Principais
-
-- ✅ **Conteúdo 100% Original** - IA reescreve notícias com perspectiva crítica
-- ✅ **Multilíngue** - Suporta Português (BR), Inglês (US) e Espanhol
-- ✅ **SEO Otimizado** - Meta tags, Schema.org, Sitemap, Open Graph
-- ✅ **Monetização** - Preparado para Google Adsense
-- ✅ **Publicação Automática** - Sistema autônomo de agregação e publicação
-- ✅ **Responsivo** - Design mobile-first
-- ✅ **Verificação de Fatos** - IA valida informações de múltiplas fontes
-
-## 🏗️ Arquitetura do Sistema
-
-```
-┌─────────────────┐
-│  News Sources   │ (NewsAPI, NewsData, Currents)
-└────────┬────────┘
-         │
-         ▼
-┌─────────────────┐
-│ News Aggregator │ (Coleta e agrupa notícias similares)
-└────────┬────────┘
-         │
-         ▼
-┌─────────────────┐
-│ Journalist AI   │ (Claude - Cria conteúdo original)
-└────────┬────────┘
-         │
-         ▼
-┌─────────────────┐
-│   Publisher     │ (Gera HTML e publica)
-└────────┬────────┘
-         │
-         ▼
-┌─────────────────┐
-│  Web Server     │ (Express + API)
-└─────────────────┘
-```
-
-## 📦 Estrutura de Diretórios
-
-```
-portal/
-├── public/                 # Arquivos públicos
-│   ├── index.html         # Página principal
-│   ├── css/
-│   │   └── style.css      # Estilos responsivos
-│   ├── js/
-│   │   └── main.js        # JavaScript do frontend
-│   ├── articles/          # Artigos publicados (gerados)
-│   │   ├── pt-BR/
-│   │   ├── en-US/
-│   │   └── es/
-│   └── robots.txt         # SEO
-│
-├── src/
-│   ├── agents/
-│   │   └── journalist-agent.js      # IA Jornalista
-│   ├── scrapers/
-│   │   └── news-aggregator.js       # Agregador de notícias
-│   ├── publisher/
-│   │   └── automated-publisher.js   # Sistema de publicação
-│   ├── server.js          # Servidor Express
-│   └── index.js           # Entry point
-│
-├── data/                  # Dados e índices (gerado)
-│   ├── articles-index.json
-│   ├── published-titles.json
-│   └── indices/
-│
-├── config/                # Configurações
-├── .env                   # Variáveis de ambiente
-└── package.json
-```
-
-## 🚀 Instalação e Configuração
-
-### 1. Pré-requisitos
-
-- Node.js 16+
-- Chave da API Anthropic (Claude)
-- Chaves de APIs de notícias (pelo menos uma)
-
-### 2. Instalação
-
-```bash
-# Clone o repositório
-git clone <repository-url>
-cd portal
-
-# Instale as dependências
-npm install
-
-# Configure as variáveis de ambiente
-cp .env.example .env
-nano .env  # Edite com suas chaves de API
-```
-
-### 3. Configuração do .env
-
-```env
-# OBRIGATÓRIO: Chave da Anthropic para IA Jornalista
-ANTHROPIC_API_KEY=sk-ant-api03-sua-chave-aqui
-
-# APIs de Notícias (pelo menos uma recomendado)
-NEWS_API_KEY=sua-chave-newsapi
-NEWSDATA_API_KEY=sua-chave-newsdata
-CURRENTS_API_KEY=sua-chave-currents
-
-# Configurações do servidor
-PORT=3000
-MIN_SOURCES=2
-PUBLISH_INTERVAL=1800000  # 30 minutos em ms
-```
-
-### 4. Executar
-
-```bash
-# Modo produção
-npm start
-
-# Modo desenvolvimento (com auto-reload)
-npm run dev
-
-# Apenas servidor (sem publicação automática)
-npm run server
-```
-
-## 🔑 Obtendo Chaves de API
-
-### Anthropic API (OBRIGATÓRIO)
-1. Acesse: https://console.anthropic.com/
-2. Crie uma conta
-3. Vá em "API Keys"
-4. Crie uma nova chave
-5. Cole no `.env` como `ANTHROPIC_API_KEY`
-
-### NewsAPI (Recomendado)
-1. Acesse: https://newsapi.org/
-2. Registre-se gratuitamente
-3. Copie sua API key
-4. Cole no `.env` como `NEWS_API_KEY`
-
-### NewsData.io (Opcional)
-- https://newsdata.io/
-
-### Currents API (Opcional)
-- https://currentsapi.services/
-
-## 📝 Como Funciona o Agente Jornalista
-
-O sistema usa IA avançada (Claude) para criar conteúdo original:
-
-### Processo de Criação de Artigos
-
-1. **Agregação**: Coleta múltiplas fontes sobre o mesmo tema
-2. **Análise**: IA analisa todas as fontes identificando fatos principais
-3. **Verificação**: Compara informações entre fontes
-4. **Criação**: Escreve artigo ORIGINAL com perspectiva crítica
-5. **Validação**: Verifica qualidade e integridade jornalística
-6. **Publicação**: Gera HTML otimizado para SEO
-
-### Prompts Profissionais
-
-O agente jornalista segue regras rigorosas:
-
-- ✅ **NUNCA copia** texto literal das fontes
-- ✅ **NUNCA inventa** fatos ou citações
-- ✅ Mantém **neutralidade** em temas sensíveis
-- ✅ Usa **múltiplas fontes** para validação
-- ✅ Escreve com **estilo jornalístico** profissional
-- ✅ Cita **fontes conflitantes** quando necessário
-
-## 💰 Monetização com Google Adsense
-
-### Preparação
-
-1. **Crie conta no Adsense**: https://www.google.com/adsense/
-2. **Aguarde aprovação** (requer conteúdo original e tráfego)
-3. **Obtenha seus IDs** de cliente e slots
-4. **Atualize os arquivos HTML**:
-
-```javascript
-// Em public/index.html e templates de artigos
-// Substitua XXXXXXXXXXXXXXXX pelo seu ID
-data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
-data-ad-slot="XXXXXXXXXX"
-```
-
-### Posicionamento de Anúncios
-
-O sistema já inclui:
-- ✅ Banner topo
-- ✅ Anúncios in-feed entre notícias
-- ✅ Anúncios in-article dentro dos artigos
-- ✅ Sidebar responsiva
-
-### Dicas para Aprovação Adsense
-
-1. **Conteúdo Original**: ✅ O sistema já garante isso
-2. **Tráfego**: Promova seu portal nas redes sociais
-3. **Design Profissional**: ✅ Já incluído
-4. **Política de Privacidade**: Crie uma página
-5. **Domínio Próprio**: Registre um domínio (.com, .com.br)
-
-## 🎯 SEO e Otimizações
-
-### SEO On-Page (Implementado)
-
-- ✅ Meta tags otimizadas
-- ✅ Schema.org (NewsArticle, Organization)
-- ✅ Open Graph para redes sociais
-- ✅ Twitter Cards
-- ✅ URLs amigáveis (slugs)
-- ✅ Sitemap XML automático
-- ✅ RSS Feed
-- ✅ robots.txt
-- ✅ Canonical URLs
-- ✅ Alt tags em imagens
-- ✅ Responsive design
-- ✅ Fast loading
-
-### Melhorias Recomendadas
-
-1. **Domínio Próprio**: Registre um domínio relevante
-2. **HTTPS**: Use Cloudflare ou Let's Encrypt
-3. **CDN**: CloudFlare para velocidade
-4. **Google Search Console**: Submeta seu sitemap
-5. **Backlinks**: Compartilhe nas redes sociais
-6. **Google Analytics**: Monitore tráfego
-
-## 🌍 Suporte Multilíngue
-
-O sistema suporta 3 idiomas:
-
-- 🇧🇷 **Português (Brasil)**: Notícias do Brasil
-- 🇺🇸 **Inglês (EUA)**: Notícias dos Estados Unidos
-- 🇲🇽 **Espanhol (México)**: Notícias da América Latina
-
-### Como Adicionar Novos Idiomas
-
-Edite `src/scrapers/news-aggregator.js`:
-
-```javascript
-this.countryMappings = {
-    'pt-BR': { country: 'br', language: 'pt' },
-    'en-US': { country: 'us', language: 'en' },
-    'es': { country: 'mx', language: 'es' },
-    // Adicione novo idioma aqui
-    'fr-FR': { country: 'fr', language: 'fr' }
-};
-```
-
-## 🔧 Customização
-
-### Categorias
-
-Edite em `src/scrapers/news-aggregator.js`:
-
-```javascript
-this.categoryMappings = {
-    'brasil': 'general',
-    'mundo': 'world',
-    'economia': 'business',
-    'tecnologia': 'technology',
-    // Adicione mais categorias
-    'saude': 'health',
-    'esportes': 'sports'
-};
-```
-
-### Estilo Visual
-
-Personalize `public/css/style.css`:
-
-```css
-:root {
-    --primary-color: #0066cc;  /* Cor principal */
-    --secondary-color: #333;    /* Cor secundária */
-    --accent-color: #ff4444;    /* Cor de destaque */
-}
-```
-
-### Intervalo de Publicação
-
-No `.env`:
-
-```env
-# 30 minutos = 1800000 ms
-# 1 hora = 3600000 ms
-PUBLISH_INTERVAL=1800000
-```
-
-## 📊 API Endpoints
-
-```
-GET  /                       # Homepage
-GET  /api/featured           # Artigo em destaque
-GET  /api/news?category=X    # Notícias por categoria
-GET  /api/trending           # Mais lidas
-POST /api/newsletter/subscribe  # Newsletter
-GET  /sitemap.xml            # Sitemap
-GET  /rss.xml                # RSS Feed
-GET  /health                 # Health check
-```
-
-## 🛡️ Aspectos Legais
-
-### O Que o Sistema FAZ
-
-- ✅ Analisa múltiplas fontes
-- ✅ Cria conteúdo ORIGINAL inspirado nos fatos
-- ✅ Reescreve com perspectiva única
-- ✅ Mantém integridade factual
-
-### O Que o Sistema NÃO FAZ
-
-- ❌ NÃO copia texto das fontes
-- ❌ NÃO plagia conteúdo
-- ❌ NÃO inventa informações falsas
-- ❌ NÃO republica sem transformação
-
-### Responsabilidade
-
-- Você é responsável pelo conteúdo publicado
-- Revise artigos importantes manualmente
-- Mantenha política de correções
-- Respeite direitos autorais
-
-## 📈 Estratégia de Crescimento
-
-### Fase 1: Lançamento (Mês 1-2)
-
-1. Configure e publique o portal
-2. Registre no Google Search Console
-3. Crie perfis em redes sociais
-4. Publique 50-100 artigos iniciais
-
-### Fase 2: SEO (Mês 2-3)
-
-1. Construa backlinks orgânicos
-2. Compartilhe artigos nas redes
-3. Otimize títulos baseado em analytics
-4. Adicione mais categorias
-
-### Fase 3: Monetização (Mês 3-4)
-
-1. Aplique para Google Adsense
-2. Otimize posicionamento de anúncios
-3. Teste diferentes formatos
-4. Monitore métricas
-
-### Fase 4: Escala (Mês 4+)
-
-1. Aumente frequência de publicação
-2. Adicione mais idiomas
-3. Crie newsletter ativa
-4. Considere outros formatos (vídeo, podcast)
-
-## 🐛 Troubleshooting
-
-### Erro: "ANTHROPIC_API_KEY not configured"
-
-- Verifique se o arquivo `.env` existe
-- Confirme que a chave está correta
-- Reinicie o servidor
-
-### Erro: "Failed to load news"
-
-- Verifique suas chaves de API de notícias
-- Confirme conexão com internet
-- Verifique limites de rate da API
-
-### Artigos não aparecem
-
-- Aguarde o primeiro ciclo de publicação (30 min)
-- Verifique logs do console
-- Confirme que há fontes de notícias configuradas
-
-### Performance lenta
-
-- Aumente intervalo de publicação
-- Use CDN para assets estáticos
-- Otimize imagens
-- Configure cache
-
-## 📞 Suporte
-
-- Issues: Abra uma issue no GitHub
-- Documentação: Leia este README
-- Logs: Verifique console para erros
-
-## 🎓 Próximos Passos
-
-1. **Configure suas APIs**
-2. **Execute o sistema**: `npm start`
-3. **Aguarde primeiros artigos** (30 min)
-4. **Acesse**: http://localhost:3000
-5. **Customize visual e categorias**
-6. **Registre domínio próprio**
-7. **Aplique para Adsense**
-8. **Promova nas redes sociais**
-
-## 📄 Licença
-
-MIT License - Use livremente para projetos comerciais
+# ⚽ Bola na Rede - Portal de Notícias de Futebol
+
+> O blog de futebol brasileiro que não tem medo de falar a verdade. Análises sem filtro do Brasileirão Série A, mercado da bola, táticas e polêmicas.
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+[![Node.js](https://img.shields.io/badge/Node.js-18+-green.svg)](https://nodejs.org/)
+
+## 📋 Índice
+
+- [Sobre o Projeto](#sobre-o-projeto)
+- [Funcionalidades](#funcionalidades)
+- [Tecnologias](#tecnologias)
+- [Estrutura do Projeto](#estrutura-do-projeto)
+- [Instalação](#instalação)
+- [Deploy](#deploy)
+- [SEO e Performance](#seo-e-performance)
+- [Customização](#customização)
 
 ---
 
-**Desenvolvido com ❤️ usando Claude AI**
+## 🎯 Sobre o Projeto
 
-Boa sorte com seu portal de notícias! 🚀
+**Bola na Rede** é um portal de notícias de futebol brasileiro moderno, responsivo e otimizado para SEO, com foco em:
+
+- 📰 Notícias em tempo real do Brasileirão Série A 2026
+- 💰 Mercado da bola e transferências
+- 📊 Análises táticas e estatísticas (xG, pressing, etc.)
+- 🏆 Cobertura completa da Copa do Mundo 2026
+- 🔥 Opinião sem filtro sobre polêmicas do futebol
+
+---
+
+## ✨ Funcionalidades
+
+### 🔴 Features Principais
+
+- **News Ticker** - Barra rolante com últimas notícias ao vivo
+- **Contador Copa 2026** - Countdown em tempo real (dias, horas, minutos, segundos)
+- **Widget de Jogos** - Carrossel com placares, próximos jogos e resultados
+- **Barra "Em Alta"** - Trending topics clicáveis
+- **Seção de Colunistas** - Colunistas com avatares e prévias de artigos
+- **19 Artigos Completos** - Conteúdo original sobre Brasileirão, Copa, mercado, táticas e opinião
+- **Menu Mobile** - Hamburguer menu responsivo
+- **Newsletter** - Formulário de inscrição
+- **Enquete** - Votação interativa
+- **Tabela Classificação** - Série A atualizada
+- **Simulador** - Página para simular tabela do Brasileirão
+
+### 📱 Responsividade
+
+- ✅ Desktop (1920px+)
+- ✅ Laptop (1366px - 1920px)
+- ✅ Tablet (768px - 1366px)
+- ✅ Mobile (320px - 768px)
+
+### 🔍 SEO Otimizado
+
+- ✅ Meta tags completas (Open Graph, Twitter Cards)
+- ✅ Schema.org JSON-LD para artigos
+- ✅ URLs semânticas e amigáveis
+- ✅ Canonical URLs
+- ✅ Sitemap.xml (configurável)
+- ✅ Lazy loading de imagens
+- ✅ Performance otimizada
+
+---
+
+## 🛠️ Tecnologias
+
+### Frontend
+- **HTML5** - Semântico e acessível
+- **CSS3** - CSS moderno com variáveis CSS, Grid, Flexbox
+- **Vanilla JavaScript** - Sem dependências de frameworks
+
+### Backend
+- **Node.js** - Servidor Express simples
+- **JSON** - Base de dados de artigos
+
+### Hospedagem
+- **Railway** - Deploy automático via Git
+- **GitHub** - Controle de versão
+
+### Imagens
+- **Unsplash** - Imagens de alta qualidade (livres para uso)
+
+---
+
+## 📁 Estrutura do Projeto
+
+```
+portal/
+├── data/
+│   ├── articles-index.json       # Índice de todos os artigos (19 artigos)
+│   └── published-titles.json      # Controle de títulos publicados
+├── public/
+│   ├── articles/
+│   │   └── pt-BR/
+│   │       ├── brasileirao/      # 5 artigos
+│   │       ├── copa/             # 4 artigos
+│   │       ├── mercado/          # 4 artigos
+│   │       ├── opiniao/          # 3 artigos
+│   │       └── taticas/          # 3 artigos
+│   ├── css/
+│   │   ├── style.css             # Estilos principais (27KB)
+│   │   └── article.css           # Estilos de artigos
+│   ├── js/
+│   │   └── main.js               # JavaScript principal (21KB)
+│   ├── images/                   # Imagens locais (placeholders)
+│   ├── index.html                # Homepage
+│   ├── clubes.html               # Página de clubes
+│   ├── simulador.html            # Simulador da tabela
+│   ├── sobre.html                # Sobre nós
+│   ├── contato.html              # Contato
+│   ├── anuncie.html              # Anuncie conosco
+│   ├── privacy.html              # Política de privacidade
+│   └── terms.html                # Termos de uso
+├── server.js                     # Servidor Express
+├── package.json
+└── README.md                     # Este arquivo
+```
+
+---
+
+## 🚀 Instalação
+
+### Pré-requisitos
+
+- Node.js 18+ e npm
+
+### Passo a passo
+
+1. **Clone o repositório**
+\`\`\`bash
+git clone https://github.com/bentoneto7/portal.git
+cd portal
+\`\`\`
+
+2. **Instale as dependências**
+\`\`\`bash
+npm install
+\`\`\`
+
+3. **Inicie o servidor de desenvolvimento**
+\`\`\`bash
+npm start
+\`\`\`
+
+4. **Acesse no navegador**
+\`\`\`
+http://localhost:4567
+\`\`\`
+
+---
+
+## 🌐 Deploy
+
+### Deploy no Railway
+
+1. **Conecte o repositório GitHub no Railway**
+2. **Configure a branch**: \`claude/news-portal-seo-5pQcP\`
+3. **Variáveis de ambiente** (opcional):
+   \`\`\`
+   PORT=4567
+   NODE_ENV=production
+   \`\`\`
+4. **Deploy automático** ativado ✅
+
+### Deploy em outros serviços
+
+- **Vercel**: \`vercel --prod\`
+- **Netlify**: Configure \`netlify.toml\`
+- **Heroku**: \`git push heroku main\`
+
+---
+
+## 🎨 Customização
+
+### Alterar Cores
+
+Edite as variáveis CSS em \`public/css/style.css\`:
+
+\`\`\`css
+:root {
+    --bg-color: #0a0a0a;           /* Fundo principal */
+    --text-color: #ffffff;          /* Texto principal */
+    --primary-color: #00ff88;       /* Verde neon */
+    --secondary-color: #ff0066;     /* Rosa/vermelho */
+    --accent-yellow: #ffd700;       /* Amarelo Copa */
+}
+\`\`\`
+
+### Adicionar Novos Artigos
+
+1. Crie o arquivo HTML em \`public/articles/pt-BR/[categoria]/\`
+2. Adicione entrada no \`data/articles-index.json\`:
+
+\`\`\`json
+{
+  "id": "seu-artigo-id",
+  "title": "Título do Artigo",
+  "excerpt": "Resumo curto",
+  "category": "brasileirao|copa|mercado|opiniao|taticas",
+  "language": "pt-BR",
+  "url": "/articles/pt-BR/categoria/seu-artigo-id.html",
+  "image": "https://images.unsplash.com/photo-XXXXX",
+  "publishedAt": "2026-02-17T10:00:00.000Z",
+  "readingTime": 5
+}
+\`\`\`
+
+3. Copie para \`public/data/articles-index.json\`
+
+### Substituir Imagens
+
+**Opção 1: Unsplash** (grátis, alta qualidade)
+- Mantenha o formato: \`https://images.unsplash.com/photo-XXXXX?w=800&h=600&fit=crop&auto=format&q=80\`
+
+**Opção 2: Imagens Próprias**
+- Coloque em \`public/images/\`
+- Atualize URLs no \`articles-index.json\`
+- Certifique-se de ter direitos de uso
+
+**Opção 3: Imagens Licenciadas** (Getty, AFP, Reuters)
+- Adquira licenças
+- Substitua URLs nos artigos
+
+### Google AdSense
+
+Descomente os blocos de anúncios em \`public/index.html\` e substitua \`ca-pub-SEUIDDOADSENSE\`:
+
+\`\`\`html
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-SEUIDDOADSENSE"
+     crossorigin="anonymous"></script>
+\`\`\`
+
+---
+
+## 📊 SEO e Performance
+
+### Checklist SEO ✅
+
+- [x] Meta tags completas (title, description, keywords)
+- [x] Open Graph para Facebook/LinkedIn
+- [x] Twitter Cards
+- [x] Schema.org JSON-LD (NewsArticle)
+- [x] Canonical URLs
+- [x] URLs semânticas
+- [x] Alt text em imagens
+- [x] Heading hierarchy (H1, H2, H3)
+- [x] Robots.txt
+- [x] Sitemap.xml (configurável)
+
+### Performance ✅
+
+- [x] Lazy loading de imagens
+- [x] CSS otimizado (27KB)
+- [x] JavaScript otimizado (21KB)
+- [x] Sem dependências externas pesadas
+- [x] Imagens otimizadas do Unsplash
+- [x] Cache-Control headers (configurável no servidor)
+
+### Lighthouse Score (Objetivo)
+
+- Performance: 90+
+- Accessibility: 95+
+- Best Practices: 95+
+- SEO: 100
+
+---
+
+## 📝 Artigos Criados (19 total)
+
+### Brasileirão (5)
+1. ⚽ Neymar volta e dá assistência na goleada do Santos 6-0
+2. 🎭 Brasileirão entra em pausa para Carnaval
+3. 🏥 Santos não quer apressar Neymar - joelho requer cuidados
+4. 📊 Resultados da rodada 12 de fevereiro
+5. 👨‍⚖️ CBF revoluciona arbitragem com R$ 1 milhão/mês
+
+### Copa 2026 (4)
+1. 💣 Ancelotti revela: 18 dos 26 jogadores já definidos
+2. 🇧🇷 Brasil enfrenta França e Croácia em amistosos nos EUA
+3. 🎯 Ancelotti impõe condições para Neymar voltar à Seleção
+4. 🏟️ FIFA aprova estádios brasileiros para Copa 2026
+
+### Mercado (4)
+1. 💰 Palmeiras e Flamengo travam guerra por Luiz Henrique - €25M
+2. 🛡️ Jhon Arias recusa Flamengo e Palmeiras por respeito ao Fluminense
+3. 🏗️ Santos recebe R$ 1 bilhão para arena com Neymar Sr
+4. ⏰ Janela de transferências fecha em 3 de março
+
+### Opinião (3)
+1. 🔥 VAR já causou 3 polêmicas em apenas 2 rodadas
+2. 📱 CBF gasta milhões em iPhone 17 Pro para VAR, mas problema é outro
+3. 💵 Palmeiras tem elenco mais valioso do Brasil - mas garante título?
+
+### Táticas (3)
+1. ⚡ A revolução do pressing no Brasileirão
+2. 📈 Clubes brasileiros investem pesado em xG e analytics
+3. 🎯 Palmeiras tem melhor ataque do Brasileirão 2026 - 7 gols em 2 jogos
+
+---
+
+## 📄 Licença
+
+Este projeto está sob a licença MIT.
+
+---
+
+## 👤 Autor
+
+**Equipe Bola na Rede**
+
+- GitHub: [@bentoneto7](https://github.com/bentoneto7)
+- Email: contato@bolanared.com
+
+---
+
+## 🙏 Agradecimentos
+
+- [Unsplash](https://unsplash.com) - Imagens de alta qualidade
+- [Railway](https://railway.app) - Hospedagem
+- Comunidade de futebol brasileiro
+
+---
+
+**🎉 Site 100% funcional e otimizado! Pronto para produção.**
+
+Última atualização: 17 de fevereiro de 2026

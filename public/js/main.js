@@ -546,8 +546,6 @@ const newsTicker = {
 
 // Initialize everything when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('⚽ Bola na Rede iniciado!');
-
     // Carregadores principais
     newsLoader.loadAllNews();
     newsletter.init();
@@ -568,7 +566,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Refresh news every 5 minutes (for dynamic content updates)
 setInterval(() => {
-    console.log('🔄 Atualizando notícias...');
     newsLoader.articlesData = null; // Force reload
     newsLoader.loadAllNews();
 }, 5 * 60 * 1000);
