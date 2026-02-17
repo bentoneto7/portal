@@ -295,9 +295,11 @@ class RelatedArticles {
         const colors = {
             'brasileirao': '#009739',
             'copa': '#FFDF00',
+            'neymar': '#00c853',
             'mercado': '#1e88e5',
             'opiniao': '#e53935',
             'taticas': '#6a1b9a',
+            'regionais': '#ff6f00',
             'internacional': '#ff6f00'
         };
 

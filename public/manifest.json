@@ -1,74 +1,23 @@
 {
-  "name": "Bola na Rede - Portal de Futebol",
+  "name": "Bola na Rede - Futebol Brasileiro Sem Filtro",
   "short_name": "Bola na Rede",
-  "description": "Portal de notícias de futebol brasileiro e mundial com cobertura completa",
+  "description": "O maior portal de futebol do Brasil. Brasileirão, Neymar, Copa 2026, Mercado da Bola e análises táticas exclusivas.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#1a472a",
+  "background_color": "#0a0e14",
+  "theme_color": "#009739",
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "/images/icon-72.png",
-      "sizes": "72x72",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "src": "/images/favicon.png",
+      "sizes": "32x32",
+      "type": "image/png"
     },
     {
-      "src": "/images/icon-96.png",
-      "sizes": "96x96",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/images/icon-128.png",
-      "sizes": "128x128",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/images/icon-144.png",
-      "sizes": "144x144",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/images/icon-152.png",
-      "sizes": "152x152",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/images/icon-192.png",
+      "src": "/images/placeholder.jpg",
       "sizes": "192x192",
-      "type": "image/png",
+      "type": "image/jpeg",
       "purpose": "any maskable"
-    },
-    {
-      "src": "/images/icon-384.png",
-      "sizes": "384x384",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/images/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
-    }
-  ],
-  "screenshots": [
-    {
-      "src": "/images/screenshot-mobile.png",
-      "sizes": "540x720",
-      "type": "image/png",
-      "form_factor": "narrow"
-    },
-    {
-      "src": "/images/screenshot-desktop.png",
-      "sizes": "1280x720",
-      "type": "image/png",
-      "form_factor": "wide"
     }
   ],
   "categories": ["news", "sports"],
@@ -76,21 +25,18 @@
   "dir": "ltr",
   "prefer_related_applications": false,
   "scope": "/",
-  "related_applications": [],
   "shortcuts": [
     {
-      "name": "Últimas Notícias",
-      "short_name": "Notícias",
-      "description": "Ver últimas notícias de futebol",
-      "url": "/",
-      "icons": [{ "src": "/images/icon-96.png", "sizes": "96x96" }]
-    },
-    {
-      "name": "Brasileirão",
+      "name": "Brasileirão Série A",
       "short_name": "Brasileirão",
       "description": "Cobertura do Campeonato Brasileiro",
-      "url": "/brasileirao",
-      "icons": [{ "src": "/images/icon-96.png", "sizes": "96x96" }]
+      "url": "/#brasileirao"
+    },
+    {
+      "name": "Regionais 2026",
+      "short_name": "Regionais",
+      "description": "Campeonatos estaduais",
+      "url": "/regionais.html"
     }
   ]
 }

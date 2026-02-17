@@ -558,6 +558,62 @@ const newsTicker = {
     }
 };
 
+// Back to Top Button
+const backToTop = {
+    init() {
+        const btn = document.getElementById('backToTop');
+        if (!btn) return;
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 600) {
+                btn.classList.add('visible');
+            } else {
+                btn.classList.remove('visible');
+            }
+        });
+
+        btn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+};
+
+// Search functionality
+const searchBox = {
+    init() {
+        const input = document.querySelector('.search-box input');
+        const btn = document.querySelector('.search-box button');
+        if (!input || !btn) return;
+
+        const doSearch = () => {
+            const query = input.value.trim().toLowerCase();
+            if (!query || query.length < 2) return;
+
+            // Search through articles
+            const articles = newsLoader.articlesData || [];
+            const results = articles.filter(a => {
+                const text = `${a.title} ${a.excerpt} ${a.category}`.toLowerCase();
+                return text.includes(query);
+            });
+
+            if (results.length > 0) {
+                // Navigate to first matching article
+                window.location.href = results[0].url;
+            } else {
+                alert('Nenhum resultado encontrado para: ' + input.value.trim());
+            }
+        };
+
+        btn.addEventListener('click', doSearch);
+        input.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                doSearch();
+            }
+        });
+    }
+};
+
 // Initialize everything when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
     // Carregadores principais
@@ -575,6 +631,8 @@ document.addEventListener('DOMContentLoaded', () => {
     matchesWidget.render();
     mobileMenu.init();
     newsTicker.init();
+    backToTop.init();
+    searchBox.init();
 });
 
 // Refresh news every 5 minutes (for dynamic content updates)

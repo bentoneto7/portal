@@ -186,17 +186,23 @@ app.get('/sitemap.xml', async (req, res) => {
         let sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-        <loc>https://seudominio.com/</loc>
+        <loc>https://bolanarede.com.br/</loc>
         <lastmod>${new Date().toISOString()}</lastmod>
         <changefreq>hourly</changefreq>
         <priority>1.0</priority>
+    </url>
+    <url>
+        <loc>https://bolanarede.com.br/regionais.html</loc>
+        <lastmod>${new Date().toISOString()}</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.9</priority>
     </url>
 `;
 
         articles.slice(0, 500).forEach(article => {
             sitemap += `
     <url>
-        <loc>https://seudominio.com${article.url}</loc>
+        <loc>https://bolanarede.com.br${article.url}</loc>
         <lastmod>${article.publishedAt}</lastmod>
         <changefreq>daily</changefreq>
         <priority>0.8</priority>
@@ -225,22 +231,22 @@ app.get('/rss.xml', async (req, res) => {
         let rss = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>News Portal</title>
-        <link>https://seudominio.com</link>
-        <description>Notícias em tempo real do Brasil e mundo</description>
+        <title>Bola na Rede - Futebol Brasileiro Sem Filtro</title>
+        <link>https://bolanarede.com.br</link>
+        <description>O maior portal de futebol do Brasil. Brasileirão, Neymar, Copa 2026, Mercado da Bola e análises táticas exclusivas.</description>
         <language>${lang}</language>
         <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
-        <atom:link href="https://seudominio.com/rss.xml" rel="self" type="application/rss+xml"/>
+        <atom:link href="https://bolanarede.com.br/rss.xml" rel="self" type="application/rss+xml"/>
 `;
 
         filtered.forEach(article => {
             rss += `
         <item>
             <title>${escapeXml(article.title)}</title>
-            <link>https://seudominio.com${article.url}</link>
+            <link>https://bolanarede.com.br${article.url}</link>
             <description>${escapeXml(article.excerpt)}</description>
             <pubDate>${new Date(article.publishedAt).toUTCString()}</pubDate>
-            <guid>https://seudominio.com${article.url}</guid>
+            <guid>https://bolanarede.com.br${article.url}</guid>
         </item>`;
         });
 

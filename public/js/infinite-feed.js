@@ -189,7 +189,7 @@ class InfiniteFeed {
         const timeAgo = this.getTimeAgo(publishedDate);
 
         articleCard.innerHTML = `
-            <a href="/artigo/${article.id}.html" class="feed-article-link" data-article-id="${article.id}">
+            <a href="${article.url || '/artigo/' + article.id + '.html'}" class="feed-article-link" data-article-id="${article.id}">
                 <div class="feed-article-image">
                     <img
                         src="${article.image}"
@@ -286,12 +286,15 @@ class InfiniteFeed {
      */
     getCategoryLabel(category) {
         const labels = {
-            'champions': 'Champions League',
-            'estaduais': 'Estaduais',
+            'brasileirao': 'Brasileirão',
+            'copa': 'Copa 2026',
             'neymar': 'Neymar Jr',
-            'messi': 'Lionel Messi',
-            'cr7': 'Cristiano Ronaldo',
-            'copa': 'Copa 2026'
+            'mercado': 'Mercado',
+            'opiniao': 'Opinião',
+            'taticas': 'Táticas',
+            'regionais': 'Regionais',
+            'champions': 'Champions League',
+            'estaduais': 'Estaduais'
         };
         return labels[category] || category || 'Notícias';
     }
