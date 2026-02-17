@@ -1,0 +1,20 @@
+{
+  "Palmeiras": {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Palmeiras_logo.svg/200px-Palmeiras_logo.svg.png",
+    "emoji": "🟢",
+    "source": "wikimedia",
+    "cached": "2026-02-17T00:46:07.689Z"
+  },
+  "Flamengo": {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Flamengo-RJ_%28BRA%29.png/200px-Flamengo-RJ_%28BRA%29.png",
+    "emoji": "🔴⚫",
+    "source": "wikimedia",
+    "cached": "2026-02-17T00:46:07.692Z"
+  },
+  "Santos": {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Santos_logo.svg/200px-Santos_logo.svg.png",
+    "emoji": "⚪⚫",
+    "source": "wikimedia",
+    "cached": "2026-02-17T00:46:07.693Z"
+  }
+}

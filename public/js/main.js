@@ -477,15 +477,45 @@ const copaCountdown = {
 
 // Matches Widget
 const matchesWidget = {
+    // Logos reais do Wikimedia Commons
+    teamLogos: {
+        'Santos': 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Santos_logo.svg/40px-Santos_logo.svg.png',
+        'Novorizontino': '🟡',
+        'São Paulo': 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Brasao_do_Sao_Paulo_Futebol_Clube.svg/40px-Brasao_do_Sao_Paulo_Futebol_Clube.svg.png',
+        'Grêmio': 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Gremio.svg/40px-Gremio.svg.png',
+        'Vitória': 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Vit%C3%B3ria_logo.svg/40px-Vit%C3%B3ria_logo.svg.png',
+        'Flamengo': 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Flamengo-RJ_%28BRA%29.png/40px-Flamengo-RJ_%28BRA%29.png',
+        'Atlético-MG': 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Atletico_mineiro_galo.png/40px-Atletico_mineiro_galo.png',
+        'Remo': 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Clube_do_Remo.svg/40px-Clube_do_Remo.svg.png',
+        'Vasco': 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Vasco_da_Gama.svg/40px-Vasco_da_Gama.svg.png',
+        'Bahia': 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Escudo_do_Esporte_Clube_Bahia.svg/40px-Escudo_do_Esporte_Clube_Bahia.svg.png',
+        'Brasil': '🇧🇷',
+        'França': '🇫🇷',
+        'Croácia': '🇭🇷'
+    },
+
     matches: [
-        { league: 'Brasileirão Série A', home: 'Santos', away: 'Novorizontino', homeShield: '🐟', awayShield: '🟡', score: '6 x 0', status: 'finished', time: '12/02 - 21h30' },
-        { league: 'Brasileirão Série A', home: 'São Paulo', away: 'Grêmio', homeShield: '🔴⚪⚫', awayShield: '🔵⚫⚪', score: '2 x 0', status: 'finished', time: '12/02 - 19h00' },
-        { league: 'Brasileirão Série A', home: 'Vitória', away: 'Flamengo', homeShield: '🔴⚫', awayShield: '🔴⚫', score: '1 x 2', status: 'finished', time: '12/02 - 21h30' },
-        { league: 'Brasileirão Série A', home: 'Atlético-MG', away: 'Remo', homeShield: '⚫⚪', awayShield: '🔵', score: '3 x 3', status: 'finished', time: '12/02 - 19h00' },
-        { league: 'Brasileirão Série A', home: 'Vasco', away: 'Bahia', homeShield: '⚫⚪', awayShield: '🔵🔴⚪', score: '0 x 1', status: 'finished', time: '12/02 - 21h30' },
-        { league: 'Amistoso', home: 'Brasil', away: 'França', homeShield: '🇧🇷', awayShield: '🇫🇷', score: '26/03', status: 'upcoming', time: 'Boston - 16h00' },
-        { league: 'Amistoso', home: 'Brasil', away: 'Croácia', homeShield: '🇧🇷', awayShield: '🇭🇷', score: '31/03', status: 'upcoming', time: 'Orlando - 16h00' },
+        { league: 'Brasileirão Série A', home: 'Santos', away: 'Novorizontino', score: '6 x 0', status: 'finished', time: '12/02 - 21h30' },
+        { league: 'Brasileirão Série A', home: 'São Paulo', away: 'Grêmio', score: '2 x 0', status: 'finished', time: '12/02 - 19h00' },
+        { league: 'Brasileirão Série A', home: 'Vitória', away: 'Flamengo', score: '1 x 2', status: 'finished', time: '12/02 - 21h30' },
+        { league: 'Brasileirão Série A', home: 'Atlético-MG', away: 'Remo', score: '3 x 3', status: 'finished', time: '12/02 - 19h00' },
+        { league: 'Brasileirão Série A', home: 'Vasco', away: 'Bahia', score: '0 x 1', status: 'finished', time: '12/02 - 21h30' },
+        { league: 'Amistoso', home: 'Brasil', away: 'França', score: '26/03', status: 'upcoming', time: 'Boston - 16h00' },
+        { league: 'Amistoso', home: 'Brasil', away: 'Croácia', score: '31/03', status: 'upcoming', time: 'Orlando - 16h00' },
     ],
+
+    getShield(team) {
+        const logo = this.teamLogos[team];
+        if (!logo) return '⚽';
+
+        // Se for URL (logo real), retorna img tag
+        if (logo.startsWith('http')) {
+            return `<img src="${logo}" alt="${team}" class="team-logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';" /><span style="display:none;">⚽</span>`;
+        }
+
+        // Se for emoji, retorna direto
+        return logo;
+    },
 
     render() {
         const track = document.getElementById('matches-track');
@@ -496,12 +526,12 @@ const matchesWidget = {
                 <div class="match-league">${m.league}</div>
                 <div class="match-teams">
                     <div class="match-team">
-                        <span class="match-team-shield">${m.homeShield}</span>
+                        <span class="match-team-shield">${this.getShield(m.home)}</span>
                         <span class="match-team-name">${m.home}</span>
                     </div>
                     <div class="match-score ${m.status === 'live' ? 'live' : ''}">${m.score}</div>
                     <div class="match-team">
-                        <span class="match-team-shield">${m.awayShield}</span>
+                        <span class="match-team-shield">${this.getShield(m.away)}</span>
                         <span class="match-team-name">${m.away}</span>
                     </div>
                 </div>
