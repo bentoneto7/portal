@@ -25,24 +25,24 @@ const TOPIC_IMAGES = {
     // Mineiro
     'mineiro-atletico':             px(18075411),  // Player passing ball
     // Gaúcho
-    'gaucho-grenal':                px(1884576),   // People watching football match
+    'gaucho-grenal':                px(15976858),  // Crowded soccer stadium
     // Nordestão
-    'nordestao-fortaleza':          px(61135),     // Football stadium (Argentina)
+    'nordestao-fortaleza':          px(16731731),  // Football stadium
     // Paranaense
     'paranaense-athletico':         px(13890306),  // Top view soccer field
     // Pernambucano
     'pernambucano-sport':           px(16731731),  // Football stadium (Ajax)
     // Neymar / Santos
-    'neymar':                       px(50713),     // Soccer player kicking ball
+    'neymar':                       px(17955074),  // Soccer player in action
     // Copa 2026 / Seleção
     'copa':                         px(9739469),   // Aerial view football stadium
     'selecao':                      px(9739469),   // Aerial view football stadium
     // Brasileirão / Série A
-    'brasileirao':                  px(159684),    // Person playing soccer
+    'brasileirao':                  px(18075411),  // Player passing ball during match
     // VAR / Arbitragem
     'var':                          px(13890306),  // Top view soccer field
     // Mercado / Transferência
-    'mercado':                      px(30782381),  // Young soccer player resting
+    'mercado':                      px(16114080),  // Soccer player during match
     // Táticas / Análise
     'tatica':                       px(9739469),   // Aerial view stadium
     // Palmeiras

@@ -31,22 +31,22 @@ const IMG = {
     stadium_crowded:     px(15976858),   // Soccer field in crowded stadium, bright day
     stadium_aerial:      px(9739469),    // Aerial view of a football stadium
     stadium_night:       px(33471345),   // Soccer stadium field at night
-    stadium_argentina:   px(61135),      // Football stadium (Argentina)
+    stadium_argentina:   px(16731731),   // Football stadium
     field_topview:       px(13890306),   // Top view of a soccer field
     stadium_ajax:        px(16731731),   // Football stadium (Ajax Amsterdam)
 
     // PLAYERS IN ACTION
     player_passing:      px(18075411),   // Player passing ball during soccer match
-    player_red:          px(159684),     // Person playing soccer (red uniform)
+    player_red:          px(18075411),   // Player passing ball during match
     players_teamwork:    px(17955074),   // Soccer players passing a football
-    player_resting:      px(30782381),   // Young soccer player resting on field
+    player_resting:      px(16114080),   // Soccer player during match on pitch
     player_dribbling:    px(32179248),   // Soccer player dribbling during match
     player_match:        px(16114080),   // Soccer player during match on pitch
-    player_kicking:      px(50713),      // Soccer player kicking ball on grass
+    player_kicking:      px(17955074),   // Soccer player in action
     player_outdoor:      px(18075458),   // Man passing football ball
 
     // FANS / CROWD
-    fans_watching:       px(1884576),    // People watching football match
+    fans_watching:       px(15976858),   // Crowded soccer stadium
 };
 
 // ─────────────────────────────────────────────────────────
