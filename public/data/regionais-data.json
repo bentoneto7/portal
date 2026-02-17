@@ -1,0 +1,472 @@
+{
+  "paulistao": {
+    "name": "Campeonato Paulista 2026",
+    "phase": "quartas",
+    "teams": [
+      {
+        "id": "palmeiras",
+        "name": "Palmeiras",
+        "abbr": "PAL",
+        "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/SE_Palmeiras.svg/80px-SE_Palmeiras.svg.png",
+        "color": "#006B3F",
+        "accent": "#ffffff",
+        "form": ["W","W","D","W","W"],
+        "teamRating": 8.2,
+        "players": [
+          { "name": "Estêvão", "position": "AT", "number": 41, "goals": 7, "assists": 5, "matches": 8, "rating": 8.5, "experience": 5, "form": [8.2, 8.8, 9.0, 8.6, 8.9] },
+          { "name": "Raphael Veiga", "position": "ME", "number": 23, "goals": 5, "assists": 4, "matches": 8, "rating": 8.1, "experience": 8, "form": [7.9, 8.0, 8.3, 8.5, 8.8] },
+          { "name": "Zé Rafael", "position": "MC", "number": 8, "goals": 1, "assists": 3, "matches": 8, "rating": 7.6, "experience": 7, "form": [7.5, 7.4, 7.8, 7.6, 7.9] },
+          { "name": "Gustavo Gomez", "position": "ZAG", "number": 3, "goals": 2, "assists": 0, "matches": 8, "rating": 7.8, "experience": 9, "form": [7.6, 7.8, 8.0, 7.7, 8.1] }
+        ]
+      },
+      {
+        "id": "santos",
+        "name": "Santos FC",
+        "abbr": "SAN",
+        "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Santos_FC_logo.svg/80px-Santos_FC_logo.svg.png",
+        "color": "#000000",
+        "accent": "#ffffff",
+        "form": ["W","D","W","W","W"],
+        "teamRating": 8.0,
+        "players": [
+          { "name": "Neymar Jr.", "position": "AT", "number": 10, "goals": 6, "assists": 4, "matches": 7, "rating": 8.4, "experience": 10, "form": [8.0, 8.5, 8.8, 9.0, 9.2] },
+          { "name": "Marcos Leonardo", "position": "AT", "number": 9, "goals": 5, "assists": 2, "matches": 7, "rating": 7.9, "experience": 6, "form": [7.5, 7.8, 8.0, 8.2, 8.4] },
+          { "name": "Lucas Lima", "position": "ME", "number": 20, "goals": 2, "assists": 5, "matches": 7, "rating": 7.5, "experience": 8, "form": [7.2, 7.4, 7.6, 7.8, 7.9] },
+          { "name": "João Paulo", "position": "GK", "number": 1, "goals": 0, "assists": 0, "matches": 7, "rating": 7.7, "experience": 7, "form": [7.5, 7.6, 7.8, 7.9, 8.0] }
+        ]
+      },
+      {
+        "id": "corinthians",
+        "name": "Corinthians",
+        "abbr": "COR",
+        "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Sport_Club_Corinthians_Paulista.svg/80px-Sport_Club_Corinthians_Paulista.svg.png",
+        "color": "#1a1a1a",
+        "accent": "#ffffff",
+        "form": ["D","W","W","L","W"],
+        "teamRating": 7.5,
+        "players": [
+          { "name": "Memphis Depay", "position": "AT", "number": 10, "goals": 5, "assists": 3, "matches": 8, "rating": 8.0, "experience": 9, "form": [7.5, 7.8, 8.2, 8.5, 8.7] },
+          { "name": "Yuri Alberto", "position": "AT", "number": 9, "goals": 4, "assists": 1, "matches": 8, "rating": 7.4, "experience": 6, "form": [7.0, 7.2, 7.5, 7.6, 7.8] },
+          { "name": "Renato Augusto", "position": "ME", "number": 8, "goals": 1, "assists": 4, "matches": 7, "rating": 7.6, "experience": 10, "form": [7.4, 7.5, 7.8, 7.7, 7.9] },
+          { "name": "Hugo Souza", "position": "GK", "number": 21, "goals": 0, "assists": 0, "matches": 8, "rating": 7.9, "experience": 5, "form": [7.5, 7.8, 8.0, 7.9, 8.2] }
+        ]
+      },
+      {
+        "id": "saopaulo",
+        "name": "São Paulo FC",
+        "abbr": "SPF",
+        "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/S%C3%A3o_Paulo_FC.svg/80px-S%C3%A3o_Paulo_FC.svg.png",
+        "color": "#C40404",
+        "accent": "#ffffff",
+        "form": ["W","W","D","W","D"],
+        "teamRating": 7.7,
+        "players": [
+          { "name": "Calleri", "position": "AT", "number": 9, "goals": 6, "assists": 2, "matches": 8, "rating": 8.0, "experience": 8, "form": [7.8, 8.0, 8.2, 8.1, 8.4] },
+          { "name": "Pablo Maia", "position": "MC", "number": 5, "goals": 1, "assists": 3, "matches": 8, "rating": 7.7, "experience": 5, "form": [7.4, 7.6, 7.8, 7.9, 8.0] },
+          { "name": "Wellington Rato", "position": "ME", "number": 11, "goals": 3, "assists": 3, "matches": 8, "rating": 7.5, "experience": 6, "form": [7.2, 7.4, 7.6, 7.8, 7.9] }
+        ]
+      }
+    ]
+  },
+
+  "carioca": {
+    "name": "Campeonato Carioca 2026",
+    "phase": "semis",
+    "teams": [
+      {
+        "id": "flamengo",
+        "name": "Flamengo",
+        "abbr": "FLA",
+        "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Flamengo_escudo.svg/80px-Flamengo_escudo.svg.png",
+        "color": "#CC0000",
+        "accent": "#000000",
+        "form": ["W","W","W","W","W"],
+        "teamRating": 8.6,
+        "players": [
+          { "name": "Pedro", "position": "AT", "number": 9, "goals": 8, "assists": 3, "matches": 8, "rating": 8.5, "experience": 7, "form": [8.2, 8.5, 8.7, 9.0, 8.8] },
+          { "name": "Gerson", "position": "MC", "number": 8, "goals": 2, "assists": 5, "matches": 8, "rating": 8.2, "experience": 8, "form": [7.9, 8.2, 8.4, 8.3, 8.6] },
+          { "name": "Arrascaeta", "position": "ME", "number": 14, "goals": 4, "assists": 6, "matches": 8, "rating": 8.4, "experience": 8, "form": [8.0, 8.3, 8.5, 8.6, 8.8] },
+          { "name": "David Luiz", "position": "ZAG", "number": 23, "goals": 1, "assists": 0, "matches": 8, "rating": 7.6, "experience": 10, "form": [7.5, 7.6, 7.8, 7.7, 7.9] }
+        ]
+      },
+      {
+        "id": "vasco",
+        "name": "Vasco da Gama",
+        "abbr": "VAS",
+        "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/CR_Vasco_da_Gama_logo.svg/80px-CR_Vasco_da_Gama_logo.svg.png",
+        "color": "#000000",
+        "accent": "#ffffff",
+        "form": ["W","D","W","W","L"],
+        "teamRating": 7.8,
+        "players": [
+          { "name": "Vegetti", "position": "AT", "number": 99, "goals": 7, "assists": 1, "matches": 8, "rating": 8.0, "experience": 7, "form": [7.8, 8.0, 8.2, 8.4, 8.3] },
+          { "name": "Philippe Coutinho", "position": "ME", "number": 11, "goals": 3, "assists": 5, "matches": 7, "rating": 7.9, "experience": 10, "form": [7.5, 7.8, 8.0, 8.1, 8.2] },
+          { "name": "Payet", "position": "ME", "number": 10, "goals": 2, "assists": 4, "matches": 7, "rating": 7.7, "experience": 9, "form": [7.4, 7.6, 7.8, 7.9, 8.0] }
+        ]
+      },
+      {
+        "id": "fluminense",
+        "name": "Fluminense",
+        "abbr": "FLU",
+        "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Fluminense_FC_logo.svg/80px-Fluminense_FC_logo.svg.png",
+        "color": "#8B0000",
+        "accent": "#00FF00",
+        "form": ["D","W","W","D","W"],
+        "teamRating": 7.6,
+        "players": [
+          { "name": "Germán Cano", "position": "AT", "number": 14, "goals": 6, "assists": 2, "matches": 8, "rating": 7.8, "experience": 8, "form": [7.6, 7.8, 8.0, 7.9, 8.1] },
+          { "name": "André", "position": "MC", "number": 7, "goals": 1, "assists": 3, "matches": 8, "rating": 7.7, "experience": 6, "form": [7.5, 7.7, 7.8, 7.9, 8.0] },
+          { "name": "Ganso", "position": "ME", "number": 10, "goals": 2, "assists": 4, "matches": 7, "rating": 7.6, "experience": 9, "form": [7.3, 7.5, 7.7, 7.8, 7.9] }
+        ]
+      },
+      {
+        "id": "botafogo",
+        "name": "Botafogo",
+        "abbr": "BOT",
+        "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Botafogo_de_Futebol_e_Regatas.svg/80px-Botafogo_de_Futebol_e_Regatas.svg.png",
+        "color": "#000000",
+        "accent": "#ffffff",
+        "form": ["W","L","W","W","D"],
+        "teamRating": 7.5,
+        "players": [
+          { "name": "Tiquinho Soares", "position": "AT", "number": 9, "goals": 5, "assists": 2, "matches": 8, "rating": 7.7, "experience": 7, "form": [7.4, 7.6, 7.8, 7.9, 8.0] },
+          { "name": "Marlon Freitas", "position": "MC", "number": 20, "goals": 2, "assists": 4, "matches": 8, "rating": 7.6, "experience": 6, "form": [7.3, 7.5, 7.7, 7.8, 7.9] },
+          { "name": "Savarino", "position": "ME", "number": 11, "goals": 3, "assists": 3, "matches": 8, "rating": 7.8, "experience": 7, "form": [7.5, 7.7, 7.9, 8.0, 8.1] }
+        ]
+      }
+    ]
+  },
+
+  "mineiro": {
+    "name": "Campeonato Mineiro 2026",
+    "phase": "semis",
+    "teams": [
+      {
+        "id": "atletico-mg",
+        "name": "Atlético-MG",
+        "abbr": "CAM",
+        "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/CA_Mineiro_escudo.svg/80px-CA_Mineiro_escudo.svg.png",
+        "color": "#000000",
+        "accent": "#ffffff",
+        "form": ["W","W","W","D","W"],
+        "teamRating": 8.1,
+        "players": [
+          { "name": "Paulinho", "position": "AT", "number": 10, "goals": 7, "assists": 3, "matches": 8, "rating": 8.2, "experience": 7, "form": [8.0, 8.2, 8.4, 8.5, 8.7] },
+          { "name": "Hulk", "position": "AT", "number": 7, "goals": 4, "assists": 2, "matches": 6, "rating": 7.8, "experience": 10, "form": [7.6, 7.8, 8.0, 7.9, 8.2] },
+          { "name": "Nacho Fernández", "position": "ME", "number": 8, "goals": 2, "assists": 5, "matches": 8, "rating": 7.9, "experience": 8, "form": [7.7, 7.9, 8.0, 8.1, 8.3] },
+          { "name": "Everson", "position": "GK", "number": 23, "goals": 0, "assists": 0, "matches": 8, "rating": 8.0, "experience": 8, "form": [7.8, 8.0, 8.1, 8.0, 8.2] }
+        ]
+      },
+      {
+        "id": "cruzeiro",
+        "name": "Cruzeiro",
+        "abbr": "CRU",
+        "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Cruzeiro_Esporte_Clube_crest.svg/80px-Cruzeiro_Esporte_Clube_crest.svg.png",
+        "color": "#003399",
+        "accent": "#ffffff",
+        "form": ["W","D","W","W","D"],
+        "teamRating": 7.8,
+        "players": [
+          { "name": "Matheus Pereira", "position": "ME", "number": 10, "goals": 5, "assists": 6, "matches": 8, "rating": 8.1, "experience": 7, "form": [7.9, 8.0, 8.3, 8.4, 8.5] },
+          { "name": "Rafa Silva", "position": "AT", "number": 11, "goals": 4, "assists": 3, "matches": 8, "rating": 7.7, "experience": 7, "form": [7.5, 7.7, 7.9, 7.8, 8.0] },
+          { "name": "Gabriel Terra", "position": "ME", "number": 20, "goals": 2, "assists": 3, "matches": 7, "rating": 7.4, "experience": 4, "form": [7.0, 7.3, 7.5, 7.6, 7.8] }
+        ]
+      },
+      {
+        "id": "america-mg",
+        "name": "América-MG",
+        "abbr": "AMG",
+        "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/America_Futebol_Clube_%28MG%29.svg/80px-America_Futebol_Clube_%28MG%29.svg.png",
+        "color": "#007849",
+        "accent": "#ffffff",
+        "form": ["D","W","L","W","W"],
+        "teamRating": 7.2,
+        "players": [
+          { "name": "Mastriani", "position": "AT", "number": 9, "goals": 5, "assists": 1, "matches": 8, "rating": 7.5, "experience": 6, "form": [7.2, 7.4, 7.6, 7.7, 7.8] },
+          { "name": "Felipe Azevedo", "position": "ME", "number": 10, "goals": 2, "assists": 4, "matches": 8, "rating": 7.3, "experience": 7, "form": [7.0, 7.2, 7.4, 7.5, 7.6] }
+        ]
+      },
+      {
+        "id": "tombense",
+        "name": "Tombense",
+        "abbr": "TOM",
+        "logo": "",
+        "color": "#000080",
+        "accent": "#ffffff",
+        "form": ["W","D","W","L","W"],
+        "teamRating": 6.9,
+        "players": [
+          { "name": "Caíque", "position": "AT", "number": 9, "goals": 4, "assists": 1, "matches": 8, "rating": 7.0, "experience": 4, "form": [6.8, 7.0, 7.1, 7.0, 7.2] }
+        ]
+      }
+    ]
+  },
+
+  "gaucho": {
+    "name": "Gauchão 2026",
+    "phase": "semis",
+    "teams": [
+      {
+        "id": "gremio",
+        "name": "Grêmio",
+        "abbr": "GRE",
+        "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Gr%C3%AAmio_Foot-Ball_Porto_Alegrense_logo.svg/80px-Gr%C3%AAmio_Foot-Ball_Porto_Alegrense_logo.svg.png",
+        "color": "#0066CC",
+        "accent": "#000000",
+        "form": ["W","W","D","W","W"],
+        "teamRating": 8.0,
+        "players": [
+          { "name": "Luis Suárez", "position": "AT", "number": 9, "goals": 6, "assists": 3, "matches": 7, "rating": 8.1, "experience": 10, "form": [7.8, 8.0, 8.3, 8.5, 8.6] },
+          { "name": "Nathan Fernandes", "position": "ME", "number": 10, "goals": 4, "assists": 5, "matches": 8, "rating": 7.9, "experience": 5, "form": [7.6, 7.8, 8.0, 8.2, 8.4] },
+          { "name": "Cristaldo", "position": "AT", "number": 30, "goals": 5, "assists": 2, "matches": 8, "rating": 7.8, "experience": 6, "form": [7.5, 7.7, 7.9, 8.0, 8.1] },
+          { "name": "Gabriel Grando", "position": "GK", "number": 1, "goals": 0, "assists": 0, "matches": 8, "rating": 7.8, "experience": 5, "form": [7.5, 7.7, 7.9, 8.0, 8.2] }
+        ]
+      },
+      {
+        "id": "internacional",
+        "name": "Internacional",
+        "abbr": "INT",
+        "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Sport_Club_Internacional.svg/80px-Sport_Club_Internacional.svg.png",
+        "color": "#CC0000",
+        "accent": "#ffffff",
+        "form": ["W","D","W","W","L"],
+        "teamRating": 7.8,
+        "players": [
+          { "name": "Wanderson", "position": "AT", "number": 7, "goals": 5, "assists": 3, "matches": 8, "rating": 7.8, "experience": 7, "form": [7.5, 7.7, 7.9, 8.0, 8.1] },
+          { "name": "Alan Patrick", "position": "ME", "number": 10, "goals": 3, "assists": 5, "matches": 8, "rating": 8.0, "experience": 8, "form": [7.7, 7.9, 8.1, 8.2, 8.3] },
+          { "name": "Rochet", "position": "GK", "number": 1, "goals": 0, "assists": 0, "matches": 8, "rating": 7.9, "experience": 7, "form": [7.6, 7.8, 8.0, 7.9, 8.1] }
+        ]
+      },
+      {
+        "id": "juventude",
+        "name": "Juventude",
+        "abbr": "JUV",
+        "logo": "",
+        "color": "#006600",
+        "accent": "#ffffff",
+        "form": ["L","W","D","W","W"],
+        "teamRating": 7.0,
+        "players": [
+          { "name": "Ênio", "position": "AT", "number": 10, "goals": 5, "assists": 2, "matches": 8, "rating": 7.4, "experience": 5, "form": [7.0, 7.2, 7.5, 7.6, 7.7] },
+          { "name": "Gabriel Taliari", "position": "ME", "number": 8, "goals": 2, "assists": 3, "matches": 8, "rating": 7.1, "experience": 4, "form": [6.9, 7.0, 7.2, 7.3, 7.4] }
+        ]
+      },
+      {
+        "id": "caxias",
+        "name": "Caxias",
+        "abbr": "CAX",
+        "logo": "",
+        "color": "#003399",
+        "accent": "#ffffff",
+        "form": ["D","W","L","W","D"],
+        "teamRating": 6.8,
+        "players": [
+          { "name": "Léo Gamalho", "position": "AT", "number": 9, "goals": 4, "assists": 1, "matches": 8, "rating": 7.1, "experience": 7, "form": [6.8, 7.0, 7.1, 7.2, 7.3] }
+        ]
+      }
+    ]
+  },
+
+  "nordestao": {
+    "name": "Copa do Nordeste 2026",
+    "phase": "grupos",
+    "teams": [
+      {
+        "id": "fortaleza",
+        "name": "Fortaleza",
+        "abbr": "FOR",
+        "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Fortaleza_EC_logo.svg/80px-Fortaleza_EC_logo.svg.png",
+        "color": "#0060AF",
+        "accent": "#CC0000",
+        "form": ["W","W","W","W","W"],
+        "teamRating": 8.3,
+        "players": [
+          { "name": "Lucero", "position": "AT", "number": 9, "goals": 7, "assists": 2, "matches": 7, "rating": 8.2, "experience": 7, "form": [8.0, 8.2, 8.4, 8.5, 8.7] },
+          { "name": "Yago Pikachu", "position": "ME", "number": 22, "goals": 2, "assists": 6, "matches": 7, "rating": 8.0, "experience": 8, "form": [7.8, 8.0, 8.2, 8.1, 8.3] },
+          { "name": "Renato Kayzer", "position": "AT", "number": 17, "goals": 4, "assists": 1, "matches": 7, "rating": 7.7, "experience": 6, "form": [7.4, 7.6, 7.8, 7.9, 8.0] },
+          { "name": "João Ricardo", "position": "GK", "number": 1, "goals": 0, "assists": 0, "matches": 7, "rating": 8.1, "experience": 7, "form": [7.8, 8.0, 8.2, 8.1, 8.3] }
+        ]
+      },
+      {
+        "id": "ceara",
+        "name": "Ceará SC",
+        "abbr": "CEA",
+        "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Ceara_SC.svg/80px-Ceara_SC.svg.png",
+        "color": "#000000",
+        "accent": "#ffffff",
+        "form": ["W","D","W","W","D"],
+        "teamRating": 7.6,
+        "players": [
+          { "name": "Vina", "position": "ME", "number": 29, "goals": 3, "assists": 5, "matches": 7, "rating": 7.8, "experience": 7, "form": [7.5, 7.7, 7.9, 8.0, 8.1] },
+          { "name": "Zé Roberto", "position": "AT", "number": 9, "goals": 5, "assists": 1, "matches": 7, "rating": 7.5, "experience": 5, "form": [7.2, 7.4, 7.6, 7.7, 7.8] }
+        ]
+      },
+      {
+        "id": "bahia",
+        "name": "EC Bahia",
+        "abbr": "BAH",
+        "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/EC_Bahia_logo.svg/80px-EC_Bahia_logo.svg.png",
+        "color": "#0033CC",
+        "accent": "#CC0000",
+        "form": ["W","W","D","W","L"],
+        "teamRating": 7.8,
+        "players": [
+          { "name": "Éverton Ribeiro", "position": "ME", "number": 7, "goals": 3, "assists": 6, "matches": 7, "rating": 7.9, "experience": 9, "form": [7.6, 7.8, 8.0, 8.1, 8.2] },
+          { "name": "Ademir", "position": "AT", "number": 11, "goals": 4, "assists": 2, "matches": 7, "rating": 7.6, "experience": 6, "form": [7.3, 7.5, 7.7, 7.8, 7.9] }
+        ]
+      },
+      {
+        "id": "sport",
+        "name": "Sport Recife",
+        "abbr": "SPT",
+        "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Sport_Club_do_Recife.svg/80px-Sport_Club_do_Recife.svg.png",
+        "color": "#CC0000",
+        "accent": "#000000",
+        "form": ["W","D","W","D","W"],
+        "teamRating": 7.3,
+        "players": [
+          { "name": "Edson Carioca", "position": "AT", "number": 9, "goals": 4, "assists": 1, "matches": 7, "rating": 7.4, "experience": 5, "form": [7.1, 7.3, 7.5, 7.6, 7.7] }
+        ]
+      },
+      {
+        "id": "nautico-nor",
+        "name": "Náutico",
+        "abbr": "NAU",
+        "logo": "",
+        "color": "#CC0000",
+        "accent": "#ffffff",
+        "form": ["D","W","L","W","D"],
+        "teamRating": 7.0,
+        "players": [
+          { "name": "Jean Carlos", "position": "ME", "number": 10, "goals": 3, "assists": 3, "matches": 7, "rating": 7.2, "experience": 5, "form": [6.9, 7.0, 7.2, 7.3, 7.4] }
+        ]
+      }
+    ]
+  },
+
+  "paranaense": {
+    "name": "Campeonato Paranaense 2026",
+    "phase": "semis",
+    "teams": [
+      {
+        "id": "athletico-pr",
+        "name": "Athletico-PR",
+        "abbr": "ATH",
+        "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Athletico_Paranaense_logo.svg/80px-Athletico_Paranaense_logo.svg.png",
+        "color": "#CC0000",
+        "accent": "#000000",
+        "form": ["W","W","W","D","W"],
+        "teamRating": 8.1,
+        "players": [
+          { "name": "Vitor Roque", "position": "AT", "number": 9, "goals": 6, "assists": 2, "matches": 7, "rating": 8.0, "experience": 4, "form": [7.8, 8.0, 8.2, 8.4, 8.6] },
+          { "name": "Fernandinho", "position": "MC", "number": 5, "goals": 1, "assists": 3, "matches": 7, "rating": 7.8, "experience": 10, "form": [7.6, 7.8, 7.9, 8.0, 8.1] },
+          { "name": "Alex Santana", "position": "MC", "number": 14, "goals": 2, "assists": 3, "matches": 7, "rating": 7.6, "experience": 6, "form": [7.4, 7.5, 7.7, 7.8, 7.9] },
+          { "name": "Bento", "position": "GK", "number": 1, "goals": 0, "assists": 0, "matches": 7, "rating": 8.2, "experience": 7, "form": [8.0, 8.1, 8.3, 8.2, 8.4] }
+        ]
+      },
+      {
+        "id": "coritiba",
+        "name": "Coritiba",
+        "abbr": "CFC",
+        "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Coritiba_Foot_Ball_Club_logo.svg/80px-Coritiba_Foot_Ball_Club_logo.svg.png",
+        "color": "#006600",
+        "accent": "#ffffff",
+        "form": ["W","D","W","W","L"],
+        "teamRating": 7.4,
+        "players": [
+          { "name": "Alef Manga", "position": "AT", "number": 9, "goals": 5, "assists": 1, "matches": 7, "rating": 7.6, "experience": 5, "form": [7.3, 7.5, 7.7, 7.8, 7.9] },
+          { "name": "Victor Ferraz", "position": "LD", "number": 2, "goals": 1, "assists": 3, "matches": 7, "rating": 7.3, "experience": 8, "form": [7.1, 7.2, 7.4, 7.5, 7.6] }
+        ]
+      },
+      {
+        "id": "parana-clube",
+        "name": "Paraná Clube",
+        "abbr": "PAR",
+        "logo": "",
+        "color": "#003399",
+        "accent": "#ffffff",
+        "form": ["D","W","W","L","W"],
+        "teamRating": 7.0,
+        "players": [
+          { "name": "Eduardo Henrique", "position": "ME", "number": 10, "goals": 3, "assists": 3, "matches": 7, "rating": 7.1, "experience": 5, "form": [6.8, 7.0, 7.2, 7.3, 7.4] }
+        ]
+      },
+      {
+        "id": "fc-cascavel",
+        "name": "FC Cascavel",
+        "abbr": "CAS",
+        "logo": "",
+        "color": "#006600",
+        "accent": "#ffffff",
+        "form": ["W","D","L","W","D"],
+        "teamRating": 6.7,
+        "players": [
+          { "name": "Matheus Felipe", "position": "AT", "number": 9, "goals": 3, "assists": 1, "matches": 7, "rating": 6.9, "experience": 3, "form": [6.5, 6.7, 6.9, 7.0, 7.1] }
+        ]
+      }
+    ]
+  },
+
+  "pernambucano": {
+    "name": "Campeonato Pernambucano 2026",
+    "phase": "semis",
+    "teams": [
+      {
+        "id": "sport-recife",
+        "name": "Sport Recife",
+        "abbr": "SPT",
+        "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Sport_Club_do_Recife.svg/80px-Sport_Club_do_Recife.svg.png",
+        "color": "#CC0000",
+        "accent": "#000000",
+        "form": ["W","W","D","W","W"],
+        "teamRating": 7.9,
+        "players": [
+          { "name": "Santiago Tréllez", "position": "AT", "number": 9, "goals": 6, "assists": 2, "matches": 7, "rating": 7.8, "experience": 7, "form": [7.5, 7.7, 7.9, 8.0, 8.1] },
+          { "name": "Rafael Thyere", "position": "ZAG", "number": 4, "goals": 1, "assists": 0, "matches": 7, "rating": 7.7, "experience": 6, "form": [7.4, 7.6, 7.8, 7.9, 8.0] },
+          { "name": "Luciano Juba", "position": "ME", "number": 11, "goals": 3, "assists": 4, "matches": 7, "rating": 7.6, "experience": 5, "form": [7.3, 7.5, 7.7, 7.8, 7.9] }
+        ]
+      },
+      {
+        "id": "nautico-per",
+        "name": "Náutico",
+        "abbr": "NAU",
+        "logo": "",
+        "color": "#CC0000",
+        "accent": "#ffffff",
+        "form": ["D","W","W","D","W"],
+        "teamRating": 7.3,
+        "players": [
+          { "name": "Jean Carlos", "position": "ME", "number": 10, "goals": 3, "assists": 4, "matches": 7, "rating": 7.4, "experience": 5, "form": [7.1, 7.3, 7.5, 7.6, 7.7] },
+          { "name": "Junior Tavares", "position": "AT", "number": 9, "goals": 4, "assists": 1, "matches": 7, "rating": 7.2, "experience": 4, "form": [6.9, 7.1, 7.3, 7.4, 7.5] }
+        ]
+      },
+      {
+        "id": "santa-cruz",
+        "name": "Santa Cruz",
+        "abbr": "STA",
+        "logo": "",
+        "color": "#CC0000",
+        "accent": "#000000",
+        "form": ["W","L","D","W","W"],
+        "teamRating": 7.1,
+        "players": [
+          { "name": "Pipico", "position": "AT", "number": 9, "goals": 4, "assists": 1, "matches": 7, "rating": 7.3, "experience": 6, "form": [7.0, 7.2, 7.4, 7.5, 7.6] },
+          { "name": "Renato Caetano", "position": "ME", "number": 8, "goals": 1, "assists": 3, "matches": 7, "rating": 7.0, "experience": 5, "form": [6.8, 7.0, 7.1, 7.2, 7.3] }
+        ]
+      },
+      {
+        "id": "retro-fc",
+        "name": "Retrô FC",
+        "abbr": "RET",
+        "logo": "",
+        "color": "#000080",
+        "accent": "#ffffff",
+        "form": ["D","W","D","L","W"],
+        "teamRating": 6.8,
+        "players": [
+          { "name": "André Lima", "position": "ME", "number": 10, "goals": 2, "assists": 3, "matches": 7, "rating": 7.0, "experience": 4, "form": [6.7, 6.9, 7.0, 7.1, 7.2] }
+        ]
+      }
+    ]
+  }
+}

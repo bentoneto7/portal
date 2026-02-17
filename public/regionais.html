@@ -315,6 +315,9 @@
                 <div class="team-card"><span class="team-pos">Q8</span>Água Santa</div>
             </div>
 
+            <h3 class="section-label">🔮 Análise Preditiva</h3>
+            <div id="predictor-paulistao"><div style="text-align:center;padding:20px;color:#999;">Carregando análise...</div></div>
+
             <h3 class="section-label">📰 Notícias do Paulistão</h3>
             <div class="articles-grid" id="articles-paulistao">
                 <div class="no-articles">Carregando notícias...</div>
@@ -352,6 +355,9 @@
                 <div class="team-card"><span class="team-pos">S3</span>Fluminense</div>
                 <div class="team-card"><span class="team-pos">S4</span>Botafogo</div>
             </div>
+
+            <h3 class="section-label">🔮 Análise Preditiva</h3>
+            <div id="predictor-carioca"><div style="text-align:center;padding:20px;color:#999;">Carregando análise...</div></div>
 
             <h3 class="section-label">📰 Notícias do Carioca</h3>
             <div class="articles-grid" id="articles-carioca">
@@ -391,6 +397,9 @@
                 <div class="team-card"><span class="team-pos">S4</span>Tombense</div>
             </div>
 
+            <h3 class="section-label">🔮 Análise Preditiva</h3>
+            <div id="predictor-mineiro"><div style="text-align:center;padding:20px;color:#999;">Carregando análise...</div></div>
+
             <h3 class="section-label">📰 Notícias do Mineiro</h3>
             <div class="articles-grid" id="articles-mineiro">
                 <div class="no-articles">Carregando notícias...</div>
@@ -428,6 +437,9 @@
                 <div class="team-card"><span class="team-pos">S3</span>Juventude</div>
                 <div class="team-card"><span class="team-pos">S4</span>Caxias</div>
             </div>
+
+            <h3 class="section-label">🔮 Análise Preditiva</h3>
+            <div id="predictor-gaucho"><div style="text-align:center;padding:20px;color:#999;">Carregando análise...</div></div>
 
             <h3 class="section-label">📰 Notícias do Gaúcho</h3>
             <div class="articles-grid" id="articles-gaucho">
@@ -469,6 +481,9 @@
                 <div class="team-card"><span class="team-pos">G.C</span>ABC</div>
             </div>
 
+            <h3 class="section-label">🔮 Análise Preditiva</h3>
+            <div id="predictor-nordestao"><div style="text-align:center;padding:20px;color:#999;">Carregando análise...</div></div>
+
             <h3 class="section-label">📰 Notícias do Nordestão</h3>
             <div class="articles-grid" id="articles-nordestao">
                 <div class="no-articles">Carregando notícias...</div>
@@ -506,6 +521,9 @@
                 <div class="team-card"><span class="team-pos">S3</span>Paraná Clube</div>
                 <div class="team-card"><span class="team-pos">S4</span>FC Cascavel</div>
             </div>
+
+            <h3 class="section-label">🔮 Análise Preditiva</h3>
+            <div id="predictor-paranaense"><div style="text-align:center;padding:20px;color:#999;">Carregando análise...</div></div>
 
             <h3 class="section-label">📰 Notícias do Paranaense</h3>
             <div class="articles-grid" id="articles-paranaense">
@@ -545,6 +563,9 @@
                 <div class="team-card"><span class="team-pos">S4</span>Retrô FC</div>
             </div>
 
+            <h3 class="section-label">🔮 Análise Preditiva</h3>
+            <div id="predictor-pernambucano"><div style="text-align:center;padding:20px;color:#999;">Carregando análise...</div></div>
+
             <h3 class="section-label">📰 Notícias do Pernambucano</h3>
             <div class="articles-grid" id="articles-pernambucano">
                 <div class="no-articles">Carregando notícias...</div>
@@ -568,6 +589,7 @@
         </div>
     </footer>
 
+    <script src="/js/predictor.js"></script>
     <script src="/js/comments.js"></script>
     <script>
     // ========================
@@ -671,8 +693,9 @@
         if (panel) panel.classList.add('active');
         if (btn) btn.classList.add('active');
 
-        // Carrega artigos se ainda não carregou
+        // Carrega artigos e análise preditiva
         renderArticlesForTab(regional);
+        Predictor.renderPredictor(regional);
 
         // Renderiza comentários
         CommentsSystem.render(regional, `comments-${regional}`);
@@ -694,8 +717,9 @@
                 const btn = document.querySelector(`.tab-btn[onclick*="'${hash}'"]`);
                 switchTab(hash, btn);
             } else {
-                // Renderiza comentários da aba padrão (paulistao)
+                // Renderiza comentários + análise preditiva da aba padrão (paulistao)
                 CommentsSystem.render('paulistao', 'comments-paulistao');
+                Predictor.renderPredictor('paulistao');
             }
         });
     });
