@@ -102,25 +102,23 @@ app.get('/api/featured', async (req, res) => {
 // Get news by category
 app.get('/api/news', async (req, res) => {
     try {
-        const { category = 'brasil', lang = 'pt-BR' } = req.query;
+        const { category, lang = 'pt-BR', page = 1, limit = 20 } = req.query;
+        const pageNum = parseInt(page);
+        const limitNum = parseInt(limit);
 
-        const indexPath = path.join(DATA_DIR, 'indices', `${lang}-${category}.json`);
+        const data = await fs.readFile(ARTICLES_INDEX, 'utf8');
+        const allArticles = JSON.parse(data);
 
-        try {
-            const data = await fs.readFile(indexPath, 'utf8');
-            const articles = JSON.parse(data);
-            res.json(articles);
-        } catch (error) {
-            // Fallback to main index
-            const data = await fs.readFile(ARTICLES_INDEX, 'utf8');
-            const allArticles = JSON.parse(data);
-
-            const filtered = allArticles
-                .filter(a => a.language === lang && a.category === category)
-                .slice(0, 20);
-
-            res.json(filtered);
+        let filtered = allArticles.filter(a => a.language === lang);
+        if (category) {
+            filtered = filtered.filter(a => a.category === category);
         }
+
+        const total = filtered.length;
+        const start = (pageNum - 1) * limitNum;
+        const articles = filtered.slice(start, start + limitNum);
+
+        res.json({ articles, total, page: pageNum, totalPages: Math.ceil(total / limitNum) });
     } catch (error) {
         console.error('Error getting news:', error);
         res.status(500).json({ error: 'Failed to load news' });
