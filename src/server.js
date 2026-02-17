@@ -24,6 +24,61 @@ const DATA_DIR = path.join(__dirname, '../data');
 const ARTICLES_INDEX = path.join(DATA_DIR, 'articles-index.json');
 
 /**
+ * Health Check Helper
+ */
+async function getHealthData() {
+    const health = {
+        status: 'ok',
+        timestamp: new Date().toISOString(),
+        uptime: process.uptime(),
+        environment: process.env.NODE_ENV || 'development',
+
+        // Verifica arquivos essenciais
+        files: {
+            articlesIndex: await fs.access(ARTICLES_INDEX).then(() => true).catch(() => false)
+        },
+
+        // APIs configuradas
+        apis: {
+            anthropic: !!process.env.ANTHROPIC_API_KEY,
+            newsApi: !!process.env.NEWS_API_KEY
+        },
+
+        // Estatísticas
+        stats: {}
+    };
+
+    // Conta artigos
+    try {
+        const data = await fs.readFile(ARTICLES_INDEX, 'utf8');
+        const articles = JSON.parse(data);
+        health.stats.totalArticles = articles.length;
+        health.stats.latestArticle = articles[0]?.publishedAt || null;
+    } catch (error) {
+        health.stats.totalArticles = 0;
+    }
+
+    // Tamanho do cache
+    try {
+        const cacheDir = path.join(__dirname, '../data/cache');
+        const files = await fs.readdir(cacheDir, { recursive: true });
+        health.stats.cacheFiles = files.length;
+    } catch (error) {
+        health.stats.cacheFiles = 0;
+    }
+
+    // Memória
+    const memUsage = process.memoryUsage();
+    health.memory = {
+        heapUsed: Math.round(memUsage.heapUsed / 1024 / 1024) + 'MB',
+        heapTotal: Math.round(memUsage.heapTotal / 1024 / 1024) + 'MB',
+        rss: Math.round(memUsage.rss / 1024 / 1024) + 'MB'
+    };
+
+    return health;
+}
+
+/**
  * API Routes
  */
 
@@ -200,9 +255,34 @@ app.get('/rss.xml', async (req, res) => {
     }
 });
 
-// Health check
-app.get('/health', (req, res) => {
-    res.json({ status: 'ok', timestamp: new Date().toISOString() });
+// Health check endpoints
+app.get('/health', async (req, res) => {
+    try {
+        const healthData = await getHealthData();
+        res.json(healthData);
+    } catch (error) {
+        res.status(503).json({
+            status: 'error',
+            message: error.message,
+            timestamp: new Date().toISOString()
+        });
+    }
+});
+
+// Readiness check (para K8s/Docker)
+app.get('/ready', async (req, res) => {
+    try {
+        // Verifica se arquivos essenciais existem
+        await fs.access(ARTICLES_INDEX);
+        res.status(200).send('Ready');
+    } catch (error) {
+        res.status(503).send('Not Ready');
+    }
+});
+
+// Liveness check (para K8s/Docker)
+app.get('/live', (req, res) => {
+    res.status(200).send('Alive');
 });
 
 // Serve article pages

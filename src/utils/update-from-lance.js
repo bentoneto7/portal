@@ -14,6 +14,7 @@
 require('dotenv').config();
 
 const { LanceNewsScraper } = require('../scrapers/lance-news-scraper');
+const { RSSNewsScraper } = require('../scrapers/rss-news-scraper');
 const { JournalistAgent } = require('../agents/journalist-agent');
 const { TeamLogoScraper } = require('../scrapers/team-logo-scraper');
 const fs = require('fs').promises;
@@ -22,6 +23,7 @@ const path = require('path');
 class LanceSiteUpdater {
     constructor() {
         this.lanceScraper = new LanceNewsScraper();
+        this.rssScraper = new RSSNewsScraper();
         this.teamLogoScraper = new TeamLogoScraper();
         this.journalistAgent = null;
 
@@ -51,7 +53,7 @@ class LanceSiteUpdater {
      */
     async init() {
         console.log('\n╔════════════════════════════════════════╗');
-        console.log('║   LANCE → BOLA NA REDE UPDATER       ║');
+        console.log('║   RSS → BOLA NA REDE UPDATER         ║');
         console.log('╚════════════════════════════════════════╝\n');
 
         // Valida API Key
@@ -65,9 +67,57 @@ class LanceSiteUpdater {
             process.env.AI_MODEL || 'claude-sonnet-4'
         );
 
+        // Valida API Key
+        await this.validateApiKey();
+
+        // Inicializa scrapers
+        await this.rssScraper.init();
         await this.teamLogoScraper.init();
 
         console.log('✅ Componentes inicializados\n');
+    }
+
+    /**
+     * Valida ANTHROPIC_API_KEY
+     */
+    async validateApiKey() {
+        console.log('🔑 Validando ANTHROPIC_API_KEY...');
+
+        try {
+            const axios = require('axios');
+
+            // Faz chamada de teste com modelo barato
+            await axios.post(
+                'https://api.anthropic.com/v1/messages',
+                {
+                    model: 'claude-haiku-4-5',
+                    max_tokens: 10,
+                    messages: [{ role: 'user', content: 'test' }]
+                },
+                {
+                    headers: {
+                        'x-api-key': this.journalistAgent.apiKey,
+                        'anthropic-version': '2023-06-01',
+                        'content-type': 'application/json'
+                    },
+                    timeout: 10000
+                }
+            );
+
+            console.log('✅ API Key válida\n');
+            return true;
+
+        } catch (error) {
+            if (error.response?.status === 401) {
+                console.error('❌ ANTHROPIC_API_KEY inválida ou expirada!');
+                throw new Error('Configure ANTHROPIC_API_KEY válida no .env');
+            }
+
+            // Outros erros são OK (rate limit, etc)
+            console.log('⚠️  Não foi possível validar API Key (assumindo válida)');
+            console.log('   Motivo:', error.message);
+            return true;
+        }
     }
 
     /**
@@ -123,26 +173,42 @@ class LanceSiteUpdater {
     }
 
     /**
-     * Atualiza site com notícias do Lance
+     * Atualiza site com notícias (RSS feeds públicos)
      */
     async updateSite(options = {}) {
         const {
             sections = ['brasileirao', 'mercado'],
             articlesPerSection = 2,
-            maxTotal = 5
+            maxTotal = 5,
+            useRSS = true // Usar RSS como padrão
         } = options;
 
         try {
-            // 1. Scraping do Lance
-            console.log('📡 ETAPA 1: Scraping do Lance.com.br\n');
+            let scrapedArticles = [];
 
-            const scrapedArticles = await this.lanceScraper.scrapeMultipleSections(
-                sections,
-                articlesPerSection
-            );
+            if (useRSS) {
+                // 1. Scraping via RSS (PRIMÁRIO - sem bloqueio)
+                console.log('📡 ETAPA 1: Scraping via RSS Feeds (GE, UOL, ESPN, Lance)\n');
+
+                scrapedArticles = await this.rssScraper.scrapeMultipleSections(
+                    sections,
+                    articlesPerSection
+                );
+
+                console.log(`✅ RSS Scraping: ${scrapedArticles.length} artigos coletados\n`);
+
+            } else {
+                // 1b. Scraping direto do Lance (FALLBACK - pode ser bloqueado)
+                console.log('📡 ETAPA 1: Scraping direto do Lance.com.br\n');
+
+                scrapedArticles = await this.lanceScraper.scrapeMultipleSections(
+                    sections,
+                    articlesPerSection
+                );
+            }
 
             if (scrapedArticles.length === 0) {
-                console.log('⚠️  Nenhum artigo coletado do Lance');
+                console.log('⚠️  Nenhum artigo coletado');
                 return;
             }
 
