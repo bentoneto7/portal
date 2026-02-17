@@ -301,6 +301,7 @@ Crie um artigo ORIGINAL e EXCLUSIVO sobre este tema para o portal. O artigo deve
   "title": "Título do artigo",
   "excerpt": "Resumo de 2-3 linhas para preview (máx 200 chars)",
   "body": "<p>Parágrafo 1...</p><p>Parágrafo 2...</p><h2>Subtítulo</h2><p>...</p>",
+  "imageKeyword": "2-3 palavras em inglês específicas para buscar imagem relevante no Unsplash (ex: 'neymar soccer dribbling', 'world cup trophy stadium', 'soccer transfer contract')",
   "readingTime": 5
 }`;
 
@@ -327,7 +328,9 @@ Crie um artigo ORIGINAL e EXCLUSIVO sobre este tema para o portal. O artigo deve
 
         // Gera ID e metadados
         const id = this.generateId(data.title);
-        const image = this.pickImage(category);
+        const image = data.imageKeyword
+            ? `https://source.unsplash.com/800x600/?${encodeURIComponent(data.imageKeyword)}`
+            : this.pickImage(category);
 
         return {
             id,
@@ -516,6 +519,9 @@ Crie um artigo ORIGINAL e EXCLUSIVO sobre este tema para o portal. O artigo deve
                 </div>
 
                 ${article.sourceUrl ? `<p class="article-source"><small>Fonte: <a href="${article.sourceUrl}" target="_blank" rel="noopener">${article.sourceName || 'Fonte externa'}</a></small></p>` : ''}
+
+                <!-- Recomendações de notícias -->
+                <div class="related-articles-container"></div>
             </div>
         </div>
     </main>
@@ -530,6 +536,7 @@ Crie um artigo ORIGINAL e EXCLUSIVO sobre este tema para o portal. O artigo deve
 
     <script src="/js/main.js"></script>
     <script src="/js/infinite-feed.js"></script>
+    <script src="/js/related-articles.js"></script>
 </body>
 </html>`;
     }

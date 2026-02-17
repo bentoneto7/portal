@@ -121,20 +121,50 @@ class RelatedArticles {
 
     /**
      * Renderiza artigos relacionados (fim do artigo)
+     * Auto-injeta o container se não existir no HTML
      */
     renderRelatedArticles() {
-        const container = document.querySelector('.related-articles-container');
+        let container = document.querySelector('.related-articles-container');
 
-        if (!container) return;
+        // Auto-injeta o container após o corpo do artigo se não existir
+        if (!container) {
+            const insertAfter =
+                document.querySelector('.article-share') ||
+                document.querySelector('.article-body') ||
+                document.querySelector('.article-content') ||
+                document.querySelector('article');
 
-        const relatedArticles = this.getRelatedArticles(3);
+            if (!insertAfter) return;
+
+            container = document.createElement('div');
+            container.className = 'related-articles-container';
+            insertAfter.insertAdjacentElement('afterend', container);
+        }
+
+        const relatedArticles = this.getRelatedArticles(4);
+        if (relatedArticles.length === 0) return;
 
         const html = `
-            <div class="related-articles">
-                <h3>📰 Continue Lendo</h3>
-                <p style="color: #757575; margin-bottom: 25px;">Matérias que você não pode perder:</p>
+            <div class="related-articles" style="
+                margin: 40px 0;
+                padding: 30px 0;
+                border-top: 3px solid #009739;
+            ">
+                <h3 style="
+                    font-size: 22px;
+                    font-weight: 800;
+                    color: #1a1a1a;
+                    margin-bottom: 6px;
+                    text-transform: uppercase;
+                    letter-spacing: 0.5px;
+                ">📰 Continue Lendo</h3>
+                <p style="color: #757575; margin-bottom: 24px; font-size: 14px;">Mais matérias que você não pode perder:</p>
 
-                <div class="related-grid">
+                <div style="
+                    display: grid;
+                    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+                    gap: 20px;
+                ">
                     ${relatedArticles.map(article => this.renderRelatedCard(article)).join('')}
                 </div>
             </div>
@@ -154,23 +184,44 @@ class RelatedArticles {
         const categoryBadge = this.getCategoryBadge(article.category);
 
         return `
-            <a href="${article.url}" class="related-card">
-                <div class="related-card-image" style="position: relative;">
-                    <img src="${article.image}" alt="${article.title}" loading="lazy">
+            <a href="${article.url}" style="
+                display: block;
+                text-decoration: none;
+                color: inherit;
+                background: #fff;
+                border-radius: 10px;
+                overflow: hidden;
+                box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+                transition: transform 0.2s, box-shadow 0.2s;
+                border: 1px solid #f0f0f0;
+            " onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,0.15)'"
+               onmouseout="this.style.transform='';this.style.boxShadow='0 2px 12px rgba(0,0,0,0.08)'">
+                <div style="position: relative; height: 160px; overflow: hidden;">
+                    <img src="${article.image}" alt="${article.title}" loading="lazy"
+                         style="width:100%; height:100%; object-fit:cover;"
+                         onerror="this.src='https://images.unsplash.com/photo-1546519638-68e109498ffc?w=400&h=200&fit=crop'">
                     ${teamLogo ? `
-                        <div class="team-logo-overlay" style="position: absolute; top: 10px; right: 10px; background: rgba(255,255,255,0.95); padding: 8px; border-radius: 50%; box-shadow: 0 2px 8px rgba(0,0,0,0.2);">
-                            <img src="${teamLogo}" alt="${team}" style="width: 32px; height: 32px; display: block;">
+                        <div style="position: absolute; top: 8px; right: 8px; background: rgba(255,255,255,0.95); padding: 6px; border-radius: 50%; box-shadow: 0 2px 8px rgba(0,0,0,0.2);">
+                            <img src="${teamLogo}" alt="${team}" style="width: 28px; height: 28px; display: block;">
                         </div>
                     ` : ''}
-                    <div class="category-badge-overlay" style="position: absolute; bottom: 10px; left: 10px;">
+                    <div style="position: absolute; bottom: 8px; left: 8px;">
                         ${categoryBadge}
                     </div>
                 </div>
-                <div class="related-card-content">
-                    <h4>${article.title}</h4>
-                    <p class="related-meta" style="font-size: 13px; color: #757575; margin-top: 10px;">
-                        ⏱️ ${article.readingTime} min de leitura
-                    </p>
+                <div style="padding: 14px;">
+                    <h4 style="
+                        font-size: 14px;
+                        font-weight: 700;
+                        line-height: 1.4;
+                        color: #1a1a1a;
+                        margin: 0 0 8px 0;
+                        display: -webkit-box;
+                        -webkit-line-clamp: 3;
+                        -webkit-box-orient: vertical;
+                        overflow: hidden;
+                    ">${article.title}</h4>
+                    <span style="font-size: 12px; color: #757575;">⏱️ ${article.readingTime || 5} min de leitura</span>
                 </div>
             </a>
         `;

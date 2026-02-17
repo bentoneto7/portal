@@ -326,50 +326,6 @@ window.addEventListener('unhandledrejection', (e) => {
     console.error('Unhandled promise rejection:', e.reason);
 });
 
-// Tabela de Classificação Série A (Mock Data)
-const tabelaSerieA = {
-    data: [
-        { pos: 1, time: 'Palmeiras', pontos: 6, jogos: 2, zona: 'libertadores' },
-        { pos: 2, time: 'Flamengo', pontos: 6, jogos: 2, zona: 'libertadores' },
-        { pos: 3, time: 'Atlético-MG', pontos: 4, jogos: 2, zona: 'libertadores' },
-        { pos: 4, time: 'São Paulo', pontos: 4, jogos: 2, zona: 'libertadores' },
-        { pos: 5, time: 'Fluminense', pontos: 3, jogos: 2, zona: '' },
-        { pos: 6, time: 'Botafogo', pontos: 3, jogos: 2, zona: '' },
-        { pos: 7, time: 'Santos', pontos: 3, jogos: 2, zona: '' },
-        { pos: 8, time: 'Corinthians', pontos: 1, jogos: 2, zona: '' },
-        { pos: 9, time: 'Grêmio', pontos: 1, jogos: 2, zona: '' },
-        { pos: 10, time: 'Bahia', pontos: 1, jogos: 2, zona: '' }
-    ],
-
-    render() {
-        const container = document.getElementById('tabela-serie-a');
-        if (!container) return;
-
-        container.innerHTML = `
-            <table style="width:100%; border-collapse:collapse; font-size:12px;">
-                <thead>
-                    <tr style="background:#1a472a; color:white;">
-                        <th style="padding:6px 4px; text-align:left;">#</th>
-                        <th style="padding:6px 4px; text-align:left;">Time</th>
-                        <th style="padding:6px 4px; text-align:center;">J</th>
-                        <th style="padding:6px 4px; text-align:center; font-weight:800;">Pts</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    ${this.data.map(t => `
-                        <tr style="border-bottom:1px solid #eee; ${t.zona === 'libertadores' ? 'border-left:3px solid #1a472a;' : ''}">
-                            <td style="padding:5px 4px; color:${t.zona === 'libertadores' ? '#1a472a' : '#666'}; font-weight:${t.zona === 'libertadores' ? '700' : '400'};">${t.pos}</td>
-                            <td style="padding:5px 4px; font-weight:600;">${t.time}</td>
-                            <td style="padding:5px 4px; text-align:center; color:#666;">${t.jogos}</td>
-                            <td style="padding:5px 4px; text-align:center; font-weight:800; color:#1a472a;">${t.pontos}</td>
-                        </tr>
-                    `).join('')}
-                </tbody>
-            </table>
-            <small style="display:block; padding:6px 4px; color:#999; font-size:10px;">* 2 rodadas disputadas. Atualizado em 17/02/2026</small>
-        `;
-    }
-};
 
 // Enquete da Semana (Mock Data)
 const enquete = {
@@ -588,7 +544,6 @@ document.addEventListener('DOMContentLoaded', () => {
     imageLazyLoad.init();
 
     // Novos widgets
-    tabelaSerieA.render();
     enquete.render();
 
     // Novas funcionalidades
