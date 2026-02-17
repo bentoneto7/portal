@@ -41,7 +41,8 @@ async function getHealthData() {
         // APIs configuradas
         apis: {
             anthropic: !!process.env.ANTHROPIC_API_KEY,
-            newsApi: !!process.env.NEWS_API_KEY
+            newsApi: !!process.env.NEWS_API_KEY,
+            apiFootball: !!process.env.API_FOOTBALL_KEY
         },
 
         // Estatísticas
