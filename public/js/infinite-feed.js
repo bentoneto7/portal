@@ -83,18 +83,28 @@ class InfiniteFeed {
         feedSection.id = 'infinite-feed';
         feedSection.className = 'infinite-feed';
         feedSection.innerHTML = `
+            <div class="feed-cta-banner">
+                <h2>🔥 NÃO PARE AGORA!</h2>
+                <p>Continue lendo as melhores notícias de futebol do Brasil</p>
+                <div class="cta-stats">
+                    <span>📰 Mais de 100 notícias</span>
+                    <span>⚡ Atualizações em tempo real</span>
+                    <span>🏆 Análises exclusivas</span>
+                </div>
+            </div>
             <div class="feed-header">
-                <h2>📰 Continue Lendo</h2>
-                <p>Mais notícias de futebol para você</p>
+                <h2>📰 Recomendado para Você</h2>
+                <p>Matérias selecionadas especialmente para continuar sua leitura</p>
             </div>
             <div id="feed-articles" class="feed-articles"></div>
             <div id="feed-loader" class="feed-loader" style="display: none;">
                 <div class="loader-spinner"></div>
-                <p>Carregando mais notícias...</p>
+                <p>Carregando mais notícias incríveis...</p>
             </div>
             <div id="feed-end" class="feed-end" style="display: none;">
-                <p>🎉 Você leu todas as notícias!</p>
-                <a href="/" class="btn-home">Voltar ao início</a>
+                <p>🎉 Você leu todas as notícias disponíveis!</p>
+                <p class="feed-end-secondary">Você é um verdadeiro fanático por futebol! ⚽</p>
+                <a href="/" class="btn-home">Ver Mais Notícias</a>
             </div>
         `;
 

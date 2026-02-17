@@ -15,6 +15,50 @@
 }
 
 /* ============================================
+   CTA BANNER (INCENTIVO)
+   ============================================ */
+
+.feed-cta-banner {
+    background: linear-gradient(135deg, #1a472a 0%, #2d5a3d 100%);
+    color: white;
+    padding: 40px 30px;
+    border-radius: 16px;
+    text-align: center;
+    margin-bottom: 40px;
+    box-shadow: 0 8px 24px rgba(26, 71, 42, 0.3);
+}
+
+.feed-cta-banner h2 {
+    font-size: 36px;
+    font-weight: 800;
+    margin: 0 0 12px 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.feed-cta-banner p {
+    font-size: 18px;
+    margin: 0 0 24px 0;
+    opacity: 0.95;
+}
+
+.cta-stats {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.cta-stats span {
+    font-size: 14px;
+    font-weight: 600;
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+}
+
+/* ============================================
    HEADER DO FEED
    ============================================ */
 
@@ -226,6 +270,13 @@
     font-size: 18px;
     font-weight: 600;
     color: #1f2937;
+    margin: 0 0 12px 0;
+}
+
+.feed-end-secondary {
+    font-size: 16px;
+    font-weight: 400;
+    color: #6b7280;
     margin: 0 0 20px 0;
 }
 
