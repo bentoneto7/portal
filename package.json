@@ -11,6 +11,8 @@
     "update:lance": "node src/utils/update-from-lance.js",
     "update:images": "node src/utils/update-article-images.js",
     "update:athlete-images": "node src/utils/update-athlete-images.js",
+    "update:seo": "node src/utils/add-seo-to-articles.js",
+    "test:api-football": "node src/utils/test-api-football.js",
     "test": "echo \"Tests coming soon\" && exit 0"
   },
   "keywords": [
