@@ -198,15 +198,31 @@ const newsLoader = {
     },
 
     formatDate(dateString) {
+        if (!dateString) return '';
         const date = new Date(dateString);
+        if (isNaN(date.getTime())) return '';
 
-        const options = {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-        };
+        const now = new Date();
+        const diffMs = now - date;
+        const diffMin = Math.floor(diffMs / 60000);
+        const diffHrs = Math.floor(diffMs / 3600000);
+        const diffDays = Math.floor(diffMs / 86400000);
 
-        return date.toLocaleDateString(config.language, options);
+        if (diffMin < 5)   return 'agora mesmo';
+        if (diffMin < 60)  return `${diffMin} min atrás`;
+        if (diffHrs < 24) {
+            const h = date.getHours().toString().padStart(2, '0');
+            const m = date.getMinutes().toString().padStart(2, '0');
+            return `Hoje às ${h}h${m}`;
+        }
+        if (diffDays === 1) {
+            const h = date.getHours().toString().padStart(2, '0');
+            const m = date.getMinutes().toString().padStart(2, '0');
+            return `Ontem às ${h}h${m}`;
+        }
+        if (diffDays < 7) return `Há ${diffDays} dias`;
+
+        return date.toLocaleDateString('pt-BR', { day: 'numeric', month: 'short', year: 'numeric' });
     },
 
     escapeHtml(text) {
