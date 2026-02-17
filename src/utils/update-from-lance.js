@@ -21,7 +21,7 @@ const path = require('path');
 
 class LanceSiteUpdater {
     constructor() {
-        this.lanceScaper = new LanceNewsScraper();
+        this.lanceScraper = new LanceNewsScraper();
         this.teamLogoScraper = new TeamLogoScraper();
         this.journalistAgent = null;
 
@@ -370,14 +370,26 @@ class LanceSiteUpdater {
             </div>
 
             <p class="article-source">Baseado em reportagem do Lance.com.br</p>
+
+            <!-- Continue Lendo: Artigos Relacionados -->
+            <div class="related-articles-container"></div>
         </article>
+
+        <!-- Sidebar com "Não Perca" -->
+        <aside class="article-sidebar">
+            <div class="sidebar-widget">
+                <h3>⚽ Sobre o Bola na Rede</h3>
+                <p>Portal de notícias esportivas com cobertura completa do futebol brasileiro e internacional.</p>
+            </div>
+        </aside>
     </main>
 
-    <footer class="article-footer">
+    <footer class="site-footer">
         <p>&copy; 2026 Bola na Rede | <a href="/">Voltar à home</a></p>
     </footer>
 
     <script src="/js/main.js"></script>
+    <script src="/js/related-articles.js"></script>
 </body>
 </html>`;
     }
