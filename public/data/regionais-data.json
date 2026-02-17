@@ -65,6 +65,61 @@
           { "name": "Pablo Maia", "position": "MC", "number": 5, "goals": 1, "assists": 3, "matches": 8, "rating": 7.7, "experience": 5, "form": [7.4, 7.6, 7.8, 7.9, 8.0] },
           { "name": "Wellington Rato", "position": "ME", "number": 11, "goals": 3, "assists": 3, "matches": 8, "rating": 7.5, "experience": 6, "form": [7.2, 7.4, 7.6, 7.8, 7.9] }
         ]
+      },
+      {
+        "id": "bragantino",
+        "name": "Red Bull Bragantino",
+        "abbr": "RBB",
+        "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Red_Bull_Bragantino_crest.svg/80px-Red_Bull_Bragantino_crest.svg.png",
+        "color": "#CC0000",
+        "accent": "#ffffff",
+        "form": ["W","D","W","L","W"],
+        "teamRating": 7.4,
+        "players": [
+          { "name": "Thiago Borbas", "position": "AT", "number": 9, "goals": 5, "assists": 2, "matches": 8, "rating": 7.5, "experience": 5, "form": [7.2, 7.4, 7.6, 7.7, 7.8] },
+          { "name": "Eric Ramires", "position": "MC", "number": 8, "goals": 1, "assists": 3, "matches": 8, "rating": 7.3, "experience": 5, "form": [7.0, 7.2, 7.4, 7.5, 7.6] },
+          { "name": "Laquintana", "position": "ME", "number": 10, "goals": 3, "assists": 4, "matches": 8, "rating": 7.4, "experience": 6, "form": [7.1, 7.3, 7.5, 7.6, 7.7] }
+        ]
+      },
+      {
+        "id": "novorizontino",
+        "name": "Novorizontino",
+        "abbr": "NOV",
+        "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Gremio_Novorizontino.svg/80px-Gremio_Novorizontino.svg.png",
+        "color": "#000000",
+        "accent": "#FFD700",
+        "form": ["W","W","D","D","W"],
+        "teamRating": 7.2,
+        "players": [
+          { "name": "Léo Tocantins", "position": "AT", "number": 9, "goals": 5, "assists": 1, "matches": 8, "rating": 7.3, "experience": 5, "form": [7.0, 7.2, 7.3, 7.4, 7.6] },
+          { "name": "Rodolfo", "position": "MC", "number": 8, "goals": 1, "assists": 2, "matches": 8, "rating": 7.1, "experience": 6, "form": [6.9, 7.0, 7.2, 7.3, 7.4] }
+        ]
+      },
+      {
+        "id": "guarani",
+        "name": "Guarani",
+        "abbr": "GUA",
+        "logo": "",
+        "color": "#006400",
+        "accent": "#ffffff",
+        "form": ["D","W","L","W","D"],
+        "teamRating": 7.0,
+        "players": [
+          { "name": "Isidro Pitta", "position": "AT", "number": 9, "goals": 4, "assists": 1, "matches": 8, "rating": 7.1, "experience": 5, "form": [6.8, 7.0, 7.1, 7.2, 7.3] }
+        ]
+      },
+      {
+        "id": "agua-santa",
+        "name": "Água Santa",
+        "abbr": "AQS",
+        "logo": "",
+        "color": "#003399",
+        "accent": "#ffffff",
+        "form": ["L","D","W","W","D"],
+        "teamRating": 6.8,
+        "players": [
+          { "name": "Arthur", "position": "AT", "number": 9, "goals": 3, "assists": 1, "matches": 8, "rating": 6.9, "experience": 4, "form": [6.6, 6.8, 7.0, 7.1, 7.2] }
+        ]
       }
     ]
   },
@@ -339,6 +394,20 @@
         "teamRating": 7.0,
         "players": [
           { "name": "Jean Carlos", "position": "ME", "number": 10, "goals": 3, "assists": 3, "matches": 7, "rating": 7.2, "experience": 5, "form": [6.9, 7.0, 7.2, 7.3, 7.4] }
+        ]
+      },
+      {
+        "id": "abc-rn",
+        "name": "ABC",
+        "abbr": "ABC",
+        "logo": "",
+        "color": "#000000",
+        "accent": "#CC0000",
+        "form": ["D","W","D","L","W"],
+        "teamRating": 6.8,
+        "players": [
+          { "name": "Wallyson", "position": "AT", "number": 9, "goals": 3, "assists": 1, "matches": 7, "rating": 7.0, "experience": 5, "form": [6.7, 6.9, 7.0, 7.1, 7.2] },
+          { "name": "João Paulo", "position": "ME", "number": 10, "goals": 1, "assists": 3, "matches": 7, "rating": 6.8, "experience": 4, "form": [6.5, 6.7, 6.8, 6.9, 7.0] }
         ]
       }
     ]
