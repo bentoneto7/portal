@@ -12,6 +12,8 @@
     "update:images": "node src/utils/update-article-images.js",
     "update:athlete-images": "node src/utils/update-athlete-images.js",
     "update:seo": "node src/utils/add-seo-to-articles.js",
+    "generate:html": "node src/utils/generate-article-html.js",
+    "rewrite:all": "node src/utils/rewrite-all-articles.js",
     "test:api-football": "node src/utils/test-api-football.js",
     "test": "echo \"Tests coming soon\" && exit 0"
   },
