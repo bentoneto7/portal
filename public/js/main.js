@@ -16,9 +16,20 @@ const newsLoader = {
         if (!this.articlesData) {
             try {
                 const response = await fetch(config.apiUrl);
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                const contentType = response.headers.get('content-type');
+                if (!contentType || !contentType.includes('application/json')) {
+                    throw new Error(`Expected JSON but got ${contentType}`);
+                }
                 this.articlesData = await response.json();
             } catch (error) {
                 console.error('❌ Erro ao carregar artigos:', error);
+                // Show error in UI instead of silent fail
+                document.querySelectorAll('.loading').forEach(el => {
+                    el.textContent = 'Erro ao carregar notícias. Tente recarregar a página.';
+                });
                 return;
             }
         }

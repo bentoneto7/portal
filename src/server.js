@@ -223,8 +223,12 @@ app.get('/articles/:lang/:category/:slug.html', async (req, res) => {
     }
 });
 
-// Fallback to index.html for SPA routes
+// Fallback to index.html only for HTML page requests (not API/data/assets)
 app.get('*', (req, res) => {
+    // Don't serve index.html for requests that look like files (with extensions)
+    if (req.path.match(/\.\w+$/) && !req.path.endsWith('.html')) {
+        return res.status(404).json({ error: 'File not found' });
+    }
     res.sendFile(path.join(__dirname, '../public/index.html'));
 });
 
