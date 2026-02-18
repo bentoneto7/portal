@@ -31,11 +31,11 @@ const newsLoader = {
         // Load featured story (first article)
         this.loadFeaturedStory(articles);
 
-        // Load category news - NOVAS CATEGORIAS
+        // Load category news
         this.loadCategoryNews('serie-a', articles); // Série A (Brasileirão)
         this.loadCategoryNews('mercado', articles); // Mercado da Bola
-        this.loadCategoryNews('opiniao', articles); // Opinião
-        this.loadCategoryNews('taticas', articles); // Táticas e Dados
+        this.loadCategoryNews('selecao', articles); // Seleção & Copa
+        this.loadCategoryNews('internacional', articles); // Champions & Internacional
 
         // Load trending (top 5 most recent)
         this.loadTrending(articles);
@@ -96,16 +96,16 @@ const newsLoader = {
 
         // Map de categorias do site para categorias dos artigos
         const categoryMap = {
-            'serie-a': 'brasileirao',
-            'mercado': 'mercado',
-            'opiniao': 'opiniao',
-            'taticas': 'taticas'
+            'serie-a': ['brasileirao'],
+            'mercado': ['mercado'],
+            'selecao': ['selecao', 'libertadores'],
+            'internacional': ['champions']
         };
 
-        const actualCategory = categoryMap[category] || category;
+        const actualCategories = categoryMap[category] || [category];
 
-        // Filter articles by category
-        const categoryArticles = articles.filter(a => a.category === actualCategory);
+        // Filter articles by category (supports multiple categories per section)
+        const categoryArticles = articles.filter(a => actualCategories.includes(a.category));
 
         if (!categoryArticles || categoryArticles.length === 0) {
             container.innerHTML = '<div class="loading">Nenhuma notícia disponível no momento.</div>';
@@ -170,10 +170,10 @@ const newsLoader = {
         const labels = {
             'brasileirao': 'Brasileirão',
             'mercado': 'Mercado da Bola',
-            'opiniao': 'Opinião',
-            'taticas': 'Táticas e Dados',
+            'selecao': 'Seleção Brasileira',
             'copa': 'Copa do Mundo',
             'libertadores': 'Libertadores',
+            'champions': 'Champions League',
             'internacional': 'Internacional'
         };
         return labels[category] || category;
@@ -181,7 +181,6 @@ const newsLoader = {
 
     formatDate(dateString) {
         const date = new Date(dateString);
-        const lang = languageSelector.currentLang;
 
         const options = {
             year: 'numeric',
@@ -189,7 +188,7 @@ const newsLoader = {
             day: 'numeric'
         };
 
-        return date.toLocaleDateString(lang, options);
+        return date.toLocaleDateString(config.language, options);
     },
 
     escapeHtml(text) {
