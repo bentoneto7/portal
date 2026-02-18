@@ -1,0 +1,40 @@
+[
+  {
+    "id": "real-madrid-vence-benfica-champions-playoffs",
+    "title": "Real Madrid vence Benfica por 1 a 0 na Luz e sai na frente nos playoffs da Champions",
+    "excerpt": "Com retorno de Mbappé, merengues superam Mourinho no reencontro com seu ex-clube e largam com vantagem nos playoffs de acesso às oitavas",
+    "category": "champions",
+    "language": "pt-BR",
+    "url": "/articles/pt-BR/champions/real-madrid-vence-benfica-champions-league-playoffs.html",
+    "image": "https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=800&h=600&fit=crop",
+    "publishedAt": "2026-02-18T10:00:00.000Z",
+    "tags": [
+      "champions league",
+      "real madrid",
+      "benfica",
+      "mourinho",
+      "mbappé",
+      "playoffs"
+    ],
+    "featured": true
+  },
+  {
+    "id": "champions-league-playoffs-classificados",
+    "title": "Champions League 2026: Arsenal, Barça e Liverpool nas oitavas; PSG defende título",
+    "excerpt": "Oito times garantidos, playoffs em andamento. Final será na Puskás Aréna, em Budapeste, em maio",
+    "category": "champions",
+    "language": "pt-BR",
+    "url": "/articles/pt-BR/champions/champions-league-playoffs-2026-classificados-oitavas.html",
+    "image": "https://images.unsplash.com/photo-1489944440615-453fc2b6a9a9?w=800&h=600&fit=crop",
+    "publishedAt": "2026-02-18T08:00:00.000Z",
+    "tags": [
+      "champions league",
+      "arsenal",
+      "barcelona",
+      "liverpool",
+      "psg",
+      "oitavas"
+    ],
+    "featured": false
+  }
+]
