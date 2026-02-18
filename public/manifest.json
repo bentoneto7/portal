@@ -1,0 +1,43 @@
+{
+  "name": "Bola na Rede - Futebol Brasileiro Sem Filtro",
+  "short_name": "Bola na Rede",
+  "description": "O maior portal de futebol do Brasil. Brasileirão, Neymar, Copa 2026, Mercado da Bola e análises táticas exclusivas.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0e14",
+  "theme_color": "#009739",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/images/placeholder.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/images/placeholder-main.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["news", "sports"],
+  "lang": "pt-BR",
+  "dir": "ltr",
+  "prefer_related_applications": false,
+  "scope": "/",
+  "shortcuts": [
+    {
+      "name": "Brasileirão Série A",
+      "short_name": "Brasileirão",
+      "description": "Cobertura do Campeonato Brasileiro",
+      "url": "/#brasileirao"
+    },
+    {
+      "name": "Regionais 2026",
+      "short_name": "Regionais",
+      "description": "Campeonatos estaduais",
+      "url": "/regionais.html"
+    }
+  ]
+}

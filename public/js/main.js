@@ -16,9 +16,20 @@ const newsLoader = {
         if (!this.articlesData) {
             try {
                 const response = await fetch(config.apiUrl);
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                const contentType = response.headers.get('content-type');
+                if (!contentType || !contentType.includes('application/json')) {
+                    throw new Error(`Expected JSON but got ${contentType}`);
+                }
                 this.articlesData = await response.json();
             } catch (error) {
                 console.error('❌ Erro ao carregar artigos:', error);
+                // Show error in UI instead of silent fail
+                document.querySelectorAll('.loading').forEach(el => {
+                    el.textContent = 'Erro ao carregar notícias. Tente recarregar a página.';
+                });
                 return;
             }
         }
@@ -31,11 +42,13 @@ const newsLoader = {
         // Load featured story (first article)
         this.loadFeaturedStory(articles);
 
-        // Load category news
-        this.loadCategoryNews('serie-a', articles); // Série A (Brasileirão)
-        this.loadCategoryNews('mercado', articles); // Mercado da Bola
-        this.loadCategoryNews('selecao', articles); // Seleção & Copa
-        this.loadCategoryNews('internacional', articles); // Champions & Internacional
+        // Load category news - TODAS AS CATEGORIAS
+        this.loadCategoryNews('brasileirao', articles); // Brasileirão Série A
+        this.loadCategoryNews('neymar', articles);      // Neymar Jr
+        this.loadCategoryNews('copa', articles);        // Copa do Mundo 2026
+        this.loadCategoryNews('mercado', articles);     // Mercado da Bola
+        this.loadCategoryNews('opiniao', articles);     // Opinião
+        this.loadCategoryNews('taticas', articles);     // Táticas e Dados
 
         // Load trending (top 5 most recent)
         this.loadTrending(articles);
@@ -96,10 +109,12 @@ const newsLoader = {
 
         // Map de categorias do site para categorias dos artigos
         const categoryMap = {
-            'serie-a': ['brasileirao'],
-            'mercado': ['mercado'],
-            'selecao': ['selecao', 'libertadores'],
-            'internacional': ['champions']
+            'brasileirao': 'brasileirao',
+            'neymar': 'neymar',
+            'copa': 'copa',
+            'mercado': 'mercado',
+            'opiniao': 'opiniao',
+            'taticas': 'taticas'
         };
 
         const actualCategories = categoryMap[category] || [category];
@@ -168,27 +183,46 @@ const newsLoader = {
 
     getCategoryLabel(category) {
         const labels = {
+            'champions': 'Champions League',
+            'estaduais': 'Estaduais',
+            'neymar': 'Neymar Jr',
+            'messi': 'Lionel Messi',
+            'cr7': 'Cristiano Ronaldo',
+            'copa': 'Copa 2026',
             'brasileirao': 'Brasileirão',
             'mercado': 'Mercado da Bola',
-            'selecao': 'Seleção Brasileira',
-            'copa': 'Copa do Mundo',
-            'libertadores': 'Libertadores',
-            'champions': 'Champions League',
-            'internacional': 'Internacional'
+            'opiniao': 'Opinião',
+            'taticas': 'Táticas e Dados'
         };
         return labels[category] || category;
     },
 
     formatDate(dateString) {
+        if (!dateString) return '';
         const date = new Date(dateString);
+        if (isNaN(date.getTime())) return '';
 
-        const options = {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-        };
+        const now = new Date();
+        const diffMs = now - date;
+        const diffMin = Math.floor(diffMs / 60000);
+        const diffHrs = Math.floor(diffMs / 3600000);
+        const diffDays = Math.floor(diffMs / 86400000);
 
-        return date.toLocaleDateString(config.language, options);
+        if (diffMin < 5)   return 'agora mesmo';
+        if (diffMin < 60)  return `${diffMin} min atrás`;
+        if (diffHrs < 24) {
+            const h = date.getHours().toString().padStart(2, '0');
+            const m = date.getMinutes().toString().padStart(2, '0');
+            return `Hoje às ${h}h${m}`;
+        }
+        if (diffDays === 1) {
+            const h = date.getHours().toString().padStart(2, '0');
+            const m = date.getMinutes().toString().padStart(2, '0');
+            return `Ontem às ${h}h${m}`;
+        }
+        if (diffDays < 7) return `Há ${diffDays} dias`;
+
+        return date.toLocaleDateString('pt-BR', { day: 'numeric', month: 'short', year: 'numeric' });
     },
 
     escapeHtml(text) {
@@ -308,62 +342,15 @@ window.addEventListener('unhandledrejection', (e) => {
     console.error('Unhandled promise rejection:', e.reason);
 });
 
-// Tabela de Classificação (Mock Data)
-const tabelaSerieA = {
-    data: [
-        { pos: 1, time: 'Botafogo', pontos: 52, jogos: 28, zona: 'libertadores' },
-        { pos: 2, time: 'Palmeiras', pontos: 50, jogos: 28, zona: 'libertadores' },
-        { pos: 3, time: 'Flamengo', pontos: 48, jogos: 28, zona: 'libertadores' },
-        { pos: 4, time: 'Fluminense', pontos: 45, jogos: 28, zona: 'libertadores' },
-        { pos: 5, time: 'São Paulo', pontos: 43, jogos: 28, zona: '' },
-        { pos: 6, time: 'Grêmio', pontos: 42, jogos: 28, zona: '' },
-        { pos: 7, time: 'Internacional', pontos: 40, jogos: 28, zona: '' },
-        { pos: 8, time: 'Atlético-MG', pontos: 38, jogos: 28, zona: '' },
-        { pos: 17, time: 'Cuiabá', pontos: 28, jogos: 28, zona: 'rebaixamento' },
-        { pos: 18, time: 'Coritiba', pontos: 26, jogos: 28, zona: 'rebaixamento' },
-        { pos: 19, time: 'Goiás', pontos: 24, jogos: 28, zona: 'rebaixamento' },
-        { pos: 20, time: 'América-MG', pontos: 22, jogos: 28, zona: 'rebaixamento' }
-    ],
-
-    render() {
-        const container = document.getElementById('tabela-serie-a');
-        if (!container) return;
-
-        const top8 = this.data.slice(0, 8);
-        const bottom4 = this.data.slice(-4);
-        const display = [...top8, ...bottom4];
-
-        container.innerHTML = `
-            <table>
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Time</th>
-                        <th>PTS</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    ${display.map(team => `
-                        <tr class="${team.zona}">
-                            <td class="pos">${team.pos}</td>
-                            <td class="time">${team.time}</td>
-                            <td class="pontos">${team.pontos}</td>
-                        </tr>
-                    `).join('')}
-                </tbody>
-            </table>
-        `;
-    }
-};
 
 // Enquete da Semana (Mock Data)
 const enquete = {
-    question: 'Quem leva o Brasileirão 2026?',
+    question: 'Neymar vai ser convocado para a Copa 2026?',
     options: [
-        { id: 1, text: 'Botafogo', votes: 342 },
-        { id: 2, text: 'Palmeiras', votes: 298 },
-        { id: 3, text: 'Flamengo', votes: 456 },
-        { id: 4, text: 'Outro time', votes: 124 }
+        { id: 1, text: 'Sim, ele merece ir!', votes: 687 },
+        { id: 2, text: 'Não, é risco demais', votes: 312 },
+        { id: 3, text: 'Depende da saúde dele', votes: 523 },
+        { id: 4, text: 'Ancelotti que decide', votes: 198 }
     ],
     voted: false,
 
@@ -428,10 +415,208 @@ const enquete = {
     }
 };
 
+// Copa 2026 Countdown
+const copaCountdown = {
+    // Copa 2026 starts June 11, 2026
+    targetDate: new Date('2026-06-11T18:00:00Z'),
+
+    init() {
+        this.update();
+        setInterval(() => this.update(), 1000);
+    },
+
+    update() {
+        const now = new Date();
+        const diff = this.targetDate - now;
+
+        if (diff <= 0) {
+            document.getElementById('countdown-days').textContent = '0';
+            document.getElementById('countdown-hours').textContent = '00';
+            document.getElementById('countdown-minutes').textContent = '00';
+            document.getElementById('countdown-seconds').textContent = '00';
+            return;
+        }
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+        document.getElementById('countdown-days').textContent = days;
+        document.getElementById('countdown-hours').textContent = String(hours).padStart(2, '0');
+        document.getElementById('countdown-minutes').textContent = String(minutes).padStart(2, '0');
+        document.getElementById('countdown-seconds').textContent = String(seconds).padStart(2, '0');
+    }
+};
+
+// Matches Widget
+const matchesWidget = {
+    teamLogos: {
+        'Flamengo':      '/images/clubs/flamengo.svg',
+        'Palmeiras':     '/images/clubs/palmeiras.svg',
+        'Corinthians':   '/images/clubs/corinthians.svg',
+        'Santos':        '/images/clubs/santos.svg',
+        'São Paulo':     '/images/clubs/sao-paulo.svg',
+        'Fluminense':    '/images/clubs/fluminense.svg',
+        'Botafogo':      '/images/clubs/botafogo.svg',
+        'Grêmio':        '/images/clubs/gremio.svg',
+        'Internacional': '/images/clubs/internacional.svg',
+        'Atlético-MG':   '/images/clubs/atletico-mg.svg',
+        'Cruzeiro':      '/images/clubs/cruzeiro.svg',
+        'Vitória':       '/images/clubs/vitoria.svg',
+        'Athletico-PR':  '/images/clubs/athletico-pr.svg',
+        'Coritiba':      '/images/clubs/coritiba.svg',
+        'RB Bragantino': '/images/clubs/rb-bragantino.svg',
+        'Mirassol':      '/images/clubs/mirassol.svg',
+        'Remo':          '/images/clubs/remo.svg',
+        'Novorizontino': '/images/clubs/novorizontino.svg',
+        'Ponte Preta':   '/images/clubs/ponte-preta.svg',
+        'Portuguesa':    '/images/clubs/portuguesa.svg',
+        'Bangu':         '/images/clubs/bangu.svg',
+        'Velo Clube':    '/images/clubs/velo-clube.svg',
+        'São Bernardo':  '/images/clubs/sao-bernardo.svg',
+        'Capivariano':   '/images/clubs/capivariano.svg',
+        'Brasil':        '/images/clubs/brasil.svg',
+        'França':        '/images/clubs/franca.svg'
+    },
+
+    matches: [
+        // Paulistão – Fase de Grupos (15/02)
+        { league: 'Paulistão', home: 'Santos', away: 'Velo Clube', score: '7 x 0', status: 'finished', time: '15/02 - 18h30' },
+        { league: 'Paulistão', home: 'São Paulo', away: 'Ponte Preta', score: '2 x 1', status: 'finished', time: '15/02 - 18h30' },
+        { league: 'Paulistão', home: 'Corinthians', away: 'São Bernardo', score: '1 x 0', status: 'finished', time: '15/02 - 18h30' },
+        // Carioca – Semifinal (16/02)
+        { league: 'Carioca', home: 'Fluminense', away: 'Bangu', score: '3 x 1', status: 'finished', time: '16/02 - 16h00' },
+        // Paulistão Quartas de Final (22/02)
+        { league: 'Paulistão QF', home: 'Novorizontino', away: 'Santos', score: '22/02', status: 'upcoming', time: '22/02 - 18h30' },
+        { league: 'Paulistão QF', home: 'Palmeiras', away: 'Capivariano', score: '22/02', status: 'upcoming', time: '22/02 - 20h30' },
+        { league: 'Paulistão QF', home: 'Portuguesa', away: 'Corinthians', score: '22/02', status: 'upcoming', time: '22/02 - 18h30' },
+        // Brasileirão 4ª Rodada (25-26/02)
+        { league: 'Brasileirão', home: 'Flamengo', away: 'Mirassol', score: '25/02', status: 'upcoming', time: '25/02 - 20h00' },
+        { league: 'Brasileirão', home: 'Palmeiras', away: 'Fluminense', score: '25/02', status: 'upcoming', time: '25/02 - 21h30' },
+    ],
+
+    getShield(team) {
+        const logo = this.teamLogos[team];
+        if (!logo) return '⚽';
+        return `<img src="${logo}" alt="${team}" class="team-logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';" /><span style="display:none;">⚽</span>`;
+    },
+
+    render() {
+        const track = document.getElementById('matches-track');
+        if (!track) return;
+
+        track.innerHTML = this.matches.map(m => `
+            <div class="match-card">
+                <div class="match-league">${m.league}</div>
+                <div class="match-teams">
+                    <div class="match-team">
+                        <span class="match-team-shield">${this.getShield(m.home)}</span>
+                        <span class="match-team-name">${m.home}</span>
+                    </div>
+                    <div class="match-score ${m.status === 'live' ? 'live' : ''}">${m.score}</div>
+                    <div class="match-team">
+                        <span class="match-team-shield">${this.getShield(m.away)}</span>
+                        <span class="match-team-name">${m.away}</span>
+                    </div>
+                </div>
+                <div class="match-time">${m.time}</div>
+                <span class="match-status ${m.status}">${m.status === 'finished' ? 'Encerrado' : m.status === 'live' ? 'AO VIVO' : 'Em Breve'}</span>
+            </div>
+        `).join('');
+
+        // Carousel controls
+        const prev = document.querySelector('.carousel-prev');
+        const next = document.querySelector('.carousel-next');
+        if (prev && next) {
+            prev.addEventListener('click', () => track.scrollBy({ left: -220, behavior: 'smooth' }));
+            next.addEventListener('click', () => track.scrollBy({ left: 220, behavior: 'smooth' }));
+        }
+    }
+};
+
+// Mobile Menu
+const mobileMenu = {
+    init() {
+        const btn = document.getElementById('mobile-menu-btn');
+        const nav = document.getElementById('main-nav');
+        if (btn && nav) {
+            btn.addEventListener('click', () => {
+                btn.classList.toggle('active');
+                nav.classList.toggle('active');
+            });
+        }
+    }
+};
+
+// News Ticker - duplicate content for seamless loop
+const newsTicker = {
+    init() {
+        const content = document.getElementById('ticker-content');
+        if (content) {
+            content.innerHTML += content.innerHTML;
+        }
+    }
+};
+
+// Back to Top Button
+const backToTop = {
+    init() {
+        const btn = document.getElementById('backToTop');
+        if (!btn) return;
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 600) {
+                btn.classList.add('visible');
+            } else {
+                btn.classList.remove('visible');
+            }
+        });
+
+        btn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+};
+
+// Search functionality
+const searchBox = {
+    init() {
+        const input = document.querySelector('.search-box input');
+        const btn = document.querySelector('.search-box button');
+        if (!input || !btn) return;
+
+        const doSearch = () => {
+            const query = input.value.trim().toLowerCase();
+            if (!query || query.length < 2) return;
+
+            // Search through articles
+            const articles = newsLoader.articlesData || [];
+            const results = articles.filter(a => {
+                const text = `${a.title} ${a.excerpt} ${a.category}`.toLowerCase();
+                return text.includes(query);
+            });
+
+            if (results.length > 0) {
+                // Navigate to first matching article
+                window.location.href = results[0].url;
+            } else {
+                alert('Nenhum resultado encontrado para: ' + input.value.trim());
+            }
+        };
+
+        btn.addEventListener('click', doSearch);
+        input.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                doSearch();
+            }
+        });
+    }
+};
+
 // Initialize everything when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('⚽ Bola na Rede iniciado!');
-
     // Carregadores principais
     newsLoader.loadAllNews();
     newsletter.init();
@@ -440,23 +625,19 @@ document.addEventListener('DOMContentLoaded', () => {
     imageLazyLoad.init();
 
     // Novos widgets
-    tabelaSerieA.render();
     enquete.render();
+
+    // Novas funcionalidades
+    copaCountdown.init();
+    matchesWidget.render();
+    mobileMenu.init();
+    newsTicker.init();
+    backToTop.init();
+    searchBox.init();
 });
 
 // Refresh news every 5 minutes (for dynamic content updates)
 setInterval(() => {
-    console.log('🔄 Atualizando notícias...');
     newsLoader.articlesData = null; // Force reload
     newsLoader.loadAllNews();
 }, 5 * 60 * 1000);
-
-// Service Worker registration (for PWA - optional)
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        // Uncomment to enable PWA features
-        // navigator.serviceWorker.register('/sw.js')
-        //     .then(reg => console.log('✅ Service Worker registered'))
-        //     .catch(err => console.error('❌ Service Worker registration failed:', err));
-    });
-}

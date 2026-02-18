@@ -4,17 +4,17 @@
     <!-- SEO Meta Tags -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Bola na Rede - O blog de futebol que não tem medo de falar a verdade. Análises sem filtro do Brasileirão Série A, mercado da bola, táticas e polêmicas que a imprensa tradicional não mostra.">
-    <meta name="keywords" content="brasileirão série a, futebol brasileiro, tabela brasileirão 2026, mercado da bola, análise tática futebol, simulador brasileirão, classificação série a, artilharia brasileirão, rebaixamento série a">
+    <meta name="description" content="Bola na Rede - O maior portal de futebol do Brasil. Brasileirão, Neymar, Copa 2026, Mercado da Bola, Análises e Táticas. Notícias, bastidores e opinião sem filtro.">
+    <meta name="keywords" content="brasileirao serie a 2026, neymar santos, copa do mundo 2026, mercado da bola, futebol brasileiro, palmeiras flamengo, ancelotti selecao, analise tatica futebol">
     <meta name="author" content="Bola na Rede">
     <meta name="robots" content="index, follow">
 
     <!-- Open Graph Meta Tags -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Bola na Rede - Futebol Brasileiro Sem Filtro | Brasileirão Série A 2026">
-    <meta property="og:description" content="O blog que fala o que a imprensa não fala. Análises diretas, polêmicas, táticas e bastidores do Brasileirão.">
+    <meta property="og:title" content="Bola na Rede - Futebol Brasileiro Sem Filtro | Brasileirão, Neymar, Copa 2026">
+    <meta property="og:description" content="O maior portal de futebol do Brasil. Brasileirão, Neymar, Copa 2026, Mercado da Bola e análises táticas exclusivas.">
     <meta property="og:image" content="/images/og-image.jpg">
-    <meta property="og:url" content="https://seudominio.com">
+    <meta property="og:url" content="https://bolanarede.com.br">
 
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
@@ -23,17 +23,19 @@
     <meta name="twitter:image" content="/images/twitter-card.jpg">
 
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://seudominio.com">
+    <link rel="canonical" href="https://bolanarede.com.br">
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="/images/favicon.png">
+    <link rel="apple-touch-icon" href="/images/icon-192.png">
 
     <!-- Stylesheet -->
     <link rel="stylesheet" href="/css/style.css">
 
-    <!-- Google Adsense - Substitua pelo seu ID -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+    <!-- Google Adsense - Descomente e substitua pelo seu ID real
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-SEUIDDOADSENSE"
      crossorigin="anonymous"></script>
+    -->
 
     <!-- Schema.org Markup -->
     <script type="application/ld+json">
@@ -41,37 +43,59 @@
         "@context": "https://schema.org",
         "@type": "SportsOrganization",
         "name": "Bola na Rede",
-        "url": "https://seudominio.com",
-        "logo": "https://seudominio.com/images/logo.png",
+        "url": "https://bolanarede.com.br",
+        "logo": "https://bolanarede.com.br/images/logo.png",
         "sport": "Soccer",
         "sameAs": [
-            "https://facebook.com/portaldoesporte",
-            "https://twitter.com/portaldoesporte",
-            "https://instagram.com/portaldoesporte"
+            "https://facebook.com/bolanarede",
+            "https://twitter.com/bolanarede",
+            "https://instagram.com/bolanarede"
         ]
     }
     </script>
 
-    <title>Bola na Rede - Brasileirão Série A 2026 | Análises, Tabela, Mercado e Bastidores</title>
+    <title>Bola na Rede - Brasileirão, Neymar, Copa 2026 | Futebol Sem Filtro</title>
 </head>
 <body>
+    <!-- News Ticker -->
+    <div class="news-ticker">
+        <div class="ticker-label">🔴 AO VIVO</div>
+        <div class="ticker-wrapper">
+            <div class="ticker-content" id="ticker-content">
+                <span class="ticker-item">⚽ Neymar marca assistência na goleada 6-0 do Santos e emociona torcida | </span>
+                <span class="ticker-item">🔥 Ancelotti revela: 18 dos 26 convocados da Copa 2026 já definidos | </span>
+                <span class="ticker-item">💰 Palmeiras e Flamengo brigam por Luiz Henrique - oferta pode chegar a €25M | </span>
+                <span class="ticker-item">📊 VAR já causou 3 polêmicas em apenas 2 rodadas do Brasileirão | </span>
+                <span class="ticker-item">🏟️ FIFA aprova estádios brasileiros para Copa 2026 | </span>
+                <span class="ticker-item">⚡ Brasileirão volta na Quarta de Cinzas - Palmeiras líder | </span>
+                <span class="ticker-item">🇧🇷 Seleção enfrenta França e Croácia em amistosos nos EUA em março | </span>
+            </div>
+        </div>
+    </div>
+
     <!-- Header -->
     <header class="site-header">
         <div class="container">
             <div class="header-content">
                 <div class="logo">
-                    <h1><a href="/">⚽ BOLA NA REDE</a></h1>
+                    <h1><a href="/">BOLA NA REDE</a></h1>
                     <p class="tagline">O futebol sem filtro que você não vê na TV</p>
                 </div>
 
-                <nav class="main-nav">
+                <!-- Mobile menu button -->
+                <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Menu">
+                    <span></span><span></span><span></span>
+                </button>
+
+                <nav class="main-nav" id="main-nav">
                     <ul>
-                        <li><a href="#serie-a">Série A</a></li>
+                        <li><a href="#brasileirao">Série A</a></li>
+                        <li><a href="#neymar">Neymar</a></li>
+                        <li><a href="#copa">Copa 2026</a></li>
+                        <li><a href="/regionais.html">🏆 Regionais</a></li>
                         <li><a href="#mercado">Mercado</a></li>
-                        <li><a href="#selecao">Seleção</a></li>
-                        <li><a href="#internacional">Internacional</a></li>
-                        <li><a href="#clubes">Clubes</a></li>
-                        <li><a href="#simulador">Simulador</a></li>
+                        <li><a href="#opiniao">Opinião</a></li>
+                        <li><a href="#taticas">Táticas</a></li>
                     </ul>
                 </nav>
 
@@ -84,17 +108,63 @@
         </div>
     </header>
 
-    <!-- Adsense Banner Top -->
-    <div class="ad-container ad-top">
-        <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
-             data-ad-slot="XXXXXXXXXX"
-             data-ad-format="auto"
-             data-full-width-responsive="true"></ins>
-        <script>
-             (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
+    <!-- Em Alta / Trending Bar -->
+    <div class="trending-bar">
+        <div class="container">
+            <span class="trending-bar-label">🔥 EM ALTA</span>
+            <div class="trending-bar-items" id="trending-bar-items">
+                <a href="#neymar" class="trending-bar-item">Neymar Santos</a>
+                <a href="#copa" class="trending-bar-item">Copa 2026</a>
+                <a href="#mercado" class="trending-bar-item">Luiz Henrique</a>
+                <a href="#opiniao" class="trending-bar-item">VAR Polêmica</a>
+                <a href="#copa" class="trending-bar-item">Ancelotti</a>
+                <a href="#brasileirao" class="trending-bar-item">Palmeiras</a>
+                <a href="#brasileirao" class="trending-bar-item">Flamengo</a>
+                <a href="#taticas" class="trending-bar-item">Táticas</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Copa 2026 Countdown Banner -->
+    <div class="copa-countdown">
+        <div class="container">
+            <div class="countdown-content">
+                <div class="countdown-info">
+                    <span class="countdown-flag">🇧🇷🇺🇸🇲🇽</span>
+                    <span class="countdown-title">COPA DO MUNDO 2026</span>
+                </div>
+                <div class="countdown-timer" id="copa-countdown">
+                    <div class="countdown-unit"><span id="countdown-days">---</span><small>DIAS</small></div>
+                    <div class="countdown-separator">:</div>
+                    <div class="countdown-unit"><span id="countdown-hours">--</span><small>HORAS</small></div>
+                    <div class="countdown-separator">:</div>
+                    <div class="countdown-unit"><span id="countdown-minutes">--</span><small>MIN</small></div>
+                    <div class="countdown-separator">:</div>
+                    <div class="countdown-unit"><span id="countdown-seconds">--</span><small>SEG</small></div>
+                </div>
+                <a href="#copa" class="countdown-link">Ver Cobertura →</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Jogos em Destaque -->
+    <div class="matches-widget">
+        <div class="container">
+            <div class="matches-header">
+                <h3>⚽ Próximos Jogos</h3>
+                <div class="matches-tabs">
+                    <button class="match-tab active" data-tab="destaque">Destaques</button>
+                    <button class="match-tab" data-tab="finalizados">Finalizados</button>
+                </div>
+            </div>
+            <div class="matches-carousel" id="matches-carousel">
+                <button class="carousel-btn carousel-prev" aria-label="Anterior">‹</button>
+                <div class="matches-track" id="matches-track">
+                    <!-- Loaded by JS -->
+                </div>
+                <button class="carousel-btn carousel-next" aria-label="Próximo">›</button>
+            </div>
+        </div>
     </div>
 
     <!-- Main Content -->
@@ -108,15 +178,15 @@
                         <span class="category-badge">DESTAQUE</span>
                     </div>
                     <div class="article-content">
-                        <meta itemprop="datePublished" content="2026-02-16">
+                        <meta itemprop="datePublished" content="2026-02-17">
                         <h2 itemprop="headline">
-                            <a href="/articles/noticia-principal.html">Título da Notícia Principal será carregado aqui</a>
+                            <a href="#">Título da Notícia Principal será carregado aqui</a>
                         </h2>
                         <p class="article-excerpt" itemprop="description">
                             Resumo da notícia principal será exibido aqui com contexto e análise crítica...
                         </p>
                         <div class="article-meta">
-                            <span class="date"><time itemprop="datePublished" datetime="2026-02-16">16 de Fevereiro, 2026</time></span>
+                            <span class="date"><time itemprop="datePublished" datetime="2026-02-17">17 de Fevereiro, 2026</time></span>
                             <span class="reading-time">5 min de leitura</span>
                         </div>
                     </div>
@@ -126,79 +196,57 @@
             <div class="content-grid">
                 <!-- Coluna Principal -->
                 <div class="main-column">
-                    <!-- Série A -->
-                    <section id="serie-a" class="news-section">
-                        <h2 class="section-title">🏆 Série A - Última Rodada</h2>
-                        <div class="news-grid" id="news-serie-a">
-                            <!-- Articles will be loaded here by JavaScript -->
-                            <div class="loading">Carregando as últimas do Brasileirão...</div>
+                    <!-- Brasileirão Série A -->
+                    <section id="brasileirao" class="news-section">
+                        <h2 class="section-title">🏆 Brasileirão Série A 2026</h2>
+                        <div class="news-grid" id="news-brasileirao">
+                            <div class="loading">Carregando Brasileirão...</div>
                         </div>
                     </section>
 
-                    <!-- Adsense In-Feed -->
-                    <div class="ad-container ad-feed">
-                        <ins class="adsbygoogle"
-                             style="display:block"
-                             data-ad-format="fluid"
-                             data-ad-layout-key="-fb+5w+4e-db+86"
-                             data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
-                             data-ad-slot="XXXXXXXXXX"></ins>
-                        <script>
-                             (adsbygoogle = window.adsbygoogle || []).push({});
-                        </script>
-                    </div>
+                    <!-- Neymar -->
+                    <section id="neymar" class="news-section section-neymar">
+                        <h2 class="section-title">⚽ Neymar Jr - Todas as Notícias</h2>
+                        <div class="news-grid" id="news-neymar">
+                            <div class="loading">Carregando notícias do Neymar...</div>
+                        </div>
+                    </section>
+
+                    <!-- Copa 2026 -->
+                    <section id="copa" class="news-section section-copa">
+                        <h2 class="section-title">🏆 Copa do Mundo 2026</h2>
+                        <div class="news-grid" id="news-copa">
+                            <div class="loading">Carregando cobertura da Copa...</div>
+                        </div>
+                    </section>
 
                     <!-- Mercado da Bola -->
                     <section id="mercado" class="news-section">
                         <h2 class="section-title">💰 Mercado da Bola</h2>
                         <div class="news-grid" id="news-mercado">
-                            <div class="loading">Carregando transferências...</div>
+                            <div class="loading">Carregando Mercado da Bola...</div>
                         </div>
                     </section>
 
-                    <!-- Seleção & Copa -->
-                    <section id="selecao" class="news-section section-opiniao">
-                        <h2 class="section-title">🇧🇷 Seleção & Copa 2026</h2>
-                        <div class="news-grid" id="news-selecao">
-                            <div class="loading">Carregando notícias da seleção...</div>
+                    <!-- Opinião -->
+                    <section id="opiniao" class="news-section">
+                        <h2 class="section-title">✍️ Opinião e Análise</h2>
+                        <div class="news-grid" id="news-opiniao">
+                            <div class="loading">Carregando colunas de opinião...</div>
                         </div>
                     </section>
 
-                    <!-- Champions & Internacional -->
-                    <section id="internacional" class="news-section section-taticas">
-                        <h2 class="section-title">🌍 Champions & Internacional</h2>
-                        <div class="news-grid" id="news-internacional">
-                            <div class="loading">Carregando notícias internacionais...</div>
+                    <!-- Táticas e Dados -->
+                    <section id="taticas" class="news-section">
+                        <h2 class="section-title">📊 Táticas e Dados</h2>
+                        <div class="news-grid" id="news-taticas">
+                            <div class="loading">Carregando análises táticas...</div>
                         </div>
                     </section>
                 </div>
 
                 <!-- Sidebar -->
                 <aside class="sidebar">
-                    <!-- Classificação Série A -->
-                    <div class="widget classificacao-widget">
-                        <h3 class="widget-title">📊 Classificação Série A</h3>
-                        <div id="tabela-serie-a" class="tabela-classificacao">
-                            <div class="loading">Carregando tabela...</div>
-                        </div>
-                        <a href="/simulador.html" class="btn-simulador">
-                            🎮 Simular Tabela
-                        </a>
-                    </div>
-
-                    <!-- Adsense Sidebar -->
-                    <div class="ad-container ad-sidebar">
-                        <ins class="adsbygoogle"
-                             style="display:block"
-                             data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
-                             data-ad-slot="XXXXXXXXXX"
-                             data-ad-format="auto"
-                             data-full-width-responsive="true"></ins>
-                        <script>
-                             (adsbygoogle = window.adsbygoogle || []).push({});
-                        </script>
-                    </div>
-
                     <!-- Mais Lidas -->
                     <div class="widget trending-news">
                         <h3 class="widget-title">🔥 Mais Lidas</h3>
@@ -216,6 +264,32 @@
                             <button type="submit">⚽ Quero Receber</button>
                         </form>
                         <small class="newsletter-privacy">Sem spam. Cancele quando quiser.</small>
+                    </div>
+
+                    <!-- Colunistas -->
+                    <div class="widget colunistas-widget">
+                        <h3 class="widget-title">✍️ Colunistas</h3>
+                        <div class="colunista-item">
+                            <img src="https://i.pravatar.cc/80?img=12" alt="Ricardo Melo" class="colunista-avatar">
+                            <div class="colunista-info">
+                                <strong>Ricardo Melo</strong>
+                                <p>Neymar mudou o Santos. Mas vai à Copa 2026?</p>
+                            </div>
+                        </div>
+                        <div class="colunista-item">
+                            <img src="https://i.pravatar.cc/80?img=33" alt="Ana Thaís Matos" class="colunista-avatar">
+                            <div class="colunista-info">
+                                <strong>Ana Thaís Matos</strong>
+                                <p>Ancelotti e o mistério dos 8 vagas na Seleção.</p>
+                            </div>
+                        </div>
+                        <div class="colunista-item">
+                            <img src="https://i.pravatar.cc/80?img=59" alt="Paulo Vinícius Coelho" class="colunista-avatar">
+                            <div class="colunista-info">
+                                <strong>Paulo V. Coelho</strong>
+                                <p>VAR no Brasil: tecnologia não resolve incompetência.</p>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Enquete -->
@@ -236,18 +310,18 @@
             <div class="footer-content">
                 <div class="footer-section">
                     <h4>Sobre o Bola na Rede</h4>
-                    <p>O blog de futebol brasileiro que não tem medo de falar a verdade. Análises diretas, polêmicas e bastidores do Brasileirão Série A que você não vê na imprensa tradicional.</p>
+                    <p>O maior portal de futebol do Brasil. Brasileirão Série A, Neymar, Copa do Mundo 2026, Mercado da Bola, Táticas e Opinião. Futebol sem filtro.</p>
                     <a href="/sobre.html" class="footer-link">Saiba mais →</a>
                 </div>
                 <div class="footer-section">
                     <h4>Navegação</h4>
                     <ul>
-                        <li><a href="#serie-a">Série A</a></li>
+                        <li><a href="#brasileirao">Brasileirão Série A</a></li>
+                        <li><a href="#neymar">Neymar Jr</a></li>
+                        <li><a href="#copa">Copa 2026</a></li>
                         <li><a href="#mercado">Mercado da Bola</a></li>
-                        <li><a href="#selecao">Seleção & Copa</a></li>
-                        <li><a href="#internacional">Champions & Internacional</a></li>
-                        <li><a href="/clubes.html">Todos os Clubes</a></li>
-                        <li><a href="/simulador.html">Simulador</a></li>
+                        <li><a href="#opiniao">Opinião</a></li>
+                        <li><a href="#taticas">Táticas e Dados</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
@@ -272,6 +346,9 @@
             </div>
         </div>
     </footer>
+
+    <!-- Back to Top -->
+    <button class="back-to-top" id="backToTop" aria-label="Voltar ao topo">&uarr;</button>
 
     <!-- Scripts -->
     <script src="/js/main.js"></script>

@@ -16,11 +16,68 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '../public')));
+// Serve data directory for JSON files
 app.use('/data', express.static(path.join(__dirname, '../data')));
 
 // Data paths
 const DATA_DIR = path.join(__dirname, '../data');
 const ARTICLES_INDEX = path.join(DATA_DIR, 'articles-index.json');
+
+/**
+ * Health Check Helper
+ */
+async function getHealthData() {
+    const health = {
+        status: 'ok',
+        timestamp: new Date().toISOString(),
+        uptime: process.uptime(),
+        environment: process.env.NODE_ENV || 'development',
+
+        // Verifica arquivos essenciais
+        files: {
+            articlesIndex: await fs.access(ARTICLES_INDEX).then(() => true).catch(() => false)
+        },
+
+        // APIs configuradas
+        apis: {
+            anthropic: !!process.env.ANTHROPIC_API_KEY,
+            newsApi: !!process.env.NEWS_API_KEY,
+            apiFootball: !!process.env.API_FOOTBALL_KEY
+        },
+
+        // Estatísticas
+        stats: {}
+    };
+
+    // Conta artigos
+    try {
+        const data = await fs.readFile(ARTICLES_INDEX, 'utf8');
+        const articles = JSON.parse(data);
+        health.stats.totalArticles = articles.length;
+        health.stats.latestArticle = articles[0]?.publishedAt || null;
+    } catch (error) {
+        health.stats.totalArticles = 0;
+    }
+
+    // Tamanho do cache
+    try {
+        const cacheDir = path.join(__dirname, '../data/cache');
+        const files = await fs.readdir(cacheDir, { recursive: true });
+        health.stats.cacheFiles = files.length;
+    } catch (error) {
+        health.stats.cacheFiles = 0;
+    }
+
+    // Memória
+    const memUsage = process.memoryUsage();
+    health.memory = {
+        heapUsed: Math.round(memUsage.heapUsed / 1024 / 1024) + 'MB',
+        heapTotal: Math.round(memUsage.heapTotal / 1024 / 1024) + 'MB',
+        rss: Math.round(memUsage.rss / 1024 / 1024) + 'MB'
+    };
+
+    return health;
+}
 
 /**
  * API Routes
@@ -45,25 +102,23 @@ app.get('/api/featured', async (req, res) => {
 // Get news by category
 app.get('/api/news', async (req, res) => {
     try {
-        const { category = 'brasil', lang = 'pt-BR' } = req.query;
+        const { category, lang = 'pt-BR', page = 1, limit = 20 } = req.query;
+        const pageNum = parseInt(page);
+        const limitNum = parseInt(limit);
 
-        const indexPath = path.join(DATA_DIR, 'indices', `${lang}-${category}.json`);
+        const data = await fs.readFile(ARTICLES_INDEX, 'utf8');
+        const allArticles = JSON.parse(data);
 
-        try {
-            const data = await fs.readFile(indexPath, 'utf8');
-            const articles = JSON.parse(data);
-            res.json(articles);
-        } catch (error) {
-            // Fallback to main index
-            const data = await fs.readFile(ARTICLES_INDEX, 'utf8');
-            const allArticles = JSON.parse(data);
-
-            const filtered = allArticles
-                .filter(a => a.language === lang && a.category === category)
-                .slice(0, 20);
-
-            res.json(filtered);
+        let filtered = allArticles.filter(a => a.language === lang);
+        if (category) {
+            filtered = filtered.filter(a => a.category === category);
         }
+
+        const total = filtered.length;
+        const start = (pageNum - 1) * limitNum;
+        const articles = filtered.slice(start, start + limitNum);
+
+        res.json({ articles, total, page: pageNum, totalPages: Math.ceil(total / limitNum) });
     } catch (error) {
         console.error('Error getting news:', error);
         res.status(500).json({ error: 'Failed to load news' });
@@ -129,17 +184,23 @@ app.get('/sitemap.xml', async (req, res) => {
         let sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-        <loc>https://seudominio.com/</loc>
+        <loc>https://bolanarede.com.br/</loc>
         <lastmod>${new Date().toISOString()}</lastmod>
         <changefreq>hourly</changefreq>
         <priority>1.0</priority>
+    </url>
+    <url>
+        <loc>https://bolanarede.com.br/regionais.html</loc>
+        <lastmod>${new Date().toISOString()}</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.9</priority>
     </url>
 `;
 
         articles.slice(0, 500).forEach(article => {
             sitemap += `
     <url>
-        <loc>https://seudominio.com${article.url}</loc>
+        <loc>https://bolanarede.com.br${article.url}</loc>
         <lastmod>${article.publishedAt}</lastmod>
         <changefreq>daily</changefreq>
         <priority>0.8</priority>
@@ -168,22 +229,22 @@ app.get('/rss.xml', async (req, res) => {
         let rss = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>News Portal</title>
-        <link>https://seudominio.com</link>
-        <description>Notícias em tempo real do Brasil e mundo</description>
+        <title>Bola na Rede - Futebol Brasileiro Sem Filtro</title>
+        <link>https://bolanarede.com.br</link>
+        <description>O maior portal de futebol do Brasil. Brasileirão, Neymar, Copa 2026, Mercado da Bola e análises táticas exclusivas.</description>
         <language>${lang}</language>
         <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
-        <atom:link href="https://seudominio.com/rss.xml" rel="self" type="application/rss+xml"/>
+        <atom:link href="https://bolanarede.com.br/rss.xml" rel="self" type="application/rss+xml"/>
 `;
 
         filtered.forEach(article => {
             rss += `
         <item>
             <title>${escapeXml(article.title)}</title>
-            <link>https://seudominio.com${article.url}</link>
+            <link>https://bolanarede.com.br${article.url}</link>
             <description>${escapeXml(article.excerpt)}</description>
             <pubDate>${new Date(article.publishedAt).toUTCString()}</pubDate>
-            <guid>https://seudominio.com${article.url}</guid>
+            <guid>https://bolanarede.com.br${article.url}</guid>
         </item>`;
         });
 
@@ -199,9 +260,34 @@ app.get('/rss.xml', async (req, res) => {
     }
 });
 
-// Health check
-app.get('/health', (req, res) => {
-    res.json({ status: 'ok', timestamp: new Date().toISOString() });
+// Health check endpoints
+app.get('/health', async (req, res) => {
+    try {
+        const healthData = await getHealthData();
+        res.json(healthData);
+    } catch (error) {
+        res.status(503).json({
+            status: 'error',
+            message: error.message,
+            timestamp: new Date().toISOString()
+        });
+    }
+});
+
+// Readiness check (para K8s/Docker)
+app.get('/ready', async (req, res) => {
+    try {
+        // Verifica se arquivos essenciais existem
+        await fs.access(ARTICLES_INDEX);
+        res.status(200).send('Ready');
+    } catch (error) {
+        res.status(503).send('Not Ready');
+    }
+});
+
+// Liveness check (para K8s/Docker)
+app.get('/live', (req, res) => {
+    res.status(200).send('Alive');
 });
 
 // Serve article pages
@@ -222,8 +308,12 @@ app.get('/articles/:lang/:category/:slug.html', async (req, res) => {
     }
 });
 
-// Fallback to index.html for SPA routes
+// Fallback to index.html only for HTML page requests (not API/data/assets)
 app.get('*', (req, res) => {
+    // Don't serve index.html for requests that look like files (with extensions)
+    if (req.path.match(/\.\w+$/) && !req.path.endsWith('.html')) {
+        return res.status(404).json({ error: 'File not found' });
+    }
     res.sendFile(path.join(__dirname, '../public/index.html'));
 });
 

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 72">
+  <defs>
+    <linearGradient id="shine" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#fff" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#000" stop-opacity="0.1"/>
+    </linearGradient>
+  </defs>
+  <path d="M4 4 Q4 2 6 2 L58 2 Q60 2 60 4 L60 38 Q60 52 32 68 Q4 52 4 38 Z" fill="#FFD700" stroke="#1A1A1A" stroke-width="3"/>
+  <path d="M4 4 Q4 2 6 2 L58 2 Q60 2 60 4 L60 38 Q60 52 32 68 Q4 52 4 38 Z" fill="url(#shine)"/>
+  <text x="32" y="33" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="bold" fill="#1A1A1A" text-anchor="middle" dominant-baseline="central">NOV</text>
+</svg>
