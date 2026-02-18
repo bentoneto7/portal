@@ -34,10 +34,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '18'
-          cache: 'npm'
 
       - name: "📦 Instalar dependências"
-        run: npm ci
+        run: npm install
 
       - name: "⚽ Executar Agente Jornalista"
         env:
