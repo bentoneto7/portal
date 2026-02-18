@@ -4,7 +4,7 @@
 // Configuração
 const config = {
     language: 'pt-BR', // Fixo em português
-    apiUrl: '/data/articles-index.json'
+    apiUrl: '/data/articles-index.json?v=' + Date.now()
 };
 
 // News Loader - Static Version

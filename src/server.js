@@ -16,8 +16,17 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '../public')));
-// Serve data directory for JSON files
-app.use('/data', express.static(path.join(__dirname, '../data')));
+// Serve data directory for JSON files (no cache to ensure fresh content)
+app.use('/data', express.static(path.join(__dirname, '../data'), {
+    etag: false,
+    maxAge: 0,
+    setHeaders: (res) => {
+        res.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+        res.set('Pragma', 'no-cache');
+        res.set('Expires', '0');
+        res.set('Surrogate-Control', 'no-store');
+    }
+}));
 
 // Data paths
 const DATA_DIR = path.join(__dirname, '../data');
