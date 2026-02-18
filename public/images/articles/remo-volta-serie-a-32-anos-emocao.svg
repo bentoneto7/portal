@@ -1,19 +1,55 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
   <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#1a472a;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#000000;stop-opacity:1" />
+    <linearGradient id="bg-remo-vol" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#003366;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#001a33;stop-opacity:1" />
     </linearGradient>
+    <filter id="glow-remo-vol">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
   </defs>
-  <rect width="800" height="500" fill="url(#bg)"/>
-  <rect x="0" y="0" width="800" height="6" fill="#2ecc71"/>
-  <text x="40" y="80" font-family="Arial, sans-serif" font-size="64">⚽</text>
-  <rect x="100" y="55" width="200" height="36" rx="18" fill="#2ecc71" opacity="0.9"/>
-  <text x="200" y="80" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white" text-anchor="middle">BRASILEIRAO</text>
-  <text x="40" y="160" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="white">Remo na Série A: Após 32 Anos, o</text>
-    <text x="40" y="196" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="white">Leão Azul Volta à Elite e Já Dá</text>
-    <text x="40" y="232" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="white">Show no Mineirão</text>
-  <line x1="40" y1="440" x2="760" y2="440" stroke="#2ecc71" stroke-width="2" opacity="0.5"/>
-  <text x="40" y="470" font-family="Arial, sans-serif" font-size="16" fill="#2ecc71" font-weight="bold">⚽ BOLA NA REDE</text>
-  <text x="760" y="470" font-family="Arial, sans-serif" font-size="14" fill="#888" text-anchor="end">14/02/2026</text>
+
+  <!-- Background -->
+  <rect width="800" height="500" fill="url(#bg-remo-vol)"/>
+
+  <!-- Decorative elements -->
+  <circle cx="700" cy="100" r="200" fill="#00bfff" opacity="0.03"/>
+  <circle cx="100" cy="450" r="150" fill="#00bfff" opacity="0.03"/>
+
+  <!-- Top accent bar -->
+  <rect x="0" y="0" width="800" height="5" fill="#00bfff"/>
+
+  <!-- Illustration -->
+  
+      <circle cx="650" cy="200" r="60" fill="#00bfff" opacity="0.1"/>
+      <circle cx="650" cy="200" r="40" fill="#00bfff" opacity="0.15"/>
+      <circle cx="650" cy="200" r="20" fill="#00bfff" opacity="0.25"/>
+      <line x1="650" y1="130" x2="650" y2="100" stroke="#00bfff" stroke-width="3" opacity="0.5"/>
+      <line x1="580" y1="160" x2="560" y2="140" stroke="#00bfff" stroke-width="3" opacity="0.5"/>
+      <line x1="720" y1="160" x2="740" y2="140" stroke="#00bfff" stroke-width="3" opacity="0.5"/>
+      <line x1="700" y1="250" x2="720" y2="270" stroke="#00bfff" stroke-width="3" opacity="0.3"/>
+      <line x1="600" y1="250" x2="580" y2="270" stroke="#00bfff" stroke-width="3" opacity="0.3"/>
+      <text x="650" y="210" font-family="Arial" font-size="36" fill="white" text-anchor="middle" opacity="0.8">★</text>
+    
+
+  <!-- Category badge -->
+  <rect x="40" y="60" width="138" height="34" rx="17" fill="#00bfff" opacity="0.9"/>
+  <text x="109" y="83" font-family="'Segoe UI',Arial,sans-serif" font-size="14" font-weight="bold" fill="white" text-anchor="middle" letter-spacing="1.5">HISTÓRICO</text>
+
+  <!-- Title -->
+  <text x="40" y="170" font-family="'Segoe UI',Arial,sans-serif" font-size="30" font-weight="bold" fill="white" letter-spacing="-0.5">Remo na Série A: Após 32</text>
+    <text x="40" y="208" font-family="'Segoe UI',Arial,sans-serif" font-size="30" font-weight="bold" fill="white" letter-spacing="-0.5">Anos, o Leão Azul Volta à</text>
+    <text x="40" y="246" font-family="'Segoe UI',Arial,sans-serif" font-size="30" font-weight="bold" fill="white" letter-spacing="-0.5">Elite e Já Dá Show no Mineirão</text>
+
+  <!-- Bottom bar -->
+  <rect x="0" y="460" width="800" height="40" fill="rgba(0,0,0,0.4)"/>
+  <text x="40" y="486" font-family="'Segoe UI',Arial,sans-serif" font-size="15" fill="#00bfff" font-weight="bold">⚽ BOLA NA REDE</text>
+  <text x="760" y="486" font-family="'Segoe UI',Arial,sans-serif" font-size="13" fill="rgba(255,255,255,0.6)" text-anchor="end">14 de fevereiro de 2026</text>
+
+  <!-- Subtle grid pattern -->
+  <pattern id="grid-remo-vol" width="40" height="40" patternUnits="userSpaceOnUse">
+    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#00bfff" stroke-width="0.5" opacity="0.05"/>
+  </pattern>
+  <rect width="800" height="500" fill="url(#grid-remo-vol)"/>
 </svg>

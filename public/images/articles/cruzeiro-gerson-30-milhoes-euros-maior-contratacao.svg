@@ -1,19 +1,55 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
   <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#2c1810;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#000000;stop-opacity:1" />
+    <linearGradient id="bg-cruzeiro" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#003399;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#001a4d;stop-opacity:1" />
     </linearGradient>
+    <filter id="glow-cruzeiro">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
   </defs>
-  <rect width="800" height="500" fill="url(#bg)"/>
-  <rect x="0" y="0" width="800" height="6" fill="#e67e22"/>
-  <text x="40" y="80" font-family="Arial, sans-serif" font-size="64">💰</text>
-  <rect x="100" y="55" width="200" height="36" rx="18" fill="#e67e22" opacity="0.9"/>
-  <text x="200" y="80" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white" text-anchor="middle">MERCADO</text>
-  <text x="40" y="160" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="white">Cruzeiro Faz a Maior Contratação</text>
-    <text x="40" y="196" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="white">da História do Futebol Brasileiro:</text>
-    <text x="40" y="232" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="white">Gerson por 30 Milhões de Euros</text>
-  <line x1="40" y1="440" x2="760" y2="440" stroke="#e67e22" stroke-width="2" opacity="0.5"/>
-  <text x="40" y="470" font-family="Arial, sans-serif" font-size="16" fill="#e67e22" font-weight="bold">⚽ BOLA NA REDE</text>
-  <text x="760" y="470" font-family="Arial, sans-serif" font-size="14" fill="#888" text-anchor="end">14/02/2026</text>
+
+  <!-- Background -->
+  <rect width="800" height="500" fill="url(#bg-cruzeiro)"/>
+
+  <!-- Decorative elements -->
+  <circle cx="700" cy="100" r="200" fill="#e67e22" opacity="0.03"/>
+  <circle cx="100" cy="450" r="150" fill="#e67e22" opacity="0.03"/>
+
+  <!-- Top accent bar -->
+  <rect x="0" y="0" width="800" height="5" fill="#e67e22"/>
+
+  <!-- Illustration -->
+  
+      <g transform="translate(620, 220)" opacity="0.3">
+        <circle cx="0" cy="0" r="35" fill="none" stroke="#e67e22" stroke-width="3"/>
+        <text x="0" y="8" font-family="Arial" font-size="20" fill="#e67e22" text-anchor="middle" font-weight="bold">€</text>
+      </g>
+      <path d="M560 220 L590 220" stroke="#e67e22" stroke-width="3" opacity="0.25" marker-end="url(#arrow)"/>
+      <path d="M650 220 L680 220" stroke="#e67e22" stroke-width="3" opacity="0.25"/>
+      <circle cx="700" cy="200" r="15" fill="#e67e22" opacity="0.15"/>
+      <circle cx="540" cy="240" r="15" fill="#e67e22" opacity="0.15"/>
+    
+
+  <!-- Category badge -->
+  <rect x="40" y="60" width="114" height="34" rx="17" fill="#e67e22" opacity="0.9"/>
+  <text x="97" y="83" font-family="'Segoe UI',Arial,sans-serif" font-size="14" font-weight="bold" fill="white" text-anchor="middle" letter-spacing="1.5">RECORDE</text>
+
+  <!-- Title -->
+  <text x="40" y="170" font-family="'Segoe UI',Arial,sans-serif" font-size="30" font-weight="bold" fill="white" letter-spacing="-0.5">Cruzeiro Faz a Maior</text>
+    <text x="40" y="208" font-family="'Segoe UI',Arial,sans-serif" font-size="30" font-weight="bold" fill="white" letter-spacing="-0.5">Contratação da História do</text>
+    <text x="40" y="246" font-family="'Segoe UI',Arial,sans-serif" font-size="30" font-weight="bold" fill="white" letter-spacing="-0.5">Futebol Brasileiro: Gerson por</text>
+    <text x="40" y="284" font-family="'Segoe UI',Arial,sans-serif" font-size="30" font-weight="bold" fill="white" letter-spacing="-0.5">30 Milhões de Euros</text>
+
+  <!-- Bottom bar -->
+  <rect x="0" y="460" width="800" height="40" fill="rgba(0,0,0,0.4)"/>
+  <text x="40" y="486" font-family="'Segoe UI',Arial,sans-serif" font-size="15" fill="#e67e22" font-weight="bold">⚽ BOLA NA REDE</text>
+  <text x="760" y="486" font-family="'Segoe UI',Arial,sans-serif" font-size="13" fill="rgba(255,255,255,0.6)" text-anchor="end">14 de fevereiro de 2026</text>
+
+  <!-- Subtle grid pattern -->
+  <pattern id="grid-cruzeiro" width="40" height="40" patternUnits="userSpaceOnUse">
+    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e67e22" stroke-width="0.5" opacity="0.05"/>
+  </pattern>
+  <rect width="800" height="500" fill="url(#grid-cruzeiro)"/>
 </svg>

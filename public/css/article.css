@@ -287,6 +287,13 @@
 
 /* Share Buttons */
 .share-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+/* Standalone share-buttons (not inside article-share) */
+.share-buttons:not(.article-share .share-buttons) {
     margin: 40px 0;
     padding: 25px;
     background: #f8f9fa;
@@ -413,7 +420,8 @@
     height: fit-content;
 }
 
-.sidebar-widget {
+.sidebar-widget,
+.widget {
     background: white;
     padding: 25px;
     border-radius: 12px;
@@ -421,7 +429,8 @@
     margin-bottom: 25px;
 }
 
-.sidebar-widget h3 {
+.sidebar-widget h3,
+.widget h3 {
     font-size: 20px;
     margin-top: 0;
     margin-bottom: 20px;
@@ -429,7 +438,8 @@
     font-weight: 800;
 }
 
-.sidebar-widget p {
+.sidebar-widget p,
+.widget p {
     font-size: 14px;
     line-height: 1.6;
     color: #424242;
@@ -875,6 +885,35 @@ header:not(.site-header) .main-nav li a.active {
 @media (max-width: 600px) {
     .article-page .article-container { padding: 0 12px; }
     .article-share a { padding: 8px 14px; font-size: 12px; }
+    .related-grid { grid-template-columns: 1fr !important; }
+    .share-buttons { flex-direction: column; }
+    .share-buttons .share-btn { text-align: center; }
+}
+
+/* Newsletter widget inside sidebar */
+.widget.newsletter {
+    background: linear-gradient(135deg, #f0fdf4, #fff);
+    border: 2px solid #009739;
+}
+
+.widget.newsletter h3 {
+    color: #009739;
+}
+
+/* Related card content spacing */
+.related-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.related-card-content h4 {
+    font-size: 15px;
+    color: #212121;
+    line-height: 1.4;
+    font-weight: 600;
+    margin: 0;
+    padding: 0;
 }
 
 

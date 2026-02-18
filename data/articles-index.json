@@ -9,7 +9,14 @@
     "image": "/images/articles/carioca-2026-semifinais-fla-flu-vasco-madureira.svg",
     "publishedAt": "2026-02-17T16:00:00.000Z",
     "readingTime": 5,
-    "regional": "carioca"
+    "regional": "carioca",
+    "tags": [
+      "Carioca 2026",
+      "Semifinais",
+      "Flamengo",
+      "Fluminense",
+      "Vasco"
+    ]
   },
   {
     "id": "paulistao-2026-quartas-final-confrontos",
@@ -21,7 +28,14 @@
     "image": "/images/articles/paulistao-2026-quartas-final-confrontos.svg",
     "publishedAt": "2026-02-17T14:00:00.000Z",
     "readingTime": 5,
-    "regional": "paulistao"
+    "regional": "paulistao",
+    "tags": [
+      "Paulistão 2026",
+      "Quartas de Final",
+      "Palmeiras",
+      "Santos",
+      "Corinthians"
+    ]
   },
   {
     "id": "santos-crise-temporada-2026-numeros",
@@ -32,7 +46,13 @@
     "url": "/artigo/santos-crise-temporada-2026-numeros.html",
     "image": "/images/articles/santos-crise-temporada-2026-numeros.svg",
     "publishedAt": "2026-02-17T10:00:00.000Z",
-    "readingTime": 4
+    "readingTime": 4,
+    "tags": [
+      "Santos",
+      "Neymar",
+      "Crise",
+      "Brasileirão 2026"
+    ]
   },
   {
     "id": "road-to-26-brasil-franca-croacia-amistosos",
@@ -43,7 +63,14 @@
     "url": "/artigo/road-to-26-brasil-franca-croacia-amistosos.html",
     "image": "/images/articles/road-to-26-brasil-franca-croacia-amistosos.svg",
     "publishedAt": "2026-02-16T14:00:00.000Z",
-    "readingTime": 5
+    "readingTime": 5,
+    "tags": [
+      "Seleção Brasileira",
+      "Copa 2026",
+      "Amistosos",
+      "França",
+      "Croácia"
+    ]
   },
   {
     "id": "neymar-volta-gramados-santos-6x0-velo-clube",
@@ -54,7 +81,13 @@
     "url": "/artigo/neymar-volta-gramados-santos-6x0-velo-clube.html",
     "image": "/images/articles/neymar-volta-gramados-santos-6x0-velo-clube.svg",
     "publishedAt": "2026-02-16T08:00:00.000Z",
-    "readingTime": 5
+    "readingTime": 5,
+    "tags": [
+      "Neymar",
+      "Santos",
+      "Paulistão 2026",
+      "Vila Belmiro"
+    ]
   },
   {
     "id": "ancelotti-18-convocados-copa-2026-definidos",
@@ -65,7 +98,13 @@
     "url": "/artigo/ancelotti-18-convocados-copa-2026-definidos.html",
     "image": "/images/articles/ancelotti-18-convocados-copa-2026-definidos.svg",
     "publishedAt": "2026-02-15T08:00:00.000Z",
-    "readingTime": 6
+    "readingTime": 6,
+    "tags": [
+      "Seleção Brasileira",
+      "Copa 2026",
+      "Ancelotti",
+      "Convocação"
+    ]
   },
   {
     "id": "cruzeiro-gerson-30-milhoes-euros-maior-contratacao",
@@ -76,7 +115,14 @@
     "url": "/artigo/cruzeiro-gerson-30-milhoes-euros-maior-contratacao.html",
     "image": "/images/articles/cruzeiro-gerson-30-milhoes-euros-maior-contratacao.svg",
     "publishedAt": "2026-02-14T12:00:00.000Z",
-    "readingTime": 5
+    "readingTime": 5,
+    "tags": [
+      "Cruzeiro",
+      "Gerson",
+      "Transferências",
+      "SAF",
+      "Mercado da Bola"
+    ]
   },
   {
     "id": "remo-volta-serie-a-32-anos-emocao",
@@ -87,7 +133,13 @@
     "url": "/artigo/remo-volta-serie-a-32-anos-emocao.html",
     "image": "/images/articles/remo-volta-serie-a-32-anos-emocao.svg",
     "publishedAt": "2026-02-14T10:00:00.000Z",
-    "readingTime": 5
+    "readingTime": 5,
+    "tags": [
+      "Remo",
+      "Série A",
+      "Região Norte",
+      "Brasileirão 2026"
+    ]
   },
   {
     "id": "abel-ferreira-reclamacao-arbitragem-palmeiras-inter",
@@ -98,7 +150,14 @@
     "url": "/artigo/abel-ferreira-reclamacao-arbitragem-palmeiras-inter.html",
     "image": "/images/articles/abel-ferreira-reclamacao-arbitragem-palmeiras-inter.svg",
     "publishedAt": "2026-02-13T12:00:00.000Z",
-    "readingTime": 5
+    "readingTime": 5,
+    "tags": [
+      "Palmeiras",
+      "Abel Ferreira",
+      "Internacional",
+      "Brasileirão 2026",
+      "Tática"
+    ]
   },
   {
     "id": "brasileirao-3a-rodada-resultados-12-fev",
@@ -109,7 +168,14 @@
     "url": "/artigo/brasileirao-3a-rodada-resultados-12-fev.html",
     "image": "/images/articles/brasileirao-3a-rodada-resultados-12-fev.svg",
     "publishedAt": "2026-02-13T08:00:00.000Z",
-    "readingTime": 6
+    "readingTime": 6,
+    "tags": [
+      "Brasileirão 2026",
+      "3ª Rodada",
+      "Corinthians",
+      "Fluminense",
+      "Remo"
+    ]
   },
   {
     "id": "derby-paulista-memphis-penalti-analise",
@@ -120,7 +186,14 @@
     "url": "/artigo/derby-paulista-memphis-penalti-analise.html",
     "image": "/images/articles/derby-paulista-memphis-penalti-analise.svg",
     "publishedAt": "2026-02-09T10:00:00.000Z",
-    "readingTime": 5
+    "readingTime": 5,
+    "tags": [
+      "Corinthians",
+      "Palmeiras",
+      "Paulistão 2026",
+      "Derby",
+      "Opinião"
+    ]
   },
   {
     "id": "supercopa-2026-corinthians-campea-analise-tatica",
@@ -131,7 +204,13 @@
     "url": "/artigo/supercopa-2026-corinthians-campea-analise-tatica.html",
     "image": "/images/articles/supercopa-2026-corinthians-campea-analise-tatica.svg",
     "publishedAt": "2026-02-02T14:00:00.000Z",
-    "readingTime": 6
+    "readingTime": 6,
+    "tags": [
+      "Corinthians",
+      "Flamengo",
+      "Supercopa 2026",
+      "Tática"
+    ]
   },
   {
     "id": "paqueta-estreia-flamengo-supercopa-2026",
@@ -142,6 +221,12 @@
     "url": "/artigo/paqueta-estreia-flamengo-supercopa-2026.html",
     "image": "/images/articles/paqueta-estreia-flamengo-supercopa-2026.svg",
     "publishedAt": "2026-02-02T08:00:00.000Z",
-    "readingTime": 5
+    "readingTime": 5,
+    "tags": [
+      "Paquetá",
+      "Flamengo",
+      "Corinthians",
+      "Supercopa 2026"
+    ]
   }
 ]

@@ -1,19 +1,62 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
   <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#0c2340;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#000000;stop-opacity:1" />
+    <linearGradient id="bg-road-to-" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#009c3b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#005520;stop-opacity:1" />
     </linearGradient>
+    <filter id="glow-road-to-">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
   </defs>
-  <rect width="800" height="500" fill="url(#bg)"/>
-  <rect x="0" y="0" width="800" height="6" fill="#009c3b"/>
-  <text x="40" y="80" font-family="Arial, sans-serif" font-size="64">🏆</text>
-  <rect x="100" y="55" width="200" height="36" rx="18" fill="#009c3b" opacity="0.9"/>
-  <text x="200" y="80" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white" text-anchor="middle">COPA</text>
-  <text x="40" y="160" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="white">Road to 26: Brasil Enfrentará</text>
-    <text x="40" y="196" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="white">França e Croácia nos EUA em Março —</text>
-    <text x="40" y="232" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="white">Últimos Testes Antes do Mundial</text>
-  <line x1="40" y1="440" x2="760" y2="440" stroke="#009c3b" stroke-width="2" opacity="0.5"/>
-  <text x="40" y="470" font-family="Arial, sans-serif" font-size="16" fill="#009c3b" font-weight="bold">⚽ BOLA NA REDE</text>
-  <text x="760" y="470" font-family="Arial, sans-serif" font-size="14" fill="#888" text-anchor="end">16/02/2026</text>
+
+  <!-- Background -->
+  <rect width="800" height="500" fill="url(#bg-road-to-)"/>
+
+  <!-- Decorative elements -->
+  <circle cx="700" cy="100" r="200" fill="#ffdf00" opacity="0.03"/>
+  <circle cx="100" cy="450" r="150" fill="#ffdf00" opacity="0.03"/>
+
+  <!-- Top accent bar -->
+  <rect x="0" y="0" width="800" height="5" fill="#ffdf00"/>
+
+  <!-- Illustration -->
+  
+      <g transform="translate(600, 200)" opacity="0.25">
+        <rect x="0" y="0" width="60" height="40" rx="4" fill="#009c3b"/>
+        <polygon points="30,5 55,20 30,35 5,20" fill="#ffdf00"/>
+        <circle cx="30" cy="20" r="8" fill="#002776"/>
+      </g>
+      <g transform="translate(680, 220)" opacity="0.25">
+        <rect x="0" y="0" width="60" height="40" rx="4" fill="#002395"/>
+        <rect x="0" y="13" width="60" height="14" fill="white"/>
+        <rect x="0" y="18" width="60" height="4" fill="#ED2939"/>
+      </g>
+      <g transform="translate(640, 280)" opacity="0.25">
+        <rect x="0" y="0" width="60" height="40" rx="4" fill="#FF0000"/>
+        <rect x="0" y="13" width="60" height="14" fill="white"/>
+        <rect x="0" y="18" width="60" height="4" fill="#171796"/>
+      </g>
+    
+
+  <!-- Category badge -->
+  <rect x="40" y="60" width="150" height="34" rx="17" fill="#ffdf00" opacity="0.9"/>
+  <text x="115" y="83" font-family="'Segoe UI',Arial,sans-serif" font-size="14" font-weight="bold" fill="white" text-anchor="middle" letter-spacing="1.5">ROAD TO 26</text>
+
+  <!-- Title -->
+  <text x="40" y="170" font-family="'Segoe UI',Arial,sans-serif" font-size="30" font-weight="bold" fill="white" letter-spacing="-0.5">Road to 26: Brasil Enfrentará</text>
+    <text x="40" y="208" font-family="'Segoe UI',Arial,sans-serif" font-size="30" font-weight="bold" fill="white" letter-spacing="-0.5">França e Croácia nos EUA em</text>
+    <text x="40" y="246" font-family="'Segoe UI',Arial,sans-serif" font-size="30" font-weight="bold" fill="white" letter-spacing="-0.5">Março — Últimos Testes Antes</text>
+    <text x="40" y="284" font-family="'Segoe UI',Arial,sans-serif" font-size="30" font-weight="bold" fill="white" letter-spacing="-0.5">do Mundial</text>
+
+  <!-- Bottom bar -->
+  <rect x="0" y="460" width="800" height="40" fill="rgba(0,0,0,0.4)"/>
+  <text x="40" y="486" font-family="'Segoe UI',Arial,sans-serif" font-size="15" fill="#ffdf00" font-weight="bold">⚽ BOLA NA REDE</text>
+  <text x="760" y="486" font-family="'Segoe UI',Arial,sans-serif" font-size="13" fill="rgba(255,255,255,0.6)" text-anchor="end">16 de fevereiro de 2026</text>
+
+  <!-- Subtle grid pattern -->
+  <pattern id="grid-road-to-" width="40" height="40" patternUnits="userSpaceOnUse">
+    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#ffdf00" stroke-width="0.5" opacity="0.05"/>
+  </pattern>
+  <rect width="800" height="500" fill="url(#grid-road-to-)"/>
 </svg>

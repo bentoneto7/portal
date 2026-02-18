@@ -1,19 +1,55 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
   <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#1b2d1b;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#000000;stop-opacity:1" />
+    <linearGradient id="bg-supercop" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a1a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0d0d0d;stop-opacity:1" />
     </linearGradient>
+    <filter id="glow-supercop">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
   </defs>
-  <rect width="800" height="500" fill="url(#bg)"/>
-  <rect x="0" y="0" width="800" height="6" fill="#3498db"/>
-  <text x="40" y="80" font-family="Arial, sans-serif" font-size="64">📊</text>
-  <rect x="100" y="55" width="200" height="36" rx="18" fill="#3498db" opacity="0.9"/>
-  <text x="200" y="80" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white" text-anchor="middle">TATICAS</text>
-  <text x="40" y="160" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="white">TÁTICA: Como o Corinthians</text>
-    <text x="40" y="196" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="white">Neutralizou o Flamengo e Conquistou</text>
-    <text x="40" y="232" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="white">a Supercopa do Brasil 2026</text>
-  <line x1="40" y1="440" x2="760" y2="440" stroke="#3498db" stroke-width="2" opacity="0.5"/>
-  <text x="40" y="470" font-family="Arial, sans-serif" font-size="16" fill="#3498db" font-weight="bold">⚽ BOLA NA REDE</text>
-  <text x="760" y="470" font-family="Arial, sans-serif" font-size="14" fill="#888" text-anchor="end">02/02/2026</text>
+
+  <!-- Background -->
+  <rect width="800" height="500" fill="url(#bg-supercop)"/>
+
+  <!-- Decorative elements -->
+  <circle cx="700" cy="100" r="200" fill="#f39c12" opacity="0.03"/>
+  <circle cx="100" cy="450" r="150" fill="#f39c12" opacity="0.03"/>
+
+  <!-- Top accent bar -->
+  <rect x="0" y="0" width="800" height="5" fill="#f39c12"/>
+
+  <!-- Illustration -->
+  
+      <g transform="translate(640, 180)" opacity="0.3">
+        <path d="M-30 0 L30 0 L25 60 L-25 60 Z" fill="#f39c12"/>
+        <rect x="-10" y="60" width="20" height="20" fill="#f39c12"/>
+        <rect x="-20" y="80" width="40" height="8" rx="4" fill="#f39c12"/>
+        <path d="M-30 0 Q-60 10 -50 40 Q-40 60 -25 50" fill="#f39c12" opacity="0.6"/>
+        <path d="M30 0 Q60 10 50 40 Q40 60 25 50" fill="#f39c12" opacity="0.6"/>
+      </g>
+      <text x="640" y="155" font-family="Arial" font-size="28" fill="#f39c12" text-anchor="middle" opacity="0.4">★</text>
+    
+
+  <!-- Category badge -->
+  <rect x="40" y="60" width="114" height="34" rx="17" fill="#f39c12" opacity="0.9"/>
+  <text x="97" y="83" font-family="'Segoe UI',Arial,sans-serif" font-size="14" font-weight="bold" fill="white" text-anchor="middle" letter-spacing="1.5">CAMPEÃO</text>
+
+  <!-- Title -->
+  <text x="40" y="170" font-family="'Segoe UI',Arial,sans-serif" font-size="30" font-weight="bold" fill="white" letter-spacing="-0.5">TÁTICA: Como o Corinthians</text>
+    <text x="40" y="208" font-family="'Segoe UI',Arial,sans-serif" font-size="30" font-weight="bold" fill="white" letter-spacing="-0.5">Neutralizou o Flamengo e</text>
+    <text x="40" y="246" font-family="'Segoe UI',Arial,sans-serif" font-size="30" font-weight="bold" fill="white" letter-spacing="-0.5">Conquistou a Supercopa do</text>
+    <text x="40" y="284" font-family="'Segoe UI',Arial,sans-serif" font-size="30" font-weight="bold" fill="white" letter-spacing="-0.5">Brasil 2026</text>
+
+  <!-- Bottom bar -->
+  <rect x="0" y="460" width="800" height="40" fill="rgba(0,0,0,0.4)"/>
+  <text x="40" y="486" font-family="'Segoe UI',Arial,sans-serif" font-size="15" fill="#f39c12" font-weight="bold">⚽ BOLA NA REDE</text>
+  <text x="760" y="486" font-family="'Segoe UI',Arial,sans-serif" font-size="13" fill="rgba(255,255,255,0.6)" text-anchor="end">02 de fevereiro de 2026</text>
+
+  <!-- Subtle grid pattern -->
+  <pattern id="grid-supercop" width="40" height="40" patternUnits="userSpaceOnUse">
+    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#f39c12" stroke-width="0.5" opacity="0.05"/>
+  </pattern>
+  <rect width="800" height="500" fill="url(#grid-supercop)"/>
 </svg>

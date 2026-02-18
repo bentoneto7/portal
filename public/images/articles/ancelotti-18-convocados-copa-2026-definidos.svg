@@ -1,19 +1,54 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
   <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#0c2340;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#000000;stop-opacity:1" />
+    <linearGradient id="bg-ancelott" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#002776;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#001040;stop-opacity:1" />
     </linearGradient>
+    <filter id="glow-ancelott">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
   </defs>
-  <rect width="800" height="500" fill="url(#bg)"/>
-  <rect x="0" y="0" width="800" height="6" fill="#009c3b"/>
-  <text x="40" y="80" font-family="Arial, sans-serif" font-size="64">🏆</text>
-  <rect x="100" y="55" width="200" height="36" rx="18" fill="#009c3b" opacity="0.9"/>
-  <text x="200" y="80" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white" text-anchor="middle">COPA</text>
-  <text x="40" y="160" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="white">Ancelotti Confirma: 18 dos 26</text>
-    <text x="40" y="196" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="white">Convocados Para a Copa do Mundo Já</text>
-    <text x="40" y="232" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="white">Estão Definidos</text>
-  <line x1="40" y1="440" x2="760" y2="440" stroke="#009c3b" stroke-width="2" opacity="0.5"/>
-  <text x="40" y="470" font-family="Arial, sans-serif" font-size="16" fill="#009c3b" font-weight="bold">⚽ BOLA NA REDE</text>
-  <text x="760" y="470" font-family="Arial, sans-serif" font-size="14" fill="#888" text-anchor="end">15/02/2026</text>
+
+  <!-- Background -->
+  <rect width="800" height="500" fill="url(#bg-ancelott)"/>
+
+  <!-- Decorative elements -->
+  <circle cx="700" cy="100" r="200" fill="#ffdf00" opacity="0.03"/>
+  <circle cx="100" cy="450" r="150" fill="#ffdf00" opacity="0.03"/>
+
+  <!-- Top accent bar -->
+  <rect x="0" y="0" width="800" height="5" fill="#ffdf00"/>
+
+  <!-- Illustration -->
+  
+      <g transform="translate(640, 180)" opacity="0.3">
+        <path d="M-30 0 L30 0 L25 60 L-25 60 Z" fill="#ffdf00"/>
+        <rect x="-10" y="60" width="20" height="20" fill="#ffdf00"/>
+        <rect x="-20" y="80" width="40" height="8" rx="4" fill="#ffdf00"/>
+        <path d="M-30 0 Q-60 10 -50 40 Q-40 60 -25 50" fill="#ffdf00" opacity="0.6"/>
+        <path d="M30 0 Q60 10 50 40 Q40 60 25 50" fill="#ffdf00" opacity="0.6"/>
+      </g>
+      <text x="640" y="155" font-family="Arial" font-size="28" fill="#ffdf00" text-anchor="middle" opacity="0.4">★</text>
+    
+
+  <!-- Category badge -->
+  <rect x="40" y="60" width="150" height="34" rx="17" fill="#ffdf00" opacity="0.9"/>
+  <text x="115" y="83" font-family="'Segoe UI',Arial,sans-serif" font-size="14" font-weight="bold" fill="white" text-anchor="middle" letter-spacing="1.5">CONVOCAÇÃO</text>
+
+  <!-- Title -->
+  <text x="40" y="170" font-family="'Segoe UI',Arial,sans-serif" font-size="30" font-weight="bold" fill="white" letter-spacing="-0.5">Ancelotti Confirma: 18 dos 26</text>
+    <text x="40" y="208" font-family="'Segoe UI',Arial,sans-serif" font-size="30" font-weight="bold" fill="white" letter-spacing="-0.5">Convocados Para a Copa do</text>
+    <text x="40" y="246" font-family="'Segoe UI',Arial,sans-serif" font-size="30" font-weight="bold" fill="white" letter-spacing="-0.5">Mundo Já Estão Definidos</text>
+
+  <!-- Bottom bar -->
+  <rect x="0" y="460" width="800" height="40" fill="rgba(0,0,0,0.4)"/>
+  <text x="40" y="486" font-family="'Segoe UI',Arial,sans-serif" font-size="15" fill="#ffdf00" font-weight="bold">⚽ BOLA NA REDE</text>
+  <text x="760" y="486" font-family="'Segoe UI',Arial,sans-serif" font-size="13" fill="rgba(255,255,255,0.6)" text-anchor="end">15 de fevereiro de 2026</text>
+
+  <!-- Subtle grid pattern -->
+  <pattern id="grid-ancelott" width="40" height="40" patternUnits="userSpaceOnUse">
+    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#ffdf00" stroke-width="0.5" opacity="0.05"/>
+  </pattern>
+  <rect width="800" height="500" fill="url(#grid-ancelott)"/>
 </svg>
