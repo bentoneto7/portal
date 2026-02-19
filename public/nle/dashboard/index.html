@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NLE - Dashboard</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg-primary:#0a0f1c;--bg-secondary:#111827;--bg-card:#1a2332;--bg-card-hover:#1f2b3d;--border:#2a3a4e;--text-primary:#e8ecf1;--text-secondary:#8899aa;--text-muted:#5a6a7a;--accent:#3b82f6;--success:#10b981;--warning:#f59e0b;--danger:#ef4444;--purple:#8b5cf6;--font:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;--radius:8px}
+body{font-family:var(--font);background:var(--bg-primary);color:var(--text-primary);min-height:100vh;padding:20px}
+h1{font-size:1.5rem;font-weight:700;margin-bottom:4px}
+h2{font-size:1.15rem;font-weight:600;margin-bottom:12px;color:var(--accent)}
+h3{font-size:.95rem;font-weight:600;margin-bottom:8px}
+.subtitle{color:var(--text-secondary);font-size:.85rem;margin-bottom:20px}
+.container{max-width:1100px;margin:0 auto}
+.card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:16px}
+.row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.row>*{flex:1;min-width:140px}
+label{display:block;font-size:.78rem;color:var(--text-secondary);margin-bottom:4px;font-weight:500}
+input,select,textarea{width:100%;padding:9px 12px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius);color:var(--text-primary);font-size:.88rem;font-family:var(--font)}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent)}
+textarea{resize:vertical;min-height:60px}
+.btn{padding:9px 18px;border:none;border-radius:var(--radius);font-size:.85rem;font-weight:600;cursor:pointer;transition:all .2s}
+.btn-primary{background:var(--accent);color:#fff}.btn-primary:hover{background:#2563eb}
+.btn-success{background:var(--success);color:#fff}
+.btn-danger{background:var(--danger);color:#fff}
+.btn-purple{background:var(--purple);color:#fff}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text-secondary)}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+.btn-sm{padding:5px 12px;font-size:.78rem}
+.btn-group{display:flex;gap:8px;flex-wrap:wrap}
+.tabs{display:flex;gap:4px;margin-bottom:16px;flex-wrap:wrap}
+.tab{padding:8px 16px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius);color:var(--text-secondary);cursor:pointer;font-size:.8rem;font-weight:500;transition:all .2s}
+.tab.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.tab:hover:not(.active){border-color:var(--accent);color:var(--accent)}
+.tab-panel{display:none}.tab-panel.active{display:block}
+table{width:100%;border-collapse:collapse;font-size:.83rem}
+th{text-align:left;padding:8px 10px;background:var(--bg-secondary);border-bottom:2px solid var(--border);color:var(--text-secondary);font-weight:600;font-size:.78rem}
+td{padding:8px 10px;border-bottom:1px solid var(--border)}
+tr:hover td{background:var(--bg-card-hover)}
+.badge{display:inline-block;padding:2px 8px;border-radius:12px;font-size:.7rem;font-weight:600}
+.badge-blue{background:rgba(59,130,246,.15);color:var(--accent)}
+.badge-green{background:rgba(16,185,129,.15);color:var(--success)}
+.badge-amber{background:rgba(245,158,11,.15);color:var(--warning)}
+.badge-red{background:rgba(239,68,68,.15);color:var(--danger)}
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin-bottom:20px}
+.stat-card{background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius);padding:16px;text-align:center}
+.stat-card .num{font-size:1.4rem;font-weight:700;color:var(--accent)}
+.stat-card .lbl{font-size:.72rem;color:var(--text-muted);margin-top:4px}
+.output-area{background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius);padding:14px;min-height:100px;white-space:pre-wrap;line-height:1.6;font-size:.9rem;margin-bottom:10px}
+.output-area:empty::before{content:'Clique em Gerar...';color:var(--text-muted);font-style:italic}
+.script-box{background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:10px;white-space:pre-wrap;font-size:.85rem;line-height:1.6}
+.empty-state{text-align:center;padding:32px;color:var(--text-muted);font-size:.9rem}
+.toast{position:fixed;bottom:24px;right:24px;background:var(--success);color:#fff;padding:12px 20px;border-radius:var(--radius);font-size:.85rem;font-weight:600;transform:translateY(100px);opacity:0;transition:all .3s;z-index:999}
+.toast.show{transform:translateY(0);opacity:1}
+.nav-tabs{display:flex;gap:4px;margin-bottom:24px;flex-wrap:wrap;border-bottom:2px solid var(--border);padding-bottom:8px}
+.nav-tab{padding:10px 20px;background:transparent;border:none;border-bottom:2px solid transparent;color:var(--text-secondary);cursor:pointer;font-size:.9rem;font-weight:600;margin-bottom:-10px;transition:all .2s}
+.nav-tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+.nav-tab:hover:not(.active){color:var(--text-primary)}
+.module{display:none}.module.active{display:block}
+@media(max-width:768px){.stats-row{grid-template-columns:1fr 1fr}.row{flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Dashboard NLE</h1>
+<p class="subtitle">Painel de gestao — grupos, conteudo, cliques e scripts.</p>
+
+<div class="nav-tabs">
+<div class="nav-tab active" onclick="showMod('dashboard')">Dashboard</div>
+<div class="nav-tab" onclick="showMod('grupos')">Grupos</div>
+<div class="nav-tab" onclick="showMod('gerador')">Gerador</div>
+<div class="nav-tab" onclick="showMod('cliques')">Cliques WPP</div>
+<div class="nav-tab" onclick="showMod('scripts')">Scripts</div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="module active" id="mod-dashboard">
+<div class="stats-row" id="dashStats"></div>
+<div class="card"><h2>Atividade Recente</h2><div id="recentAct"></div></div>
+</div>
+
+<!-- GRUPOS -->
+<div class="module" id="mod-grupos">
+<div class="card">
+<h2>Adicionar Grupo</h2>
+<div class="row">
+<div><label>Nome</label><input id="dGrN" placeholder="Nome do grupo"></div>
+<div><label>Membros</label><input id="dGrM" type="number" placeholder="50000"></div>
+<div><label>Categoria</label><select id="dGrC"><option value="negativados">Negativados</option><option value="credito">Credito</option><option value="mei">MEI</option><option value="financas">Financas</option><option value="imoveis">Imoveis</option><option value="emprego">Emprego</option><option value="geral">Geral</option></select></div>
+</div>
+<button class="btn btn-primary" onclick="dAddGr()">Adicionar</button>
+</div>
+<div id="dGrList"></div>
+</div>
+
+<!-- GERADOR -->
+<div class="module" id="mod-gerador">
+<div class="tabs">
+<div class="tab active" onclick="showGT('posts',this)">Posts</div>
+<div class="tab" onclick="showGT('coments',this)">Comentarios</div>
+<div class="tab" onclick="showGT('inbox',this)">Inbox</div>
+<div class="tab" onclick="showGT('objecoes',this)">Objecoes</div>
+</div>
+<div class="tab-panel active" id="gp-posts">
+<div class="card">
+<div class="row">
+<div><label>Tipo</label><select id="gpTipo"><option value="educativo">Educativo</option><option value="mito">Mito</option><option value="pergunta">Pergunta</option><option value="custo">Custo</option><option value="historia">Historia</option><option value="conversao">Conversao</option></select></div>
+<div><label>Onda</label><select id="gpOnda"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select></div>
+</div>
+<button class="btn btn-primary" onclick="gpPost()">Gerar Post</button>
+</div>
+<div class="output-area" id="gpPostOut"></div>
+<button class="btn btn-outline btn-sm" onclick="cpEl('gpPostOut')">Copiar</button>
+</div>
+<div class="tab-panel" id="gp-coments">
+<div class="card"><div class="row"><div><label>Onda</label><select id="gpOndaC"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select></div></div>
+<button class="btn btn-success" onclick="gpComent()">Gerar Comentario</button></div>
+<div class="output-area" id="gpComOut"></div>
+<button class="btn btn-outline btn-sm" onclick="cpEl('gpComOut')">Copiar</button>
+</div>
+<div class="tab-panel" id="gp-inbox">
+<div class="card"><button class="btn btn-purple" onclick="gpInbox()">Gerar Mensagem Inbox</button></div>
+<div class="output-area" id="gpInbOut"></div>
+<button class="btn btn-outline btn-sm" onclick="cpEl('gpInbOut')">Copiar</button>
+</div>
+<div class="tab-panel" id="gp-objecoes">
+<div class="card"><label>Tipo de objecao</label><select id="gpObj" onchange="gpObjecao()"><option value="caro">"Ta caro"</option><option value="funciona">"Funciona mesmo?"</option><option value="golpe">"E golpe?"</option><option value="pensar">"Vou pensar"</option><option value="consultar">"Preciso consultar"</option><option value="dinheiro">"Nao tenho dinheiro"</option></select></div>
+<div class="output-area" id="gpObjOut"></div>
+<button class="btn btn-outline btn-sm" onclick="cpEl('gpObjOut')">Copiar</button>
+</div>
+</div>
+
+<!-- CLIQUES WPP -->
+<div class="module" id="mod-cliques">
+<div class="card">
+<h2>Resumo de Cliques (WhatsApp Links)</h2>
+<p style="font-size:.85rem;color:var(--text-muted);margin-bottom:16px">Dados dos links trackeados do modulo WhatsApp Links.</p>
+<div class="stats-row" id="clkStats"></div>
+<div id="clkTable"></div>
+</div>
+</div>
+
+<!-- SCRIPTS -->
+<div class="module" id="mod-scripts">
+<div class="tabs">
+<div class="tab active" onclick="showST('abordagem',this)">Abordagem</div>
+<div class="tab" onclick="showST('qualificacao',this)">Qualificacao</div>
+<div class="tab" onclick="showST('fechamento',this)">Fechamento</div>
+<div class="tab" onclick="showST('upsell',this)">Upsell</div>
+</div>
+<div id="scrContent"></div>
+</div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* CE v1.0 — Copia do gerador-anti-padrao */
+var CE={openings:{educativo:['Informacao que pode mudar sua situacao financeira:','Pouca gente sabe disso, mas a lei te protege:','Voce sabia que existe um caminho legal?','3 fatos que todo negativado precisa saber:','Importante pra quem ta com nome restrito:','Seu direito como consumidor:','Atencao pra essa informacao:','O que ninguem te conta sobre negativacao:','Fato pouco conhecido sobre o Serasa:','Uma informacao que vale ouro:'],mito:['MITO: "So pagando a divida o nome sai do Serasa"','MITO: "Nome sujo e pra sempre"','MITO: "Quem deve nao tem direito nenhum"','MITO: "O Serasa decide quem fica negativado"','MITO: "Depois de 5 anos a divida some sozinha"','MITO: "Renegociar e a unica opcao pra limpar nome"'],pergunta:['Pergunta pra quem ta com nome sujo:','Voce ja parou pra pensar nisso?','Me responde uma coisa:','Enquete rapida pra quem esta negativado:','Ja se perguntou por que seu credito e negado mesmo pagando?','Teste rapido: voce sabe seus direitos como consumidor?'],custo:['Ja calculou quanto o nome sujo te custa por mes?','O imposto invisivel de estar negativado:','A conta que ninguem faz:','Cada dia negativado custa dinheiro real. Quanto?','A matematica cruel de estar com nome sujo:'],historia:['Caso real (dados anonimizados):','Isso aconteceu essa semana:','Historia que a gente ve todo dia no escritorio:','Mais um caso resolvido pela via legal:','Situacao que se repete muito entre nossos clientes:'],conversao:['Resultado da semana:','Pra quem quer resolver de verdade:','Oportunidade pra quem ta negativado:','Analise gratuita disponivel essa semana:','Ultimas vagas para analise gratuita:'],comentario:['Isso tem solucao legal, sabia?','Muita gente nao sabe, mas existe um caminho:','Pela minha experiencia profissional:','So pra complementar o que foi dito:','Boa pergunta. O que eu sei sobre isso:']},bodies:['O Codigo de Defesa do Consumidor (art. 43) exige que voce seja NOTIFICADO antes de qualquer negativacao. Se nao foi, a inclusao pode ser irregular.','Nenhuma negativacao pode permanecer nos orgaos de protecao por mais de 5 anos. Se a sua tem mais que isso, ela esta la de forma ilegal.','A LGPD (art. 18) te da direito de corrigir dados incorretos em qualquer cadastro financeiro, incluindo Serasa, SPC e Boa Vista.','A Sumula 548 do STJ e clara: se voce pagou e o credor nao retirou a negativacao em 5 dias uteis, cabe indenizacao por dano moral.','Dever nao anula seus direitos. O credor tem obrigacoes legais no processo de negativacao. Quando nao cumpre, o consumidor pode contestar.','Muita gente confunde renegociar com limpar nome. Sao coisas completamente diferentes. Limpar e verificar se a negativacao seguiu o processo legal.','Os bancos classificam voce internamente de AA a H. Nome limpo no Serasa NAO garante bom rating bancario. Sao sistemas diferentes.','O SCR do Banco Central registra TODAS as operacoes de credito. E la que os bancos realmente olham antes de aprovar qualquer coisa.','A prescricao da divida (5 anos, art. 206 do Codigo Civil) impede cobranca judicial. Mas a negativacao tem prazo proprio no art. 43 do CDC.','Consulte o Registrato (registrato.bcb.gov.br) gratuitamente. La voce ve tudo que esta vinculado ao seu CPF no sistema financeiro.','Negativacao sem notificacao previa ao consumidor e irregular. Base de milhares de decisoes judiciais favoraveis ao consumidor.','Pra MEI e empreendedores: o banco olha o CPF do titular, nao o CNPJ. Regularizar o CPF e investir no negocio.'],closings:['Conheca seus direitos.','Compartilha com quem precisa saber disso.','Guarda essa informacao — pode ser util.','Quem mais nao sabia disso? Comenta ai.','A lei existe pra proteger voce.','Se serviu pra voce, passa pra frente.','Conhecimento e a melhor protecao.','Qualquer duvida, comenta aqui.','Informacao acessivel pra todos.'],ctaSemLink:['Se quiser entender melhor o seu caso, me chama no inbox.','Duvida sobre a sua situacao? Me manda mensagem.','Quer saber se o seu caso tem solucao legal? Inbox aberto.','Me chama no privado que te explico sem compromisso.'],ctaComLink:['Analise gratuita do seu caso: me chama no WhatsApp (link na bio).','Quer resolver de vez? Link do WhatsApp ta na bio.','Me chama no inbox ou no WhatsApp pra uma analise gratis do seu caso.'],connectors:['\n\n','\n\nOu seja: ','\n\nNa pratica: ','\n\nResumo: ','\n\nIsso significa que: ','\n\nE mais: '],inboxOpenings:['Oi! Vi que voce ta passando por uma situacao complicada com negativacao.','Oi! Vi seu comentario no grupo e queria te dar uma informacao importante.','Oi! Tudo bem? Vi que voce mencionou que ta com nome sujo.','Oi! Espero nao estar incomodando. Vi sua situacao e posso te ajudar.'],inboxBodies:['Trabalho com regularizacao financeira e muitos casos parecidos com o seu tem solucao pela via legal.','Existem situacoes em que a negativacao e irregular — quando nao houve notificacao, quando passou de 5 anos, ou quando os dados estao errados.','Antes de qualquer coisa, posso fazer uma analise rapida e gratuita do seu caso pra ver se existe irregularidade.'],inboxClosings:['Se tiver interesse, me conta: quantas negativacoes voce tem e ha quanto tempo?','Posso te explicar melhor como funciona. Quer que eu analise seu caso?','Sem compromisso. Me fala um pouco da sua situacao que eu te oriento.']};
+function pick(a){return a[Math.floor(Math.random()*a.length)]}
+function shuffle(a){var b=a.slice();for(var i=b.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=b[i];b[i]=b[j];b[j]=t}return b}
+
+var OBJ={caro:'Entendo a preocupacao com o valor, [nome].\n\nCom nome sujo, voce paga entre 8-15% a mais de juros em tudo. Num carro financiado, sao milhares a mais.\n\nOs R$ 650 se pagam no primeiro mes com nome limpo. E um investimento que para o sangramento.',funciona:'Pergunta justa, [nome]. Vou ser transparente:\n\nNem todo caso tem solucao — depende da analise. O que posso garantir: a base legal existe (CDC, LGPD, sumulas do STJ), o processo e formalizado, e se nao houver irregularidade, eu te falo com honestidade.',golpe:'Eu entendo 100%, [nome]. O mercado ta cheio de promessa.\n\nPor isso trabalho com transparencia total: te mostro os artigos de lei, explico cada etapa, e voce acompanha tudo.\n\nA base e o CDC (art. 43), LGPD (art. 18), e sumulas do STJ.',pensar:'Claro, [nome]. E uma decisao importante.\n\nSo quero te deixar com um numero: cada dia com nome sujo custa. Nao e pressao — e matematica.\n\nPosso te mandar um resumo do que conversamos pra analisar com calma?',consultar:'Faz total sentido, [nome].\n\nUma ideia: posso fazer a analise do CPF do seu conjuge tambem. Muitas vezes os dois estao com restricoes e resolver junto sai mais em conta.',dinheiro:'Entendo a situacao, [nome].\n\nPosso facilitar:\n- 2x de R$ 350\n- 3x de R$ 240\n\nA analise comeca no primeiro pagamento. Alguma dessas opcoes funciona?'};
+
+var SCR={abordagem:[{t:'Lead generico',s:'Oi [nome]! Tudo bem?\n\nVi que voce ta passando por uma situacao com negativacao. Existe um caminho legal pra resolver isso.\n\nPosso te fazer algumas perguntas rapidas pra entender seu caso?'},{t:'Lead com contexto',s:'Oi [nome]! Vi seu comentario no grupo sobre [situacao].\n\nIsso e mais comum do que parece — e na maioria das vezes tem solucao legal.\n\nQuer me contar um pouco mais?'},{t:'Lead desconfiado',s:'Oi [nome]! Entendo a desconfianca — o mercado ta cheio de promessa vazia.\n\nTrabalho com base na lei, nao em promessa. Te explico rapidinho como funciona e voce decide. Topa?'}],qualificacao:[{t:'Perguntas sequenciais',s:'1. Quantas negativacoes voce tem?\n2. Sabe quais sao as empresas/credores?\n3. Ha quanto tempo estao la?\n4. Foi notificado ANTES de ser negativado?\n5. Qual o impacto na sua vida hoje?\n6. Ja tentou resolver de alguma forma?'},{t:'Apresentacao',s:'[nome], com base no que me contou, o caso pode ter solucao legal:\n\n1. Analise tecnico-juridica de CADA negativacao\n2. Verificamos se o credor cumpriu o processo legal\n3. Quando ha irregularidade, abrimos contestacao formal\n4. A lei obriga a remocao quando a negativacao e irregular\n\nNao e renegociacao — e verificar se o credor fez o que a lei exige.'}],fechamento:[{t:'Proposta com ancoragem',s:'[nome], vou ser direto.\n\nCada mes com nome sujo, voce perde 8-15% a mais em juros. Em 12 meses, o custo passa de R$ 5.000.\n\nO investimento no servico completo e R$ 650.\n\nPosso comecar a analise hoje. Quer seguir?'},{t:'Parcelamento',s:'Posso facilitar:\n\n- 2x de R$ 350\n- 3x de R$ 240\n\nA analise comeca no primeiro pagamento. Qual opcao fica melhor?'},{t:'Coleta pos-venda',s:'Perfeito, [nome]! Vamos iniciar.\n\nPreciso de:\n1. Nome completo (como no RG)\n2. CPF\n3. Data de nascimento\n4. Endereco completo\n5. Print das negativacoes\n\nPode mandar por aqui. Sigilo profissional.'}],upsell:[{t:'Rating Bancario (R$1.400)',s:'[nome], seu nome ja ta limpo!\n\nSe o credito ainda ta travado ou juros altos, e porque o RATING BANCARIO ta baixo. Bancos classificam de AA a H.\n\nNome limpo e o primeiro passo. Rating e o segundo. Investimento: R$ 1.400.'},{t:'BACEN/SCR (R$8.000)',s:'[nome], pra financiamentos maiores, bancos consultam o SCR do Banco Central — nao so o Serasa.\n\nSe tem operacoes em prejuizo no SCR, nenhum banco vai aprovar.\n\nRegularizacao do SCR: R$ 8.000. Estamos falando de destravar operacoes de R$ 50K, 100K, 500K.\n\nQuer que eu verifique no Registrato?'}]};
+
+/* STORAGE */
+function getGr(){try{return JSON.parse(localStorage.getItem('nle_groups'))||[]}catch(e){return[]}}
+function saveGr(d){try{localStorage.setItem('nle_groups',JSON.stringify(d))}catch(e){}}
+function getClk(){try{return JSON.parse(localStorage.getItem('nle_wpp_clicks'))||[]}catch(e){return[]}}
+function getLnk(){try{return JSON.parse(localStorage.getItem('nle_wpp_links'))||[]}catch(e){return[]}}
+function getHist(){try{return JSON.parse(localStorage.getItem('nle_hist'))||{totalPosts:0,totalDays:0,dailyLog:[]}}catch(e){return{totalPosts:0,totalDays:0,dailyLog:[]}}}
+
+/* NAV */
+function showMod(id){
+  document.querySelectorAll('.module').forEach(function(m){m.classList.remove('active')});
+  document.querySelectorAll('.nav-tab').forEach(function(t){t.classList.remove('active')});
+  document.getElementById('mod-'+id).classList.add('active');
+  var tabs=document.querySelectorAll('.nav-tab');
+  var map={dashboard:0,grupos:1,gerador:2,cliques:3,scripts:4};
+  if(tabs[map[id]])tabs[map[id]].classList.add('active');
+  if(id==='dashboard')renderDash();if(id==='grupos')renderGr();if(id==='cliques')renderClk();if(id==='scripts')renderSCR('abordagem');
+}
+
+/* DASHBOARD */
+function renderDash(){
+  var gr=getGr(),clk=getClk(),hist=getHist(),lnk=getLnk();
+  var hoje=new Date().toISOString().slice(0,10);
+  var ch=clk.filter(function(c){return new Date(c.ts).toISOString().slice(0,10)===hoje}).length;
+  document.getElementById('dashStats').innerHTML=
+    '<div class="stat-card"><div class="num">'+gr.length+'</div><div class="lbl">Grupos</div></div>'+
+    '<div class="stat-card"><div class="num">'+lnk.length+'</div><div class="lbl">Links WPP</div></div>'+
+    '<div class="stat-card"><div class="num">'+clk.length+'</div><div class="lbl">Cliques Total</div></div>'+
+    '<div class="stat-card"><div class="num" style="color:var(--success)">'+ch+'</div><div class="lbl">Cliques Hoje</div></div>'+
+    '<div class="stat-card"><div class="num">'+hist.totalPosts+'</div><div class="lbl">Posts Feitos</div></div>'+
+    '<div class="stat-card"><div class="num">'+hist.totalDays+'</div><div class="lbl">Dias Ativos</div></div>';
+  var rc=clk.slice().sort(function(a,b){return b.ts-a.ts}).slice(0,10);
+  if(!rc.length){document.getElementById('recentAct').innerHTML='<div class="empty-state">Sem atividade recente. Crie links no modulo WhatsApp Links.</div>';return}
+  document.getElementById('recentAct').innerHTML='<table><thead><tr><th>Data/Hora</th><th>Link</th><th>Origem</th></tr></thead><tbody>'+
+    rc.map(function(c){var d=new Date(c.ts);var l=lnk.find(function(x){return x.id===c.linkId});return '<tr><td>'+d.toLocaleDateString('pt-BR')+' '+d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})+'</td><td>'+(l?l.label:'ID:'+c.linkId)+'</td><td style="font-size:.75rem;color:var(--text-muted)">'+(c.referrer||'direto')+'</td></tr>'}).join('')+'</tbody></table>';
+}
+
+/* GRUPOS */
+function dAddGr(){
+  var n=document.getElementById('dGrN').value.trim();if(!n){toast('Digite o nome');return}
+  var g=getGr();g.push({id:Date.now(),nome:n,membros:parseInt(document.getElementById('dGrM').value)||0,categoria:document.getElementById('dGrC').value});
+  saveGr(g);document.getElementById('dGrN').value='';document.getElementById('dGrM').value='';renderGr();toast('Grupo adicionado!');
+}
+function dDelGr(id){if(!confirm('Remover?'))return;saveGr(getGr().filter(function(g){return g.id!==id}));renderGr();toast('Removido')}
+function renderGr(){
+  var g=getGr(),el=document.getElementById('dGrList');
+  if(!g.length){el.innerHTML='<div class="empty-state">Nenhum grupo cadastrado.</div>';return}
+  el.innerHTML='<table><thead><tr><th>Nome</th><th>Membros</th><th>Categoria</th><th></th></tr></thead><tbody>'+g.map(function(x){return '<tr><td>'+x.nome+'</td><td>'+(x.membros?x.membros.toLocaleString('pt-BR'):'-')+'</td><td><span class="badge badge-blue">'+x.categoria+'</span></td><td><button class="btn btn-danger btn-sm" onclick="dDelGr('+x.id+')">X</button></td></tr>'}).join('')+'</tbody></table>';
+}
+
+/* GERADOR */
+function showGT(id,el){
+  document.querySelectorAll('#mod-gerador .tab-panel').forEach(function(t){t.classList.remove('active')});
+  document.querySelectorAll('#mod-gerador .tab').forEach(function(t){t.classList.remove('active')});
+  document.getElementById('gp-'+id).classList.add('active');if(el)el.classList.add('active');
+}
+function gpPost(){
+  var t=document.getElementById('gpTipo').value,o=parseInt(document.getElementById('gpOnda').value);
+  var ab=pick(CE.openings[t]||CE.openings.educativo),bs=shuffle(CE.bodies),cn=pick(CE.connectors),fc=pick(CE.closings);
+  var cta='';if(o>=4)cta='\n\n'+pick(CE.ctaComLink);else if(o>=2)cta='\n\n'+pick(CE.ctaSemLink);
+  document.getElementById('gpPostOut').textContent=ab+'\n\n'+bs[0]+cn+bs[1]+'\n\n'+fc+cta;
+}
+function gpComent(){
+  var o=parseInt(document.getElementById('gpOndaC').value);
+  document.getElementById('gpComOut').textContent=pick(CE.openings.comentario)+'\n\n'+pick(CE.bodies)+(o>=2?'\n\n'+pick(CE.ctaSemLink):'');
+}
+function gpInbox(){document.getElementById('gpInbOut').textContent=pick(CE.inboxOpenings)+'\n\n'+pick(CE.inboxBodies)+'\n\n'+pick(CE.inboxClosings)}
+function gpObjecao(){document.getElementById('gpObjOut').textContent=OBJ[document.getElementById('gpObj').value]||''}
+function cpEl(id){var t=document.getElementById(id).textContent;if(!t)return;navigator.clipboard.writeText(t).then(function(){toast('Copiado!')}).catch(function(){toast('Erro')})}
+
+/* CLIQUES */
+function renderClk(){
+  var clk=getClk(),lnk=getLnk(),now=Date.now(),day=864e5,hoje=new Date().toISOString().slice(0,10);
+  var ch=clk.filter(function(c){return new Date(c.ts).toISOString().slice(0,10)===hoje}).length;
+  var c7=clk.filter(function(c){return now-c.ts<7*day}).length;
+  document.getElementById('clkStats').innerHTML=
+    '<div class="stat-card"><div class="num">'+clk.length+'</div><div class="lbl">Total</div></div>'+
+    '<div class="stat-card"><div class="num" style="color:var(--success)">'+ch+'</div><div class="lbl">Hoje</div></div>'+
+    '<div class="stat-card"><div class="num" style="color:var(--warning)">'+c7+'</div><div class="lbl">7 dias</div></div>'+
+    '<div class="stat-card"><div class="num">'+lnk.length+'</div><div class="lbl">Links</div></div>';
+  if(!lnk.length){document.getElementById('clkTable').innerHTML='<div class="empty-state">Sem links. Crie no modulo WhatsApp Links.</div>';return}
+  var by={};clk.forEach(function(c){if(!by[c.linkId])by[c.linkId]={t:0,h:0,s:0,u:0};by[c.linkId].t++;if(new Date(c.ts).toISOString().slice(0,10)===hoje)by[c.linkId].h++;if(now-c.ts<7*day)by[c.linkId].s++;if(c.ts>by[c.linkId].u)by[c.linkId].u=c.ts});
+  document.getElementById('clkTable').innerHTML='<table><thead><tr><th>Link</th><th>Grupo</th><th>Total</th><th>Hoje</th><th>7d</th><th>Ultimo</th></tr></thead><tbody>'+lnk.map(function(l){var d=by[l.id]||{t:0,h:0,s:0,u:0};return '<tr><td>'+l.label+'</td><td style="font-size:.8rem;color:var(--text-muted)">'+(l.grupo||'-')+'</td><td><strong>'+d.t+'</strong></td><td>'+d.h+'</td><td>'+d.s+'</td><td style="font-size:.8rem">'+(d.u?new Date(d.u).toLocaleDateString('pt-BR'):'-')+'</td></tr>'}).join('')+'</tbody></table>';
+}
+
+/* SCRIPTS */
+var curScr='abordagem';
+function showST(id,el){
+  document.querySelectorAll('#mod-scripts .tab').forEach(function(t){t.classList.remove('active')});
+  if(el)el.classList.add('active');curScr=id;renderSCR(id);
+}
+function renderSCR(tab){
+  var items=SCR[tab]||[];
+  document.getElementById('scrContent').innerHTML=items.map(function(it,i){return '<div class="card"><h3>'+it.t+'</h3><div class="script-box" id="sc-'+tab+'-'+i+'">'+it.s+'</div><button class="btn btn-outline btn-sm" onclick="cpScr(\''+tab+'\','+i+')">Copiar</button></div>'}).join('');
+}
+function cpScr(t,i){var el=document.getElementById('sc-'+t+'-'+i);if(!el)return;navigator.clipboard.writeText(el.textContent).then(function(){toast('Copiado!')}).catch(function(){toast('Erro')})}
+
+function toast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(function(){t.classList.remove('show')},2000)}
+renderDash();renderSCR('abordagem');
+</script>
+</body>
+</html>

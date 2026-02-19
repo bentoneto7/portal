@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NLE - WhatsApp Links</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg-primary:#0a0f1c;--bg-secondary:#111827;--bg-card:#1a2332;--bg-card-hover:#1f2b3d;--border:#2a3a4e;--text-primary:#e8ecf1;--text-secondary:#8899aa;--text-muted:#5a6a7a;--accent:#3b82f6;--success:#10b981;--warning:#f59e0b;--danger:#ef4444;--purple:#8b5cf6;--font:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;--radius:8px}
+body{font-family:var(--font);background:var(--bg-primary);color:var(--text-primary);min-height:100vh;padding:20px}
+h1{font-size:1.5rem;font-weight:700;margin-bottom:4px}
+h2{font-size:1.15rem;font-weight:600;margin-bottom:12px;color:var(--accent)}
+h3{font-size:.95rem;font-weight:600;margin-bottom:8px}
+.subtitle{color:var(--text-secondary);font-size:.85rem;margin-bottom:24px}
+.container{max-width:1100px;margin:0 auto}
+.card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:16px}
+.row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.row>*{flex:1;min-width:140px}
+label{display:block;font-size:.78rem;color:var(--text-secondary);margin-bottom:4px;font-weight:500}
+input,select,textarea{width:100%;padding:9px 12px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius);color:var(--text-primary);font-size:.88rem;font-family:var(--font)}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent)}
+textarea{resize:vertical;min-height:60px}
+.btn{padding:9px 18px;border:none;border-radius:var(--radius);font-size:.85rem;font-weight:600;cursor:pointer;transition:all .2s}
+.btn-primary{background:var(--accent);color:#fff}.btn-primary:hover{background:#2563eb}
+.btn-success{background:var(--success);color:#fff}.btn-success:hover{background:#059669}
+.btn-danger{background:var(--danger);color:#fff}
+.btn-purple{background:var(--purple);color:#fff}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text-secondary)}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+.btn-sm{padding:5px 12px;font-size:.78rem}
+.btn-group{display:flex;gap:8px;flex-wrap:wrap}
+table{width:100%;border-collapse:collapse;font-size:.83rem}
+th{text-align:left;padding:8px 10px;background:var(--bg-secondary);border-bottom:2px solid var(--border);color:var(--text-secondary);font-weight:600;font-size:.78rem}
+td{padding:8px 10px;border-bottom:1px solid var(--border)}
+tr:hover td{background:var(--bg-card-hover)}
+.badge{display:inline-block;padding:2px 8px;border-radius:12px;font-size:.7rem;font-weight:600}
+.badge-green{background:rgba(16,185,129,.15);color:var(--success)}
+.badge-amber{background:rgba(245,158,11,.15);color:var(--warning)}
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin-bottom:20px}
+.stat-card{background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius);padding:16px;text-align:center}
+.stat-card .num{font-size:1.4rem;font-weight:700;color:var(--accent)}
+.stat-card .lbl{font-size:.72rem;color:var(--text-muted);margin-top:4px}
+.link-box{background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius);padding:10px 14px;font-family:monospace;font-size:.8rem;word-break:break-all;margin:6px 0;color:var(--success)}
+.tabs{display:flex;gap:4px;margin-bottom:16px;flex-wrap:wrap}
+.tab{padding:8px 16px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius);color:var(--text-secondary);cursor:pointer;font-size:.8rem;font-weight:500;transition:all .2s}
+.tab.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.tab:hover:not(.active){border-color:var(--accent);color:var(--accent)}
+.tab-panel{display:none}.tab-panel.active{display:block}
+.empty-state{text-align:center;padding:32px;color:var(--text-muted);font-size:.9rem}
+canvas{max-width:100%;border-radius:var(--radius)}
+.toast{position:fixed;bottom:24px;right:24px;background:var(--success);color:#fff;padding:12px 20px;border-radius:var(--radius);font-size:.85rem;font-weight:600;transform:translateY(100px);opacity:0;transition:all .3s;z-index:999}
+.toast.show{transform:translateY(0);opacity:1}
+.info-box{background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.2);border-radius:var(--radius);padding:14px;font-size:.85rem;color:var(--text-secondary);line-height:1.6;margin-bottom:16px}
+@media(max-width:768px){.stats-row{grid-template-columns:1fr 1fr}.row{flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>WhatsApp Links NLE</h1>
+<p class="subtitle">Crie links personalizados para o WhatsApp com rastreamento de cliques.</p>
+
+<div class="stats-row" id="stats"></div>
+
+<div class="tabs">
+<div class="tab active" onclick="showTab('criar',this)">Criar Link</div>
+<div class="tab" onclick="showTab('links',this)">Meus Links</div>
+<div class="tab" onclick="showTab('cliques',this)">Cliques</div>
+<div class="tab" onclick="showTab('grafico',this)">Grafico</div>
+</div>
+
+<!-- CRIAR LINK -->
+<div class="tab-panel active" id="tp-criar">
+<div class="info-box">
+<strong>Como funciona:</strong> Crie um link personalizado → compartilhe nos grupos do Facebook → quando alguem clicar, o sistema registra o clique e redireciona para o seu WhatsApp com a mensagem pre-formatada.
+</div>
+<div class="card">
+<h2>Novo Link</h2>
+<div class="row">
+<div><label>Nome/Rotulo do link</label><input id="lkLabel" placeholder="Ex: Grupo Negativados SP"></div>
+<div><label>Grupo de origem</label><input id="lkGrupo" placeholder="Ex: Negativados Brasil"></div>
+</div>
+<div class="row">
+<div><label>Numero WhatsApp (com DDI, ex: 5511999999999)</label><input id="lkNumero" placeholder="5511999999999"></div>
+</div>
+<div class="row">
+<div><label>Mensagem pre-formatada</label>
+<textarea id="lkMsg" rows="3" placeholder="Oi! Vi seu post no grupo e queria saber mais sobre como limpar meu nome...">Oi! Vi seu post no grupo e gostaria de saber mais sobre o servico de regularizacao financeira.</textarea></div>
+</div>
+<div class="btn-group">
+<button class="btn btn-primary" onclick="criarLink()">Criar Link Trackeado</button>
+<button class="btn btn-outline" onclick="criarEmLote()">Criar em Lote (dos grupos do Tracker)</button>
+</div>
+</div>
+
+<div id="linkCriado" style="display:none" class="card">
+<h2>Link Criado!</h2>
+<p style="font-size:.85rem;color:var(--text-muted);margin-bottom:8px">Compartilhe este link nos grupos. Cada clique sera rastreado.</p>
+<div class="link-box" id="linkUrl"></div>
+<div class="btn-group">
+<button class="btn btn-success btn-sm" onclick="copiarLinkCriado()">Copiar Link</button>
+<button class="btn btn-outline btn-sm" onclick="testarLink()">Testar</button>
+</div>
+</div>
+</div>
+
+<!-- MEUS LINKS -->
+<div class="tab-panel" id="tp-links">
+<div class="card">
+<h2>Links Criados</h2>
+<div id="linksTable"></div>
+<div class="btn-group" style="margin-top:12px">
+<button class="btn btn-outline btn-sm" onclick="exportCSV()">Exportar Cliques (CSV)</button>
+<button class="btn btn-danger btn-sm" onclick="limparTudo()">Limpar Tudo</button>
+</div>
+</div>
+</div>
+
+<!-- CLIQUES -->
+<div class="tab-panel" id="tp-cliques">
+<div class="card">
+<h2>Historico de Cliques</h2>
+<div id="clicksTable"></div>
+</div>
+</div>
+
+<!-- GRAFICO -->
+<div class="tab-panel" id="tp-grafico">
+<div class="card">
+<h2>Cliques nos Ultimos 14 Dias</h2>
+<canvas id="chartCanvas" width="800" height="350"></canvas>
+</div>
+<div class="card">
+<h2>Cliques por Link</h2>
+<canvas id="barCanvas" width="800" height="300"></canvas>
+</div>
+</div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* STORAGE */
+function getLinks(){try{return JSON.parse(localStorage.getItem('nle_wpp_links')||'[]')}catch(e){return[]}}
+function saveLinks(d){try{localStorage.setItem('nle_wpp_links',JSON.stringify(d))}catch(e){}}
+function getClicks(){try{return JSON.parse(localStorage.getItem('nle_wpp_clicks')||'[]')}catch(e){return[]}}
+function getTrkGroups(){try{return JSON.parse(localStorage.getItem('trk_groups')||'[]')}catch(e){return[]}}
+
+var lastCreatedId=null;
+
+/* CRIAR LINK */
+function criarLink(){
+  var label=document.getElementById('lkLabel').value.trim();
+  var grupo=document.getElementById('lkGrupo').value.trim();
+  var numero=document.getElementById('lkNumero').value.trim().replace(/\D/g,'');
+  var msg=document.getElementById('lkMsg').value.trim();
+
+  if(!label){toast('Digite um nome para o link');return}
+  if(!numero||numero.length<10){toast('Numero WhatsApp invalido');return}
+
+  var links=getLinks();
+  var id=Date.now().toString(36)+Math.random().toString(36).substr(2,4);
+  links.push({id:id,label:label,grupo:grupo,numero:numero,mensagem:msg,criadoEm:new Date().toISOString()});
+  saveLinks(links);
+
+  lastCreatedId=id;
+  var baseUrl=window.location.href.replace(/index\.html.*$/,'').replace(/\/$/,'');
+  var url=baseUrl+'/go.html?id='+id;
+
+  document.getElementById('linkUrl').textContent=url;
+  document.getElementById('linkCriado').style.display='block';
+
+  document.getElementById('lkLabel').value='';
+  document.getElementById('lkGrupo').value='';
+  renderAll();
+  toast('Link criado!');
+}
+
+function criarEmLote(){
+  var trkGr=getTrkGroups();
+  if(!trkGr.length){toast('Sem grupos no Tracker. Cadastre grupos primeiro.');return}
+  var numero=document.getElementById('lkNumero').value.trim().replace(/\D/g,'');
+  var msg=document.getElementById('lkMsg').value.trim();
+  if(!numero||numero.length<10){toast('Preencha o numero WhatsApp primeiro');return}
+
+  var links=getLinks();
+  var count=0;
+  trkGr.forEach(function(gr){
+    var jaExiste=links.find(function(l){return l.grupo===gr.nome});
+    if(jaExiste)return;
+    var id=Date.now().toString(36)+Math.random().toString(36).substr(2,4)+(count++);
+    links.push({id:id,label:'Link - '+gr.nome,grupo:gr.nome,numero:numero,mensagem:msg,criadoEm:new Date().toISOString()});
+  });
+  saveLinks(links);
+  renderAll();
+  toast(count+' links criados a partir dos grupos do Tracker!');
+}
+
+function copiarLinkCriado(){
+  var url=document.getElementById('linkUrl').textContent;
+  navigator.clipboard.writeText(url).then(function(){toast('Link copiado!')}).catch(function(){toast('Erro ao copiar')});
+}
+
+function testarLink(){
+  var url=document.getElementById('linkUrl').textContent;
+  if(url)window.open(url,'_blank');
+}
+
+/* TABS */
+function showTab(id,el){
+  document.querySelectorAll('.tab-panel').forEach(function(t){t.classList.remove('active')});
+  document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active')});
+  document.getElementById('tp-'+id).classList.add('active');
+  if(el)el.classList.add('active');
+  if(id==='grafico'){renderCharts()}
+  if(id==='cliques'){renderClicksTable()}
+  if(id==='links'){renderLinksTable()}
+}
+
+/* RENDER ALL */
+function renderAll(){
+  renderStats();
+  renderLinksTable();
+}
+
+function renderStats(){
+  var links=getLinks(),clicks=getClicks();
+  var now=Date.now(),day=864e5;
+  var hoje=new Date().toISOString().slice(0,10);
+  var ch=clicks.filter(function(c){return new Date(c.ts).toISOString().slice(0,10)===hoje}).length;
+  var c7=clicks.filter(function(c){return now-c.ts<7*day}).length;
+
+  document.getElementById('stats').innerHTML=
+    '<div class="stat-card"><div class="num">'+links.length+'</div><div class="lbl">Links Criados</div></div>'+
+    '<div class="stat-card"><div class="num">'+clicks.length+'</div><div class="lbl">Cliques Total</div></div>'+
+    '<div class="stat-card"><div class="num" style="color:var(--success)">'+ch+'</div><div class="lbl">Cliques Hoje</div></div>'+
+    '<div class="stat-card"><div class="num" style="color:var(--warning)">'+c7+'</div><div class="lbl">Ultimos 7 Dias</div></div>';
+}
+
+function renderLinksTable(){
+  var links=getLinks(),clicks=getClicks();
+  var el=document.getElementById('linksTable');
+  if(!links.length){el.innerHTML='<div class="empty-state">Nenhum link criado ainda. Crie seu primeiro link na aba "Criar Link".</div>';return}
+
+  var byLink={};
+  clicks.forEach(function(c){
+    if(!byLink[c.linkId])byLink[c.linkId]={total:0,hoje:0,ultimo:0};
+    byLink[c.linkId].total++;
+    var hoje=new Date().toISOString().slice(0,10);
+    if(new Date(c.ts).toISOString().slice(0,10)===hoje)byLink[c.linkId].hoje++;
+    if(c.ts>byLink[c.linkId].ultimo)byLink[c.linkId].ultimo=c.ts;
+  });
+
+  var baseUrl=window.location.href.replace(/index\.html.*$/,'').replace(/\/$/,'');
+
+  el.innerHTML='<table><thead><tr><th>Nome</th><th>Grupo</th><th>Cliques</th><th>Hoje</th><th>Ultimo</th><th>Acoes</th></tr></thead><tbody>'+
+    links.map(function(l){
+      var s=byLink[l.id]||{total:0,hoje:0,ultimo:0};
+      var url=baseUrl+'/go.html?id='+l.id;
+      return '<tr>'+
+        '<td><strong>'+l.label+'</strong></td>'+
+        '<td style="font-size:.8rem;color:var(--text-muted)">'+(l.grupo||'-')+'</td>'+
+        '<td><strong>'+s.total+'</strong></td>'+
+        '<td><span class="badge '+(s.hoje>0?'badge-green':'badge-amber')+'">'+s.hoje+'</span></td>'+
+        '<td style="font-size:.8rem">'+(s.ultimo?new Date(s.ultimo).toLocaleDateString('pt-BR'):'-')+'</td>'+
+        '<td><div class="btn-group"><button class="btn btn-outline btn-sm" onclick="cpLink(\''+l.id+'\')">Copiar</button><button class="btn btn-danger btn-sm" onclick="delLink(\''+l.id+'\')">X</button></div></td>'+
+        '</tr>';
+    }).join('')+'</tbody></table>';
+}
+
+function renderClicksTable(){
+  var clicks=getClicks().slice().sort(function(a,b){return b.ts-a.ts}).slice(0,50);
+  var links=getLinks();
+  var el=document.getElementById('clicksTable');
+  if(!clicks.length){el.innerHTML='<div class="empty-state">Sem cliques registrados ainda.</div>';return}
+  el.innerHTML='<table><thead><tr><th>Data/Hora</th><th>Link</th><th>Origem</th></tr></thead><tbody>'+
+    clicks.map(function(c){
+      var d=new Date(c.ts);
+      var l=links.find(function(x){return x.id===c.linkId});
+      return '<tr><td>'+d.toLocaleDateString('pt-BR')+' '+d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})+'</td><td>'+(l?l.label:c.linkId)+'</td><td style="font-size:.75rem;color:var(--text-muted);max-width:200px;overflow:hidden;text-overflow:ellipsis">'+(c.referrer||'direto')+'</td></tr>';
+    }).join('')+'</tbody></table>';
+}
+
+function cpLink(id){
+  var baseUrl=window.location.href.replace(/index\.html.*$/,'').replace(/\/$/,'');
+  navigator.clipboard.writeText(baseUrl+'/go.html?id='+id).then(function(){toast('Link copiado!')}).catch(function(){toast('Erro')});
+}
+
+function delLink(id){
+  if(!confirm('Remover este link? Os cliques serao mantidos.'))return;
+  saveLinks(getLinks().filter(function(l){return l.id!==id}));
+  renderAll();toast('Link removido');
+}
+
+function limparTudo(){
+  if(!confirm('Remover TODOS os links e cliques?'))return;
+  if(!confirm('Tem certeza? Essa acao nao pode ser desfeita.'))return;
+  localStorage.removeItem('nle_wpp_links');
+  localStorage.removeItem('nle_wpp_clicks');
+  renderAll();toast('Tudo limpo');
+}
+
+function exportCSV(){
+  var clicks=getClicks();var links=getLinks();
+  if(!clicks.length){toast('Sem dados para exportar');return}
+  var csv='Data,Hora,Link,Grupo,Origem\n';
+  clicks.forEach(function(c){
+    var d=new Date(c.ts);
+    var l=links.find(function(x){return x.id===c.linkId});
+    csv+=d.toLocaleDateString('pt-BR')+','+d.toLocaleTimeString('pt-BR')+','+(l?'"'+l.label+'"':c.linkId)+','+(l?'"'+(l.grupo||'')+'"':'')+','+(c.referrer?'"'+c.referrer+'"':'direto')+'\n';
+  });
+  var blob=new Blob([csv],{type:'text/csv;charset=utf-8'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='nle-cliques-'+new Date().toISOString().slice(0,10)+'.csv';a.click();
+  toast('CSV exportado!');
+}
+
+/* CHARTS */
+function renderCharts(){renderTimelineChart();renderBarChart()}
+
+function renderTimelineChart(){
+  var canvas=document.getElementById('chartCanvas');
+  var ctx=canvas.getContext('2d');
+  var clicks=getClicks();
+  var dpr=window.devicePixelRatio||1;
+  canvas.width=800*dpr;canvas.height=350*dpr;
+  canvas.style.width='800px';canvas.style.height='350px';
+  ctx.scale(dpr,dpr);
+  ctx.fillStyle='#111827';ctx.fillRect(0,0,800,350);
+
+  // Agrupar cliques por dia (ultimos 14 dias)
+  var days=[];var now=new Date();
+  for(var i=13;i>=0;i--){
+    var d=new Date(now);d.setDate(d.getDate()-i);
+    days.push(d.toISOString().slice(0,10));
+  }
+  var byDay={};days.forEach(function(d){byDay[d]=0});
+  clicks.forEach(function(c){
+    var dk=new Date(c.ts).toISOString().slice(0,10);
+    if(byDay[dk]!==undefined)byDay[dk]++;
+  });
+  var vals=days.map(function(d){return byDay[d]});
+  var max=Math.max.apply(null,vals)||1;
+
+  var ml=50,mr=20,mt=20,mb=60;
+  var cw=800-ml-mr,ch=350-mt-mb;
+
+  // Grid
+  ctx.strokeStyle='#1a2332';ctx.lineWidth=1;
+  for(var y=0;y<=4;y++){
+    var yy=mt+ch-(y/4)*ch;
+    ctx.beginPath();ctx.moveTo(ml,yy);ctx.lineTo(800-mr,yy);ctx.stroke();
+    ctx.fillStyle='#5a6a7a';ctx.font='11px sans-serif';ctx.textAlign='right';
+    ctx.fillText(Math.round(max*y/4),ml-8,yy+4);
+  }
+
+  // Barras
+  var bw=(cw/14)-4;
+  vals.forEach(function(v,i){
+    var x=ml+i*(bw+4)+2;
+    var h=(v/max)*ch;
+    var y=mt+ch-h;
+    ctx.fillStyle=v>0?'#3b82f6':'#1a2332';
+    ctx.fillRect(x,y,bw,h||2);
+
+    // Valor no topo
+    if(v>0){ctx.fillStyle='#e8ecf1';ctx.font='bold 11px sans-serif';ctx.textAlign='center';ctx.fillText(v,x+bw/2,y-6)}
+
+    // Label dia
+    ctx.fillStyle='#5a6a7a';ctx.font='10px sans-serif';ctx.textAlign='center';
+    var dd=days[i].slice(5);
+    ctx.fillText(dd,x+bw/2,mt+ch+16);
+  });
+}
+
+function renderBarChart(){
+  var canvas=document.getElementById('barCanvas');
+  var ctx=canvas.getContext('2d');
+  var clicks=getClicks();var links=getLinks();
+  var dpr=window.devicePixelRatio||1;
+  canvas.width=800*dpr;canvas.height=300*dpr;
+  canvas.style.width='800px';canvas.style.height='300px';
+  ctx.scale(dpr,dpr);
+  ctx.fillStyle='#111827';ctx.fillRect(0,0,800,300);
+
+  if(!links.length){
+    ctx.fillStyle='#5a6a7a';ctx.font='14px sans-serif';ctx.textAlign='center';
+    ctx.fillText('Sem links criados',400,150);return;
+  }
+
+  var byLink={};clicks.forEach(function(c){byLink[c.linkId]=(byLink[c.linkId]||0)+1});
+  var data=links.map(function(l){return{label:l.label,count:byLink[l.id]||0}}).sort(function(a,b){return b.count-a.count}).slice(0,10);
+  var max=data[0]?data[0].count:1;if(max===0)max=1;
+
+  var ml=50,mr=20,mt=20,mb=80;
+  var cw=800-ml-mr,ch=300-mt-mb;
+  var bw=(cw/data.length)-6;
+
+  data.forEach(function(d,i){
+    var x=ml+i*(bw+6)+3;
+    var h=(d.count/max)*ch;
+    var y=mt+ch-h;
+    ctx.fillStyle='#3b82f6';ctx.fillRect(x,y,bw,h||2);
+    ctx.fillStyle='#e8ecf1';ctx.font='bold 11px sans-serif';ctx.textAlign='center';
+    if(d.count>0)ctx.fillText(d.count,x+bw/2,y-6);
+
+    ctx.fillStyle='#8899aa';ctx.font='10px sans-serif';
+    ctx.save();ctx.translate(x+bw/2,mt+ch+10);ctx.rotate(Math.PI/5);ctx.textAlign='left';
+    ctx.fillText(d.label.substring(0,18),0,0);ctx.restore();
+  });
+}
+
+/* TOAST + INIT */
+function toast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(function(){t.classList.remove('show')},2000)}
+
+// Carregar numero salvo da config (se existir)
+try{var cfg=JSON.parse(localStorage.getItem('nle_cfg')||'{}');if(cfg.whatsapp)document.getElementById('lkNumero').value=cfg.whatsapp}catch(e){}
+
+renderAll();
+</script>
+</body>
+</html>

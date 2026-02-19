@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NLE - Gerador Anti-Padrao</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+--bg-primary:#0a0f1c;--bg-secondary:#111827;--bg-card:#1a2332;--bg-card-hover:#1f2b3d;
+--border:#2a3a4e;--text-primary:#e8ecf1;--text-secondary:#8899aa;--text-muted:#5a6a7a;
+--accent:#3b82f6;--success:#10b981;--warning:#f59e0b;--danger:#ef4444;--purple:#8b5cf6;
+--font:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;--radius:8px;
+--shadow:0 4px 6px -1px rgba(0,0,0,0.3)
+}
+body{font-family:var(--font);background:var(--bg-primary);color:var(--text-primary);min-height:100vh;padding:20px}
+h1{font-size:1.6rem;font-weight:700;margin-bottom:4px}
+h2{font-size:1.2rem;font-weight:600;margin-bottom:12px;color:var(--accent)}
+h3{font-size:1rem;font-weight:600;margin-bottom:8px}
+.subtitle{color:var(--text-secondary);font-size:.9rem;margin-bottom:24px}
+.container{max-width:900px;margin:0 auto}
+.card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:16px}
+.card:hover{border-color:var(--accent)}
+.row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+.row>*{flex:1;min-width:140px}
+label{display:block;font-size:.8rem;color:var(--text-secondary);margin-bottom:4px;font-weight:500}
+select,input[type="number"]{width:100%;padding:10px 12px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius);color:var(--text-primary);font-size:.9rem}
+select:focus,input:focus{outline:none;border-color:var(--accent)}
+.checkbox-row{display:flex;align-items:center;gap:8px;margin-bottom:16px}
+.checkbox-row input[type="checkbox"]{width:18px;height:18px;accent-color:var(--accent)}
+.checkbox-row label{margin:0;font-size:.9rem;color:var(--text-primary)}
+.btn{padding:10px 20px;border:none;border-radius:var(--radius);font-size:.9rem;font-weight:600;cursor:pointer;transition:all .2s}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:#2563eb}
+.btn-success{background:var(--success);color:#fff}
+.btn-success:hover{background:#059669}
+.btn-purple{background:var(--purple);color:#fff}
+.btn-purple:hover{background:#7c3aed}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text-secondary)}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+.btn-sm{padding:6px 14px;font-size:.8rem}
+.btn-group{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.output-area{background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius);padding:16px;min-height:120px;white-space:pre-wrap;line-height:1.7;font-size:.95rem;margin-bottom:12px;position:relative}
+.output-area:empty::before{content:'Clique em "Gerar" para criar conteudo...';color:var(--text-muted);font-style:italic}
+.dna-area{background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius);padding:12px;font-size:.75rem;color:var(--text-muted);margin-bottom:12px;font-family:monospace;line-height:1.6}
+.dna-label{color:var(--purple);font-weight:600}
+.history-list{max-height:300px;overflow-y:auto}
+.history-item{padding:10px 12px;border-bottom:1px solid var(--border);font-size:.85rem;cursor:pointer;transition:background .2s}
+.history-item:hover{background:var(--bg-card-hover)}
+.history-item .meta{color:var(--text-muted);font-size:.75rem;margin-bottom:4px}
+.history-item .preview{color:var(--text-secondary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.badge{display:inline-block;padding:2px 8px;border-radius:12px;font-size:.7rem;font-weight:600}
+.badge-blue{background:rgba(59,130,246,.15);color:var(--accent)}
+.badge-green{background:rgba(16,185,129,.15);color:var(--success)}
+.badge-amber{background:rgba(245,158,11,.15);color:var(--warning)}
+.badge-purple{background:rgba(139,92,246,.15);color:var(--purple)}
+.stats-row{display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+.stat-card{background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius);padding:12px 16px;flex:1;min-width:120px;text-align:center}
+.stat-card .num{font-size:1.4rem;font-weight:700;color:var(--accent)}
+.stat-card .lbl{font-size:.75rem;color:var(--text-muted);margin-top:2px}
+.toast{position:fixed;bottom:24px;right:24px;background:var(--success);color:#fff;padding:12px 20px;border-radius:var(--radius);font-size:.85rem;font-weight:600;transform:translateY(100px);opacity:0;transition:all .3s;z-index:999}
+.toast.show{transform:translateY(0);opacity:1}
+.tabs{display:flex;gap:4px;margin-bottom:16px;flex-wrap:wrap}
+.tab{padding:8px 16px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius);color:var(--text-secondary);cursor:pointer;font-size:.8rem;font-weight:500;transition:all .2s}
+.tab.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.tab:hover:not(.active){border-color:var(--accent);color:var(--accent)}
+@media(max-width:600px){body{padding:12px}.row{flex-direction:column}.btn-group{flex-direction:column}.stats-row{flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Gerador Anti-Padrao NLE</h1>
+<p class="subtitle">Motor de 8 camadas com 2M+ combinacoes unicas. Zero repeticao.</p>
+
+<div class="stats-row" id="statsRow">
+<div class="stat-card"><div class="num" id="statTotal">0</div><div class="lbl">Gerados</div></div>
+<div class="stat-card"><div class="num" id="statPosts">0</div><div class="lbl">Posts</div></div>
+<div class="stat-card"><div class="num" id="statComents">0</div><div class="lbl">Comentarios</div></div>
+<div class="stat-card"><div class="num" id="statInbox">0</div><div class="lbl">Inbox</div></div>
+</div>
+
+<div class="card">
+<h2>Configuracao</h2>
+<div class="row">
+<div>
+<label>Tipo de conteudo</label>
+<select id="selTipo">
+<option value="educativo">Educativo</option>
+<option value="mito">Mito vs Realidade</option>
+<option value="pergunta">Pergunta Provocativa</option>
+<option value="custo">Custo da Inacao</option>
+<option value="historia">Historia/Caso</option>
+<option value="conversao">Conversao</option>
+<option value="comentario">Comentario</option>
+</select>
+</div>
+<div>
+<label>Onda atual (1-4)</label>
+<select id="selOnda">
+<option value="1">Onda 1 - Infiltracao (sem CTA)</option>
+<option value="2">Onda 2 - Educacao (CTA soft)</option>
+<option value="3">Onda 3 - Autoridade (CTA soft)</option>
+<option value="4">Onda 4 - Conversao (CTA direto)</option>
+</select>
+</div>
+</div>
+<div class="checkbox-row">
+<input type="checkbox" id="chkNoLink">
+<label for="chkNoLink">Grupo proibe links (usar apenas CTA sem link)</label>
+</div>
+<div class="btn-group">
+<button class="btn btn-primary" onclick="gerar('post')">Gerar Post</button>
+<button class="btn btn-success" onclick="gerar('comentario')">Gerar Comentario</button>
+<button class="btn btn-purple" onclick="gerar('inbox')">Gerar Inbox</button>
+</div>
+</div>
+
+<div class="card">
+<h2>Resultado</h2>
+<div class="output-area" id="output"></div>
+<div class="btn-group">
+<button class="btn btn-primary btn-sm" onclick="copiar()">Copiar</button>
+<button class="btn btn-outline btn-sm" onclick="regenerar()">Regenerar</button>
+<button class="btn btn-outline btn-sm" onclick="toggleDna()">Ver DNA</button>
+</div>
+<div class="dna-area" id="dnaArea" style="display:none"></div>
+</div>
+
+<div class="card">
+<h2>Historico</h2>
+<div class="tabs">
+<div class="tab active" onclick="filtrarHist('todos',this)">Todos</div>
+<div class="tab" onclick="filtrarHist('post',this)">Posts</div>
+<div class="tab" onclick="filtrarHist('comentario',this)">Comentarios</div>
+<div class="tab" onclick="filtrarHist('inbox',this)">Inbox</div>
+</div>
+<div class="history-list" id="histList"></div>
+<div style="margin-top:12px">
+<button class="btn btn-outline btn-sm" onclick="limparHist()">Limpar historico</button>
+</div>
+</div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* =====================================================
+   CONTENT ENGINE (CE) v1.0 — CANONICAL SOURCE
+   Todas as aberturas, corpos, fechamentos, CTAs e conectores.
+   Outros modulos NLE copiam este objeto.
+   ===================================================== */
+var CE = {
+  openings: {
+    educativo: [
+      'Informacao que pode mudar sua situacao financeira:',
+      'Pouca gente sabe disso, mas a lei te protege:',
+      'Voce sabia que existe um caminho legal?',
+      '3 fatos que todo negativado precisa saber:',
+      'Importante pra quem ta com nome restrito:',
+      'Seu direito como consumidor:',
+      'Atencao pra essa informacao:',
+      'O que ninguem te conta sobre negativacao:',
+      'Fato pouco conhecido sobre o Serasa:',
+      'Uma informacao que vale ouro:'
+    ],
+    mito: [
+      'MITO: "So pagando a divida o nome sai do Serasa"',
+      'MITO: "Nome sujo e pra sempre"',
+      'MITO: "Quem deve nao tem direito nenhum"',
+      'MITO: "O Serasa decide quem fica negativado"',
+      'MITO: "Depois de 5 anos a divida some sozinha"',
+      'MITO: "Renegociar e a unica opcao pra limpar nome"'
+    ],
+    pergunta: [
+      'Pergunta pra quem ta com nome sujo:',
+      'Voce ja parou pra pensar nisso?',
+      'Me responde uma coisa:',
+      'Enquete rapida pra quem esta negativado:',
+      'Ja se perguntou por que seu credito e negado mesmo pagando?',
+      'Teste rapido: voce sabe seus direitos como consumidor?'
+    ],
+    custo: [
+      'Ja calculou quanto o nome sujo te custa por mes?',
+      'O imposto invisivel de estar negativado:',
+      'A conta que ninguem faz:',
+      'Cada dia negativado custa dinheiro real. Quanto?',
+      'A matematica cruel de estar com nome sujo:'
+    ],
+    historia: [
+      'Caso real (dados anonimizados):',
+      'Isso aconteceu essa semana:',
+      'Historia que a gente ve todo dia no escritorio:',
+      'Mais um caso resolvido pela via legal:',
+      'Situacao que se repete muito entre nossos clientes:'
+    ],
+    conversao: [
+      'Resultado da semana:',
+      'Pra quem quer resolver de verdade:',
+      'Oportunidade pra quem ta negativado:',
+      'Analise gratuita disponivel essa semana:',
+      'Ultimas vagas para analise gratuita:'
+    ],
+    comentario: [
+      'Isso tem solucao legal, sabia?',
+      'Muita gente nao sabe, mas existe um caminho:',
+      'Pela minha experiencia profissional:',
+      'So pra complementar o que foi dito:',
+      'Boa pergunta. O que eu sei sobre isso:'
+    ]
+  },
+  bodies: [
+    'O Codigo de Defesa do Consumidor (art. 43) exige que voce seja NOTIFICADO antes de qualquer negativacao. Se nao foi, a inclusao pode ser irregular.',
+    'Nenhuma negativacao pode permanecer nos orgaos de protecao por mais de 5 anos. Se a sua tem mais que isso, ela esta la de forma ilegal.',
+    'A LGPD (art. 18) te da direito de corrigir dados incorretos em qualquer cadastro financeiro, incluindo Serasa, SPC e Boa Vista.',
+    'A Sumula 548 do STJ e clara: se voce pagou e o credor nao retirou a negativacao em 5 dias uteis, cabe indenizacao por dano moral.',
+    'Dever nao anula seus direitos. O credor tem obrigacoes legais no processo de negativacao. Quando nao cumpre, o consumidor pode contestar.',
+    'Muita gente confunde renegociar com limpar nome. Sao coisas completamente diferentes. Limpar e verificar se a negativacao seguiu o processo legal.',
+    'Os bancos classificam voce internamente de AA a H. Nome limpo no Serasa NAO garante bom rating bancario. Sao sistemas diferentes.',
+    'O SCR do Banco Central registra TODAS as operacoes de credito. E la que os bancos realmente olham antes de aprovar qualquer coisa.',
+    'A prescricao da divida (5 anos, art. 206 do Codigo Civil) impede cobranca judicial. Mas a negativacao tem prazo proprio no art. 43 do CDC.',
+    'Consulte o Registrato (registrato.bcb.gov.br) gratuitamente. La voce ve tudo que esta vinculado ao seu CPF no sistema financeiro brasileiro.',
+    'Negativacao sem notificacao previa ao consumidor e irregular. E a base de milhares de decisoes judiciais favoraveis ao consumidor todo ano.',
+    'Pra MEI e empreendedores: o banco olha o CPF do titular, nao o CNPJ. Regularizar o CPF e investir diretamente no crescimento do negocio.'
+  ],
+  closings: [
+    'Conheca seus direitos.',
+    'Compartilha com quem precisa saber disso.',
+    'Guarda essa informacao — pode ser util.',
+    'Quem mais nao sabia disso? Comenta ai.',
+    'A lei existe pra proteger voce.',
+    'Se serviu pra voce, passa pra frente.',
+    'Conhecimento e a melhor protecao.',
+    'Qualquer duvida, comenta aqui.',
+    'Informacao acessivel pra todos.'
+  ],
+  ctaSemLink: [
+    'Se quiser entender melhor o seu caso, me chama no inbox.',
+    'Duvida sobre a sua situacao? Me manda mensagem.',
+    'Quer saber se o seu caso tem solucao legal? Inbox aberto.',
+    'Me chama no privado que te explico sem compromisso.'
+  ],
+  ctaComLink: [
+    'Analise gratuita do seu caso: me chama no WhatsApp (link na bio).',
+    'Quer resolver de vez? Link do WhatsApp ta na bio.',
+    'Me chama no inbox ou no WhatsApp pra uma analise gratis do seu caso.'
+  ],
+  connectors: [
+    '\n\n',
+    '\n\nOu seja: ',
+    '\n\nNa pratica: ',
+    '\n\nResumo: ',
+    '\n\nIsso significa que: ',
+    '\n\nE mais: '
+  ],
+  /* Mensagens de inbox (primeiro contato) */
+  inboxOpenings: [
+    'Oi! Vi que voce ta passando por uma situacao complicada com negativacao.',
+    'Oi! Vi seu comentario no grupo e queria te dar uma informacao importante.',
+    'Oi! Tudo bem? Vi que voce mencionou que ta com nome sujo.',
+    'Oi! Espero nao estar incomodando. Vi sua situacao e posso te ajudar com uma informacao.'
+  ],
+  inboxBodies: [
+    'Trabalho com regularizacao financeira e muitos casos parecidos com o seu tem solucao pela via legal. Nao e renegociacao — e verificar se o credor cumpriu o processo correto.',
+    'Existem situacoes em que a negativacao e irregular — quando nao houve notificacao, quando passou de 5 anos, ou quando os dados estao errados. Nesses casos, a lei obriga a remocao.',
+    'Antes de qualquer coisa, posso fazer uma analise rapida e gratuita do seu caso pra ver se existe alguma irregularidade que permita a remocao da negativacao.'
+  ],
+  inboxClosings: [
+    'Se tiver interesse, me conta: quantas negativacoes voce tem e ha quanto tempo estao la?',
+    'Posso te explicar melhor como funciona. Quer que eu analise seu caso?',
+    'Sem compromisso nenhum. Me fala um pouco da sua situacao que eu te oriento.'
+  ]
+};
+
+/* =====================================================
+   FUNCOES UTILITARIAS
+   ===================================================== */
+function pick(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+function pickIndex(arr) {
+  var i = Math.floor(Math.random() * arr.length);
+  return { value: arr[i], index: i };
+}
+
+function shuffle(arr) {
+  var a = arr.slice();
+  for (var i = a.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+  }
+  return a;
+}
+
+/* =====================================================
+   GERADOR PRINCIPAL — 8 CAMADAS
+   ===================================================== */
+var lastDna = null;
+var lastMode = null;
+
+function gerarPost(tipo, onda, noLink) {
+  var dna = {};
+
+  // Camada 1: Abertura
+  var tipoReal = tipo;
+  if (!CE.openings[tipoReal]) tipoReal = 'educativo';
+  var ab = pickIndex(CE.openings[tipoReal]);
+  dna.abertura = { tipo: tipoReal, index: ab.index, texto: ab.value };
+
+  // Camada 2: Corpos (2 aleatorios de 12)
+  var bodyIndices = shuffle(Array.from({length: CE.bodies.length}, function(_, i) { return i; }));
+  var b1 = bodyIndices[0], b2 = bodyIndices[1];
+  dna.corpo1 = { index: b1, texto: CE.bodies[b1] };
+  dna.corpo2 = { index: b2, texto: CE.bodies[b2] };
+
+  // Camada 3: Conector
+  var cn = pickIndex(CE.connectors);
+  dna.conector = { index: cn.index, texto: cn.value.trim() || '(quebra)' };
+
+  // Camada 4: Fechamento
+  var fc = pickIndex(CE.closings);
+  dna.fechamento = { index: fc.index, texto: fc.value };
+
+  // Camada 5: CTA (baseado na onda)
+  var cta = '';
+  var ctaDna = { tipo: 'nenhum', index: -1, texto: '' };
+  var ondaNum = parseInt(onda) || 1;
+  if (ondaNum >= 4 && !noLink) {
+    var c = pickIndex(CE.ctaComLink);
+    cta = '\n\n' + c.value;
+    ctaDna = { tipo: 'comLink', index: c.index, texto: c.value };
+  } else if (ondaNum >= 2 && tipoReal !== 'comentario') {
+    var c = pickIndex(CE.ctaSemLink);
+    cta = '\n\n' + c.value;
+    ctaDna = { tipo: 'semLink', index: c.index, texto: c.value };
+  }
+  dna.cta = ctaDna;
+
+  // Camada 6: Tipo de post
+  dna.tipoPost = tipoReal;
+
+  // Camada 7: Onda
+  dna.onda = ondaNum;
+
+  // Camada 8: Adaptacao (link/nolink)
+  dna.adaptacao = noLink ? 'sem-link' : 'livre';
+
+  // Monta o post
+  var post = ab.value + '\n\n' + CE.bodies[b1] + cn.value + CE.bodies[b2] + '\n\n' + fc.value + cta;
+
+  return { texto: post, dna: dna };
+}
+
+function gerarComentario(onda) {
+  var dna = {};
+  var ab = pickIndex(CE.openings.comentario);
+  dna.abertura = { tipo: 'comentario', index: ab.index, texto: ab.value };
+
+  var bodyIdx = Math.floor(Math.random() * CE.bodies.length);
+  dna.corpo = { index: bodyIdx, texto: CE.bodies[bodyIdx] };
+
+  var ondaNum = parseInt(onda) || 1;
+  var cta = '';
+  var ctaDna = { tipo: 'nenhum', index: -1, texto: '' };
+  if (ondaNum >= 2) {
+    var c = pickIndex(CE.ctaSemLink);
+    cta = '\n\n' + c.value;
+    ctaDna = { tipo: 'semLink', index: c.index, texto: c.value };
+  }
+  dna.cta = ctaDna;
+  dna.onda = ondaNum;
+
+  var texto = ab.value + '\n\n' + CE.bodies[bodyIdx] + cta;
+  return { texto: texto, dna: dna };
+}
+
+function gerarInbox() {
+  var dna = {};
+  var ab = pickIndex(CE.inboxOpenings);
+  dna.abertura = { index: ab.index, texto: ab.value };
+
+  var bd = pickIndex(CE.inboxBodies);
+  dna.corpo = { index: bd.index, texto: bd.value };
+
+  var fc = pickIndex(CE.inboxClosings);
+  dna.fechamento = { index: fc.index, texto: fc.value };
+
+  var texto = ab.value + '\n\n' + bd.value + '\n\n' + fc.value;
+  return { texto: texto, dna: dna };
+}
+
+/* =====================================================
+   INTERFACE
+   ===================================================== */
+function gerar(modo) {
+  var tipo = document.getElementById('selTipo').value;
+  var onda = document.getElementById('selOnda').value;
+  var noLink = document.getElementById('chkNoLink').checked;
+  var resultado;
+
+  lastMode = modo;
+
+  if (modo === 'comentario') {
+    resultado = gerarComentario(onda);
+  } else if (modo === 'inbox') {
+    resultado = gerarInbox();
+  } else {
+    resultado = gerarPost(tipo, onda, noLink);
+  }
+
+  lastDna = resultado.dna;
+  document.getElementById('output').textContent = resultado.texto;
+  document.getElementById('dnaArea').style.display = 'none';
+
+  // Salvar no historico
+  salvarHist(modo, tipo, onda, resultado.texto, resultado.dna);
+  atualizarStats();
+  renderHist();
+}
+
+function regenerar() {
+  if (!lastMode) { gerar('post'); return; }
+  gerar(lastMode);
+}
+
+function copiar() {
+  var texto = document.getElementById('output').textContent;
+  if (!texto) { toast('Nada para copiar'); return; }
+  navigator.clipboard.writeText(texto).then(function() {
+    toast('Copiado!');
+  }).catch(function() {
+    // Fallback
+    var ta = document.createElement('textarea');
+    ta.value = texto;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    toast('Copiado!');
+  });
+}
+
+function toggleDna() {
+  var el = document.getElementById('dnaArea');
+  if (!lastDna) { toast('Gere conteudo primeiro'); return; }
+  if (el.style.display === 'none') {
+    el.style.display = 'block';
+    var html = '<span class="dna-label">DNA do conteudo gerado:</span>\n';
+    if (lastDna.abertura) html += 'Abertura: tipo=' + (lastDna.abertura.tipo || '-') + ' idx=' + lastDna.abertura.index + '\n';
+    if (lastDna.corpo1) html += 'Corpo 1: idx=' + lastDna.corpo1.index + '\n';
+    if (lastDna.corpo2) html += 'Corpo 2: idx=' + lastDna.corpo2.index + '\n';
+    if (lastDna.corpo) html += 'Corpo: idx=' + lastDna.corpo.index + '\n';
+    if (lastDna.conector) html += 'Conector: idx=' + lastDna.conector.index + ' ("' + lastDna.conector.texto + '")\n';
+    if (lastDna.fechamento) html += 'Fechamento: idx=' + lastDna.fechamento.index + '\n';
+    if (lastDna.cta) html += 'CTA: tipo=' + lastDna.cta.tipo + ' idx=' + lastDna.cta.index + '\n';
+    html += 'Tipo: ' + (lastDna.tipoPost || lastMode) + '\n';
+    html += 'Onda: ' + (lastDna.onda || '-') + '\n';
+    if (lastDna.adaptacao) html += 'Adaptacao: ' + lastDna.adaptacao;
+    el.innerHTML = html;
+  } else {
+    el.style.display = 'none';
+  }
+}
+
+/* =====================================================
+   HISTORICO (localStorage)
+   ===================================================== */
+function getHist() {
+  try { return JSON.parse(localStorage.getItem('nle_gen_hist') || '[]'); } catch(e) { return []; }
+}
+function saveHist(h) {
+  try { localStorage.setItem('nle_gen_hist', JSON.stringify(h)); } catch(e) {}
+}
+
+function salvarHist(modo, tipo, onda, texto, dna) {
+  var h = getHist();
+  h.unshift({
+    id: Date.now(),
+    modo: modo,
+    tipo: tipo,
+    onda: parseInt(onda),
+    texto: texto,
+    dna: dna,
+    data: new Date().toISOString()
+  });
+  if (h.length > 100) h = h.slice(0, 100);
+  saveHist(h);
+}
+
+var histFilter = 'todos';
+
+function filtrarHist(filtro, el) {
+  histFilter = filtro;
+  document.querySelectorAll('.tabs .tab').forEach(function(t) { t.classList.remove('active'); });
+  if (el) el.classList.add('active');
+  renderHist();
+}
+
+function renderHist() {
+  var h = getHist();
+  var list = document.getElementById('histList');
+  if (histFilter !== 'todos') {
+    h = h.filter(function(item) { return item.modo === histFilter; });
+  }
+  if (h.length === 0) {
+    list.innerHTML = '<div style="padding:16px;color:var(--text-muted);text-align:center;font-size:.85rem">Nenhum conteudo gerado ainda.</div>';
+    return;
+  }
+  list.innerHTML = h.map(function(item) {
+    var badgeClass = item.modo === 'post' ? 'badge-blue' : item.modo === 'comentario' ? 'badge-green' : 'badge-purple';
+    var data = new Date(item.data);
+    var dataStr = data.toLocaleDateString('pt-BR') + ' ' + data.toLocaleTimeString('pt-BR', {hour:'2-digit',minute:'2-digit'});
+    return '<div class="history-item" onclick="carregarHist(' + item.id + ')">' +
+      '<div class="meta"><span class="badge ' + badgeClass + '">' + item.modo + '</span> ' +
+      '<span class="badge badge-amber">onda ' + item.onda + '</span> ' +
+      dataStr + '</div>' +
+      '<div class="preview">' + item.texto.substring(0, 80) + '...</div></div>';
+  }).join('');
+}
+
+function carregarHist(id) {
+  var h = getHist();
+  var item = h.find(function(x) { return x.id === id; });
+  if (!item) return;
+  document.getElementById('output').textContent = item.texto;
+  lastDna = item.dna;
+  lastMode = item.modo;
+  document.getElementById('dnaArea').style.display = 'none';
+  toast('Conteudo carregado do historico');
+}
+
+function limparHist() {
+  if (!confirm('Limpar todo o historico de geracoes?')) return;
+  saveHist([]);
+  renderHist();
+  atualizarStats();
+  toast('Historico limpo');
+}
+
+/* =====================================================
+   STATS
+   ===================================================== */
+function atualizarStats() {
+  var h = getHist();
+  document.getElementById('statTotal').textContent = h.length;
+  document.getElementById('statPosts').textContent = h.filter(function(x) { return x.modo === 'post'; }).length;
+  document.getElementById('statComents').textContent = h.filter(function(x) { return x.modo === 'comentario'; }).length;
+  document.getElementById('statInbox').textContent = h.filter(function(x) { return x.modo === 'inbox'; }).length;
+}
+
+/* =====================================================
+   TOAST
+   ===================================================== */
+function toast(msg) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(function() { t.classList.remove('show'); }, 2000);
+}
+
+/* =====================================================
+   INIT
+   ===================================================== */
+atualizarStats();
+renderHist();
+</script>
+</body>
+</html>

@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NLE - Onda Organica</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+--bg-primary:#0a0f1c;--bg-secondary:#111827;--bg-card:#1a2332;--bg-card-hover:#1f2b3d;
+--border:#2a3a4e;--text-primary:#e8ecf1;--text-secondary:#8899aa;--text-muted:#5a6a7a;
+--accent:#3b82f6;--success:#10b981;--warning:#f59e0b;--danger:#ef4444;--purple:#8b5cf6;
+--font:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;--radius:8px;
+--shadow:0 4px 6px -1px rgba(0,0,0,0.3)
+}
+body{font-family:var(--font);background:var(--bg-primary);color:var(--text-primary);min-height:100vh;padding:20px}
+h1{font-size:1.6rem;font-weight:700;margin-bottom:4px}
+h2{font-size:1.2rem;font-weight:600;margin-bottom:12px;color:var(--accent)}
+.subtitle{color:var(--text-secondary);font-size:.9rem;margin-bottom:24px}
+.container{max-width:1100px;margin:0 auto}
+.card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:16px}
+.wave-tabs{display:flex;gap:4px;margin-bottom:20px;flex-wrap:wrap}
+.wave-tab{padding:10px 20px;border-radius:var(--radius);border:2px solid var(--border);background:var(--bg-secondary);color:var(--text-secondary);cursor:pointer;font-weight:600;font-size:.85rem;transition:all .2s}
+.wave-tab.active{color:#fff}
+.wave-tab[data-wave="1"].active{border-color:#6366f1;background:#6366f1}
+.wave-tab[data-wave="2"].active{border-color:var(--success);background:var(--success)}
+.wave-tab[data-wave="3"].active{border-color:var(--warning);background:var(--warning);color:#000}
+.wave-tab[data-wave="4"].active{border-color:var(--danger);background:var(--danger)}
+.wave-info{padding:12px 16px;border-radius:var(--radius);margin-bottom:20px;font-size:.85rem;line-height:1.5}
+.wave-info.w1{background:rgba(99,102,241,.1);border:1px solid rgba(99,102,241,.3);color:#a5b4fc}
+.wave-info.w2{background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.3);color:#6ee7b7}
+.wave-info.w3{background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.3);color:#fcd34d}
+.wave-info.w4{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);color:#fca5a5}
+.calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-bottom:20px}
+.day-header{text-align:center;font-size:.75rem;font-weight:600;color:var(--text-muted);padding:8px 4px;text-transform:uppercase}
+.day-cell{background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius);padding:10px;min-height:100px;cursor:pointer;transition:all .2s;position:relative}
+.day-cell:hover{border-color:var(--accent);background:var(--bg-card-hover)}
+.day-cell.active{border-color:var(--accent);box-shadow:0 0 0 2px rgba(59,130,246,.3)}
+.day-num{font-size:.75rem;font-weight:700;color:var(--text-muted);margin-bottom:6px}
+.day-items{font-size:.7rem;color:var(--text-secondary);line-height:1.4}
+.day-items .item{padding:3px 6px;background:var(--bg-card);border-radius:4px;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.item-post{border-left:3px solid var(--accent)}
+.item-comment{border-left:3px solid var(--success)}
+.side-panel{position:fixed;top:0;right:-450px;width:450px;height:100vh;background:var(--bg-card);border-left:1px solid var(--border);box-shadow:-4px 0 20px rgba(0,0,0,.5);z-index:100;transition:right .3s;overflow-y:auto;padding:24px}
+.side-panel.open{right:0}
+.side-panel .close-btn{position:absolute;top:12px;right:12px;background:none;border:none;color:var(--text-muted);font-size:1.4rem;cursor:pointer}
+.side-panel .close-btn:hover{color:var(--text-primary)}
+.side-panel h3{font-size:1.1rem;margin-bottom:16px;padding-right:30px}
+.side-panel .content-box{background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius);padding:16px;white-space:pre-wrap;line-height:1.7;font-size:.9rem;margin-bottom:16px}
+.overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);z-index:99;display:none}
+.overlay.show{display:block}
+.btn{padding:10px 20px;border:none;border-radius:var(--radius);font-size:.85rem;font-weight:600;cursor:pointer;transition:all .2s}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:#2563eb}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text-secondary)}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+.btn-sm{padding:6px 14px;font-size:.8rem}
+.btn-group{display:flex;gap:8px;flex-wrap:wrap}
+.stats-row{display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.stat-card{background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius);padding:12px 16px;flex:1;min-width:100px;text-align:center}
+.stat-card .num{font-size:1.3rem;font-weight:700}
+.stat-card .lbl{font-size:.7rem;color:var(--text-muted);margin-top:2px}
+.badge{display:inline-block;padding:2px 8px;border-radius:12px;font-size:.7rem;font-weight:600}
+.badge-post{background:rgba(59,130,246,.15);color:var(--accent)}
+.badge-comment{background:rgba(16,185,129,.15);color:var(--success)}
+.toast{position:fixed;bottom:24px;right:24px;background:var(--success);color:#fff;padding:12px 20px;border-radius:var(--radius);font-size:.85rem;font-weight:600;transform:translateY(100px);opacity:0;transition:all .3s;z-index:200}
+.toast.show{transform:translateY(0);opacity:1}
+@media(max-width:768px){
+.calendar{grid-template-columns:repeat(2,1fr)}
+.day-header{display:none}
+.side-panel{width:100%;right:-100%}
+.stats-row{flex-direction:column}
+}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Onda Organica NLE</h1>
+<p class="subtitle">Calendario estrategico de 30 dias — 4 ondas de infiltracao a conversao.</p>
+
+<div class="stats-row">
+<div class="stat-card"><div class="num" style="color:#6366f1">14</div><div class="lbl">Comentarios (Onda 1)</div></div>
+<div class="stat-card"><div class="num" style="color:var(--success)">7</div><div class="lbl">Posts Edu (Onda 2)</div></div>
+<div class="stat-card"><div class="num" style="color:var(--warning)">8</div><div class="lbl">Posts Auto (Onda 3)</div></div>
+<div class="stat-card"><div class="num" style="color:var(--danger)">8</div><div class="lbl">Posts Conv (Onda 4)</div></div>
+</div>
+
+<div class="wave-tabs">
+<div class="wave-tab active" data-wave="1" onclick="selectWave(1)">Onda 1 — Infiltracao</div>
+<div class="wave-tab" data-wave="2" onclick="selectWave(2)">Onda 2 — Educacao</div>
+<div class="wave-tab" data-wave="3" onclick="selectWave(3)">Onda 3 — Autoridade</div>
+<div class="wave-tab" data-wave="4" onclick="selectWave(4)">Onda 4 — Conversao</div>
+</div>
+
+<div id="waveInfo"></div>
+<div class="calendar" id="calendar"></div>
+
+<div class="btn-group" style="margin-bottom:16px">
+<button class="btn btn-primary" onclick="exportarCalendario()">Exportar Calendario (.txt)</button>
+<button class="btn btn-outline" onclick="regenerarTudo()">Regenerar Todo Conteudo</button>
+</div>
+</div>
+
+<div class="overlay" id="overlay" onclick="fecharPanel()"></div>
+<div class="side-panel" id="sidePanel">
+<button class="close-btn" onclick="fecharPanel()">&times;</button>
+<h3 id="panelTitle"></h3>
+<div id="panelBadge" style="margin-bottom:12px"></div>
+<div class="content-box" id="panelContent"></div>
+<div class="btn-group">
+<button class="btn btn-primary btn-sm" onclick="copiarPanel()">Copiar</button>
+<button class="btn btn-outline btn-sm" onclick="gerarVariacao()">Gerar Variacao</button>
+</div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* =====================================================
+   CONTENT ENGINE (CE) v1.0 — Copia do gerador-anti-padrao
+   ===================================================== */
+var CE = {
+  openings: {
+    educativo: [
+      'Informacao que pode mudar sua situacao financeira:',
+      'Pouca gente sabe disso, mas a lei te protege:',
+      'Voce sabia que existe um caminho legal?',
+      '3 fatos que todo negativado precisa saber:',
+      'Importante pra quem ta com nome restrito:',
+      'Seu direito como consumidor:',
+      'Atencao pra essa informacao:',
+      'O que ninguem te conta sobre negativacao:',
+      'Fato pouco conhecido sobre o Serasa:',
+      'Uma informacao que vale ouro:'
+    ],
+    mito: [
+      'MITO: "So pagando a divida o nome sai do Serasa"',
+      'MITO: "Nome sujo e pra sempre"',
+      'MITO: "Quem deve nao tem direito nenhum"',
+      'MITO: "O Serasa decide quem fica negativado"',
+      'MITO: "Depois de 5 anos a divida some sozinha"',
+      'MITO: "Renegociar e a unica opcao pra limpar nome"'
+    ],
+    pergunta: [
+      'Pergunta pra quem ta com nome sujo:',
+      'Voce ja parou pra pensar nisso?',
+      'Me responde uma coisa:',
+      'Enquete rapida pra quem esta negativado:',
+      'Ja se perguntou por que seu credito e negado mesmo pagando?',
+      'Teste rapido: voce sabe seus direitos como consumidor?'
+    ],
+    custo: [
+      'Ja calculou quanto o nome sujo te custa por mes?',
+      'O imposto invisivel de estar negativado:',
+      'A conta que ninguem faz:',
+      'Cada dia negativado custa dinheiro real. Quanto?',
+      'A matematica cruel de estar com nome sujo:'
+    ],
+    historia: [
+      'Caso real (dados anonimizados):',
+      'Isso aconteceu essa semana:',
+      'Historia que a gente ve todo dia no escritorio:',
+      'Mais um caso resolvido pela via legal:',
+      'Situacao que se repete muito entre nossos clientes:'
+    ],
+    conversao: [
+      'Resultado da semana:',
+      'Pra quem quer resolver de verdade:',
+      'Oportunidade pra quem ta negativado:',
+      'Analise gratuita disponivel essa semana:',
+      'Ultimas vagas para analise gratuita:'
+    ],
+    comentario: [
+      'Isso tem solucao legal, sabia?',
+      'Muita gente nao sabe, mas existe um caminho:',
+      'Pela minha experiencia profissional:',
+      'So pra complementar o que foi dito:',
+      'Boa pergunta. O que eu sei sobre isso:'
+    ]
+  },
+  bodies: [
+    'O Codigo de Defesa do Consumidor (art. 43) exige que voce seja NOTIFICADO antes de qualquer negativacao. Se nao foi, a inclusao pode ser irregular.',
+    'Nenhuma negativacao pode permanecer nos orgaos de protecao por mais de 5 anos. Se a sua tem mais que isso, ela esta la de forma ilegal.',
+    'A LGPD (art. 18) te da direito de corrigir dados incorretos em qualquer cadastro financeiro, incluindo Serasa, SPC e Boa Vista.',
+    'A Sumula 548 do STJ e clara: se voce pagou e o credor nao retirou a negativacao em 5 dias uteis, cabe indenizacao por dano moral.',
+    'Dever nao anula seus direitos. O credor tem obrigacoes legais no processo de negativacao. Quando nao cumpre, o consumidor pode contestar.',
+    'Muita gente confunde renegociar com limpar nome. Sao coisas completamente diferentes. Limpar e verificar se a negativacao seguiu o processo legal.',
+    'Os bancos classificam voce internamente de AA a H. Nome limpo no Serasa NAO garante bom rating bancario. Sao sistemas diferentes.',
+    'O SCR do Banco Central registra TODAS as operacoes de credito. E la que os bancos realmente olham antes de aprovar qualquer coisa.',
+    'A prescricao da divida (5 anos, art. 206 do Codigo Civil) impede cobranca judicial. Mas a negativacao tem prazo proprio no art. 43 do CDC.',
+    'Consulte o Registrato (registrato.bcb.gov.br) gratuitamente. La voce ve tudo que esta vinculado ao seu CPF no sistema financeiro brasileiro.',
+    'Negativacao sem notificacao previa ao consumidor e irregular. E a base de milhares de decisoes judiciais favoraveis ao consumidor todo ano.',
+    'Pra MEI e empreendedores: o banco olha o CPF do titular, nao o CNPJ. Regularizar o CPF e investir diretamente no crescimento do negocio.'
+  ],
+  closings: [
+    'Conheca seus direitos.',
+    'Compartilha com quem precisa saber disso.',
+    'Guarda essa informacao — pode ser util.',
+    'Quem mais nao sabia disso? Comenta ai.',
+    'A lei existe pra proteger voce.',
+    'Se serviu pra voce, passa pra frente.',
+    'Conhecimento e a melhor protecao.',
+    'Qualquer duvida, comenta aqui.',
+    'Informacao acessivel pra todos.'
+  ],
+  ctaSemLink: [
+    'Se quiser entender melhor o seu caso, me chama no inbox.',
+    'Duvida sobre a sua situacao? Me manda mensagem.',
+    'Quer saber se o seu caso tem solucao legal? Inbox aberto.',
+    'Me chama no privado que te explico sem compromisso.'
+  ],
+  ctaComLink: [
+    'Analise gratuita do seu caso: me chama no WhatsApp (link na bio).',
+    'Quer resolver de vez? Link do WhatsApp ta na bio.',
+    'Me chama no inbox ou no WhatsApp pra uma analise gratis do seu caso.'
+  ],
+  connectors: ['\n\n', '\n\nOu seja: ', '\n\nNa pratica: ', '\n\nResumo: ', '\n\nIsso significa que: ', '\n\nE mais: ']
+};
+
+function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+function shuffle(arr) {
+  var a = arr.slice();
+  for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; }
+  return a;
+}
+
+function gerarPost(tipo, onda) {
+  var abs = CE.openings[tipo] || CE.openings.educativo;
+  var ab = pick(abs);
+  var bodies = shuffle(CE.bodies);
+  var b1 = bodies[0], b2 = bodies[1];
+  var cn = pick(CE.connectors);
+  var fc = pick(CE.closings);
+  var cta = '';
+  if (onda >= 4) cta = '\n\n' + pick(CE.ctaComLink);
+  else if (onda >= 2) cta = '\n\n' + pick(CE.ctaSemLink);
+  return ab + '\n\n' + b1 + cn + b2 + '\n\n' + fc + cta;
+}
+
+function gerarComentario(onda) {
+  var ab = pick(CE.openings.comentario);
+  var bd = pick(CE.bodies);
+  var cta = '';
+  if (onda >= 2) cta = '\n\n' + pick(CE.ctaSemLink);
+  return ab + '\n\n' + bd + cta;
+}
+
+/* =====================================================
+   DADOS DAS 4 ONDAS
+   ===================================================== */
+var waveDescriptions = {
+  1: {cls:'w1', title:'Onda 1 — Infiltracao (Dias 1-7)', text:'SOMENTE comentarios. Zero posts proprios. Comente em 3-5 posts por dia no grupo. Tom empatico e informativo. Objetivo: ser reconhecido como membro ativo antes de postar.'},
+  2: {cls:'w2', title:'Onda 2 — Educacao (Dias 8-14)', text:'1 post educativo por dia. Sem CTA direto — apenas "me chama no inbox" no final. Alterne entre tipos: educativo, mito, pergunta, custo da inacao. Objetivo: educar e gerar autoridade.'},
+  3: {cls:'w3', title:'Onda 3 — Autoridade (Dias 15-22)', text:'Posts com mais substancia. Cite leis, numeros, casos reais (anonimizados). CTA soft no final. Misture 1-2 posts por dia. Objetivo: posicionar-se como referencia no grupo.'},
+  4: {cls:'w4', title:'Onda 4 — Conversao (Dias 23-30)', text:'CTA direto permitido. Proporcao 1:2 (a cada 3 posts, 1 e de conversao e 2 sao educativos). Analise gratuita, WhatsApp, link na bio. Objetivo: colher leads.'}
+};
+
+var waveContent = null;
+
+function gerarConteudoOndas() {
+  var content = { 1: [], 2: [], 3: [], 4: [] };
+  // Onda 1: 14 comentarios (2/dia, 7 dias)
+  for (var d = 1; d <= 7; d++) {
+    content[1].push({ dia: d, tipo: 'comentario', slot: 1, texto: gerarComentario(1) });
+    content[1].push({ dia: d, tipo: 'comentario', slot: 2, texto: gerarComentario(1) });
+  }
+  // Onda 2: 7 posts educativos (1/dia)
+  var tipos2 = ['educativo','mito','pergunta','custo','educativo','mito','pergunta'];
+  for (var d = 1; d <= 7; d++) {
+    content[2].push({ dia: d, tipo: 'post', subtipo: tipos2[d-1], slot: 1, texto: gerarPost(tipos2[d-1], 2) });
+  }
+  // Onda 3: 8 posts de autoridade (1-2/dia)
+  var tipos3 = ['educativo','historia','mito','educativo','custo','historia','pergunta','educativo'];
+  var dias3 = [1, 1, 2, 3, 4, 5, 6, 7];
+  for (var i = 0; i < 8; i++) {
+    content[3].push({ dia: dias3[i], tipo: 'post', subtipo: tipos3[i], slot: i < 2 ? i+1 : 1, texto: gerarPost(tipos3[i], 3) });
+  }
+  // Onda 4: 8 posts de conversao (1-2/dia, mix edu+conv)
+  var tipos4 = ['conversao','educativo','educativo','conversao','educativo','conversao','educativo','conversao'];
+  var dias4 = [1, 2, 3, 4, 4, 5, 6, 7];
+  for (var i = 0; i < 8; i++) {
+    content[4].push({ dia: dias4[i], tipo: 'post', subtipo: tipos4[i], slot: 1, texto: gerarPost(tipos4[i], 4) });
+  }
+  return content;
+}
+
+/* =====================================================
+   INTERFACE
+   ===================================================== */
+var currentWave = 1;
+var selectedItem = null;
+
+function selectWave(w) {
+  currentWave = w;
+  document.querySelectorAll('.wave-tab').forEach(function(t) {
+    t.classList.toggle('active', parseInt(t.dataset.wave) === w);
+  });
+  renderWaveInfo();
+  renderCalendar();
+}
+
+function renderWaveInfo() {
+  var info = waveDescriptions[currentWave];
+  document.getElementById('waveInfo').innerHTML =
+    '<div class="wave-info ' + info.cls + '"><strong>' + info.title + '</strong><br>' + info.text + '</div>';
+}
+
+function renderCalendar() {
+  var cal = document.getElementById('calendar');
+  var dias = ['Seg','Ter','Qua','Qui','Sex','Sab','Dom'];
+  var html = dias.map(function(d) { return '<div class="day-header">' + d + '</div>'; }).join('');
+
+  var items = waveContent[currentWave];
+  for (var d = 1; d <= 7; d++) {
+    var dayItems = items.filter(function(it) { return it.dia === d; });
+    var itemsHtml = dayItems.map(function(it, idx) {
+      var cls = it.tipo === 'post' ? 'item-post' : 'item-comment';
+      var label = it.tipo === 'post' ? (it.subtipo || 'post') : 'comentario';
+      var globalDay = (currentWave - 1) * 7 + d;
+      return '<div class="item ' + cls + '" onclick="event.stopPropagation();abrirItem(' + currentWave + ',' + d + ',' + idx + ')">' + label + '</div>';
+    }).join('');
+
+    var globalDay = (currentWave - 1) * 7 + d;
+    html += '<div class="day-cell" onclick="abrirDia(' + d + ')">' +
+      '<div class="day-num">Dia ' + globalDay + '</div>' +
+      '<div class="day-items">' + itemsHtml + '</div></div>';
+  }
+  cal.innerHTML = html;
+}
+
+function abrirDia(dia) {
+  var items = waveContent[currentWave].filter(function(it) { return it.dia === dia; });
+  if (items.length > 0) abrirItem(currentWave, dia, 0);
+}
+
+function abrirItem(wave, dia, idx) {
+  var items = waveContent[wave].filter(function(it) { return it.dia === dia; });
+  if (!items[idx]) return;
+  selectedItem = { wave: wave, dia: dia, idx: idx };
+  var item = items[idx];
+  var globalDay = (wave - 1) * 7 + dia;
+
+  document.getElementById('panelTitle').textContent = 'Dia ' + globalDay + ' — ' + waveDescriptions[wave].title.split('—')[1].trim();
+  var badgeClass = item.tipo === 'post' ? 'badge-post' : 'badge-comment';
+  var label = item.tipo === 'post' ? 'Post: ' + (item.subtipo || '') : 'Comentario';
+  document.getElementById('panelBadge').innerHTML = '<span class="badge ' + badgeClass + '">' + label + '</span>';
+  document.getElementById('panelContent').textContent = item.texto;
+
+  document.getElementById('sidePanel').classList.add('open');
+  document.getElementById('overlay').classList.add('show');
+}
+
+function fecharPanel() {
+  document.getElementById('sidePanel').classList.remove('open');
+  document.getElementById('overlay').classList.remove('show');
+  selectedItem = null;
+}
+
+function copiarPanel() {
+  var texto = document.getElementById('panelContent').textContent;
+  if (!texto) return;
+  navigator.clipboard.writeText(texto).then(function() { toast('Copiado!'); }).catch(function() {
+    var ta = document.createElement('textarea'); ta.value = texto; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); toast('Copiado!');
+  });
+}
+
+function gerarVariacao() {
+  if (!selectedItem) return;
+  var items = waveContent[selectedItem.wave].filter(function(it) { return it.dia === selectedItem.dia; });
+  var item = items[selectedItem.idx];
+  if (!item) return;
+
+  if (item.tipo === 'comentario') {
+    item.texto = gerarComentario(selectedItem.wave);
+  } else {
+    item.texto = gerarPost(item.subtipo || 'educativo', selectedItem.wave);
+  }
+  document.getElementById('panelContent').textContent = item.texto;
+  toast('Variacao gerada!');
+}
+
+function regenerarTudo() {
+  if (!confirm('Regenerar todo o conteudo das 4 ondas?')) return;
+  waveContent = gerarConteudoOndas();
+  renderCalendar();
+  toast('Conteudo regenerado!');
+}
+
+function exportarCalendario() {
+  var txt = '=== NOME LIMPO EXPRESS — CALENDARIO DE 30 DIAS ===\n';
+  txt += 'Gerado em: ' + new Date().toLocaleDateString('pt-BR') + '\n\n';
+
+  for (var w = 1; w <= 4; w++) {
+    var info = waveDescriptions[w];
+    txt += '=' .repeat(60) + '\n';
+    txt += info.title.toUpperCase() + '\n';
+    txt += info.text + '\n';
+    txt += '=' .repeat(60) + '\n\n';
+
+    var items = waveContent[w];
+    var lastDia = 0;
+    items.forEach(function(item) {
+      var globalDay = (w - 1) * 7 + item.dia;
+      if (item.dia !== lastDia) {
+        txt += '--- DIA ' + globalDay + ' ---\n\n';
+        lastDia = item.dia;
+      }
+      var label = item.tipo === 'post' ? '[POST - ' + (item.subtipo || 'geral') + ']' : '[COMENTARIO]';
+      txt += label + '\n' + item.texto + '\n\n';
+    });
+    txt += '\n';
+  }
+
+  var blob = new Blob([txt], { type: 'text/plain;charset=utf-8' });
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'nle-calendario-30dias.txt';
+  a.click();
+  URL.revokeObjectURL(a.href);
+  toast('Calendario exportado!');
+}
+
+function toast(msg) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(function() { t.classList.remove('show'); }, 2000);
+}
+
+/* =====================================================
+   INIT
+   ===================================================== */
+waveContent = gerarConteudoOndas();
+renderWaveInfo();
+renderCalendar();
+</script>
+</body>
+</html>

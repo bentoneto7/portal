@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nome Limpo Express — Sistema Completo</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg-primary:#0a0f1c;--bg-secondary:#111827;--bg-card:#1a2332;--border:#2a3a4e;--text-primary:#e8ecf1;--text-secondary:#8899aa;--text-muted:#5a6a7a;--accent:#3b82f6;--success:#10b981;--warning:#f59e0b;--danger:#ef4444;--purple:#8b5cf6;--font:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;--radius:10px}
+body{font-family:var(--font);background:var(--bg-primary);color:var(--text-primary);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+.container{max-width:700px;width:100%}
+.header{text-align:center;margin-bottom:40px}
+.header h1{font-size:2rem;font-weight:800;margin-bottom:8px}
+.header h1 span{color:var(--accent)}
+.header p{color:var(--text-secondary);font-size:.95rem;line-height:1.5}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:32px}
+.card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:24px 20px;text-decoration:none;color:var(--text-primary);transition:all .2s;display:block}
+.card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.3)}
+.card .icon{font-size:1.6rem;margin-bottom:10px}
+.card h3{font-size:1rem;font-weight:700;margin-bottom:6px}
+.card p{font-size:.8rem;color:var(--text-muted);line-height:1.4}
+.card.highlight{border-color:var(--accent);background:linear-gradient(135deg,var(--bg-card),rgba(59,130,246,.08))}
+.docs{text-align:center;margin-top:16px}
+.docs h3{font-size:.85rem;color:var(--text-muted);margin-bottom:12px;text-transform:uppercase;letter-spacing:1px}
+.docs-links{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.docs-links a{color:var(--text-secondary);text-decoration:none;font-size:.85rem;padding:8px 16px;border:1px solid var(--border);border-radius:var(--radius);transition:all .2s}
+.docs-links a:hover{border-color:var(--accent);color:var(--accent)}
+.footer{text-align:center;margin-top:40px;color:var(--text-muted);font-size:.75rem}
+@media(max-width:600px){.grid{grid-template-columns:1fr}.header h1{font-size:1.5rem}}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header">
+<h1>Nome Limpo <span>Express</span></h1>
+<p>Sistema completo de captacao de leads e operacao comercial para regularizacao financeira.</p>
+</div>
+
+<div class="grid">
+<a class="card highlight" href="whatsapp-links/">
+<div class="icon">&#128279;</div>
+<h3>WhatsApp Links</h3>
+<p>Crie links personalizados com rastreamento de cliques. Compartilhe e acompanhe resultados.</p>
+</a>
+<a class="card" href="central-operacoes/">
+<div class="icon">&#9776;</div>
+<h3>Central de Operacoes</h3>
+<p>Hub principal: missoes diarias, perfis, grupos, scripts e configuracoes.</p>
+</a>
+<a class="card" href="dashboard/">
+<div class="icon">&#128200;</div>
+<h3>Dashboard</h3>
+<p>Painel de gestao com grupos, gerador de conteudo, cliques e scripts.</p>
+</a>
+<a class="card" href="gerador-anti-padrao/">
+<div class="icon">&#9997;</div>
+<h3>Gerador Anti-Padrao</h3>
+<p>Motor de 8 camadas com 2M+ combinacoes unicas. Zero repeticao de conteudo.</p>
+</a>
+<a class="card" href="onda-organica/">
+<div class="icon">&#127754;</div>
+<h3>Onda Organica</h3>
+<p>Calendario estrategico de 30 dias — 4 ondas de infiltracao a conversao.</p>
+</a>
+<a class="card" href="tracker/">
+<div class="icon">&#127942;</div>
+<h3>Tracker de Grupos</h3>
+<p>Ranking inteligente por performance com scoring composto e analise de nichos.</p>
+</a>
+</div>
+
+<div class="docs">
+<h3>Documentacao</h3>
+<div class="docs-links">
+<a href="docs/prompt-agente-v2.md">Prompt do Agente IA</a>
+<a href="docs/scripts-whatsapp.md">Scripts WhatsApp</a>
+<a href="docs/pacote-conteudo.md">Pacote de Conteudo</a>
+</div>
+</div>
+
+<div class="footer">
+Nome Limpo Express v2.0 — Sistema de Captacao de Leads e Operacao Comercial
+</div>
+</div>
+</body>
+</html>

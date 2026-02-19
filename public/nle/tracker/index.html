@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NLE - Tracker de Grupos</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+--bg-primary:#0a0f1c;--bg-secondary:#111827;--bg-card:#1a2332;--bg-card-hover:#1f2b3d;
+--border:#2a3a4e;--text-primary:#e8ecf1;--text-secondary:#8899aa;--text-muted:#5a6a7a;
+--accent:#3b82f6;--success:#10b981;--warning:#f59e0b;--danger:#ef4444;--purple:#8b5cf6;
+--font:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;--radius:8px;
+--shadow:0 4px 6px -1px rgba(0,0,0,0.3)
+}
+body{font-family:var(--font);background:var(--bg-primary);color:var(--text-primary);min-height:100vh;padding:20px}
+h1{font-size:1.6rem;font-weight:700;margin-bottom:4px}
+h2{font-size:1.2rem;font-weight:600;margin-bottom:12px;color:var(--accent)}
+h3{font-size:1rem;font-weight:600;margin-bottom:8px}
+.subtitle{color:var(--text-secondary);font-size:.9rem;margin-bottom:24px}
+.container{max-width:1100px;margin:0 auto}
+.card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:16px}
+.row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.row>*{flex:1;min-width:140px}
+label{display:block;font-size:.8rem;color:var(--text-secondary);margin-bottom:4px;font-weight:500}
+input,select{width:100%;padding:10px 12px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius);color:var(--text-primary);font-size:.9rem}
+input:focus,select:focus{outline:none;border-color:var(--accent)}
+.btn{padding:10px 20px;border:none;border-radius:var(--radius);font-size:.85rem;font-weight:600;cursor:pointer;transition:all .2s}
+.btn-primary{background:var(--accent);color:#fff}.btn-primary:hover{background:#2563eb}
+.btn-success{background:var(--success);color:#fff}.btn-success:hover{background:#059669}
+.btn-danger{background:var(--danger);color:#fff}.btn-danger:hover{background:#dc2626}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text-secondary)}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+.btn-sm{padding:6px 14px;font-size:.8rem}
+.btn-group{display:flex;gap:8px;flex-wrap:wrap}
+.tabs{display:flex;gap:4px;margin-bottom:20px;flex-wrap:wrap}
+.tab{padding:10px 20px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius);color:var(--text-secondary);cursor:pointer;font-weight:500;font-size:.85rem;transition:all .2s}
+.tab.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.tab:hover:not(.active){border-color:var(--accent);color:var(--accent)}
+.tab-content{display:none}.tab-content.active{display:block}
+table{width:100%;border-collapse:collapse;font-size:.85rem}
+th{text-align:left;padding:10px 12px;background:var(--bg-secondary);border-bottom:2px solid var(--border);color:var(--text-secondary);font-weight:600;cursor:pointer;white-space:nowrap;font-size:.8rem}
+th:hover{color:var(--accent)}
+td{padding:10px 12px;border-bottom:1px solid var(--border)}
+tr:hover td{background:var(--bg-card-hover)}
+.tier{display:inline-block;width:28px;height:28px;border-radius:50%;text-align:center;line-height:28px;font-weight:700;font-size:.8rem}
+.tier-S{background:#fbbf24;color:#000}.tier-A{background:var(--success);color:#fff}
+.tier-B{background:var(--accent);color:#fff}.tier-C{background:var(--text-muted);color:#fff}
+.trend-up{color:var(--success)}.trend-down{color:var(--danger)}.trend-flat{color:var(--text-muted)}
+.stats-row{display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.stat-card{background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius);padding:12px 16px;flex:1;min-width:100px;text-align:center}
+.stat-card .num{font-size:1.3rem;font-weight:700;color:var(--accent)}
+.stat-card .lbl{font-size:.7rem;color:var(--text-muted);margin-top:2px}
+.link-output{background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius);padding:12px;font-family:monospace;font-size:.8rem;word-break:break-all;margin:8px 0}
+.algo-section{background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:12px;line-height:1.7;font-size:.85rem}
+.algo-section code{background:var(--bg-card);padding:2px 6px;border-radius:4px;font-size:.8rem;color:var(--warning)}
+.niche-bar{height:24px;border-radius:4px;margin:4px 0;transition:width .3s}
+.toast{position:fixed;bottom:24px;right:24px;background:var(--success);color:#fff;padding:12px 20px;border-radius:var(--radius);font-size:.85rem;font-weight:600;transform:translateY(100px);opacity:0;transition:all .3s;z-index:999}
+.toast.show{transform:translateY(0);opacity:1}
+.empty-state{text-align:center;padding:40px;color:var(--text-muted)}
+canvas{max-width:100%;border-radius:var(--radius)}
+@media(max-width:768px){.stats-row{flex-direction:column}.row{flex-direction:column}table{font-size:.75rem}th,td{padding:6px 8px}}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Tracker de Grupos NLE</h1>
+<p class="subtitle">Ranking inteligente por performance — scoring composto com 4 variaveis.</p>
+
+<div class="stats-row" id="statsRow">
+<div class="stat-card"><div class="num" id="statGrupos">0</div><div class="lbl">Grupos</div></div>
+<div class="stat-card"><div class="num" id="statCliques">0</div><div class="lbl">Cliques Total</div></div>
+<div class="stat-card"><div class="num" id="statTierS">0</div><div class="lbl">Tier S</div></div>
+<div class="stat-card"><div class="num" id="statTierA">0</div><div class="lbl">Tier A</div></div>
+</div>
+
+<div class="tabs">
+<div class="tab active" onclick="showTab('ranking',this)">Ranking</div>
+<div class="tab" onclick="showTab('links',this)">Gerar Links</div>
+<div class="tab" onclick="showTab('chart',this)">Grafico</div>
+<div class="tab" onclick="showTab('algo',this)">Algoritmo</div>
+</div>
+
+<!-- TAB: RANKING -->
+<div class="tab-content active" id="tab-ranking">
+<div class="card">
+<h2>Adicionar Grupo</h2>
+<div class="row">
+<div><label>Nome do grupo</label><input id="grpNome" placeholder="Ex: Negativados Brasil"></div>
+<div><label>Membros</label><input id="grpMembros" type="number" placeholder="Ex: 50000"></div>
+<div><label>Categoria</label>
+<select id="grpCat">
+<option value="negativados">Negativados</option>
+<option value="credito">Credito</option>
+<option value="mei">MEI/Empreendedor</option>
+<option value="financas">Financas</option>
+<option value="imoveis">Imoveis</option>
+<option value="emprego">Emprego</option>
+<option value="geral">Geral</option>
+</select></div>
+</div>
+<div class="row">
+<div><label>Link do grupo</label><input id="grpLink" placeholder="https://facebook.com/groups/..."></div>
+</div>
+<div class="btn-group">
+<button class="btn btn-primary" onclick="addGrupo()">Adicionar Grupo</button>
+<button class="btn btn-outline" onclick="registrarClique()">+1 Clique (grupo selecionado)</button>
+</div>
+</div>
+
+<div class="card">
+<h2>Ranking de Performance</h2>
+<div id="rankingTable"></div>
+</div>
+</div>
+
+<!-- TAB: LINKS -->
+<div class="tab-content" id="tab-links">
+<div class="card">
+<h2>Gerar Links Trackeados</h2>
+<div class="row">
+<div><label>URL base da landing page</label><input id="linkBase" value="https://seusite.com/nle/landing-page/" placeholder="https://seusite.com/nle/landing-page/"></div>
+</div>
+<div id="linksList"></div>
+</div>
+</div>
+
+<!-- TAB: CHART -->
+<div class="tab-content" id="tab-chart">
+<div class="card">
+<h2>Top 15 Grupos por Score</h2>
+<canvas id="barChart" width="800" height="400"></canvas>
+</div>
+<div class="card">
+<h2>Distribuicao por Tier</h2>
+<canvas id="tierChart" width="400" height="200"></canvas>
+</div>
+</div>
+
+<!-- TAB: ALGORITMO -->
+<div class="tab-content" id="tab-algo">
+<div class="card">
+<h2>Como Funciona o Scoring</h2>
+<div class="algo-section">
+<h3>Formula Composta</h3>
+<p><code>score = (cliques_norm x 0.40) + (CTR x 0.30) + (tendencia x 0.20) + (consistencia x 0.10)</code></p>
+<br>
+<p><strong>cliques_norm (40%)</strong> — Total de cliques normalizado de 0 a 100. O grupo com mais cliques recebe 100, os demais proporcionalmente.</p>
+<p><strong>CTR (30%)</strong> — Cliques por 10.000 membros. Mede engajamento relativo ao tamanho. Grupos menores mas engajados pontuam bem.</p>
+<p><strong>tendencia (20%)</strong> — Variacao dos ultimos 7 dias vs 7 dias anteriores. Detecta grupos "em alta" antes que sejam obvios.</p>
+<p><strong>consistencia (10%)</strong> — 100 menos o desvio padrao dos cliques diarios multiplicado por 20. Valoriza grupos confiaveis (melhor 5 cliques/dia do que 50 num dia e zero no resto).</p>
+</div>
+<div class="algo-section">
+<h3>Sistema de Tiers</h3>
+<p><span class="tier tier-S">S</span> Score &ge; 80 — Campeao. Postar 2x/dia, priorizar conversao.</p>
+<p><span class="tier tier-A">A</span> Score &ge; 60 — Forte. Manter ritmo, 1x/dia.</p>
+<p><span class="tier tier-B">B</span> Score &ge; 35 — Medio. Testar, dia sim dia nao.</p>
+<p><span class="tier tier-C">C</span> Score &lt; 35 — Fraco. 2x/semana, avaliar substituicao.</p>
+</div>
+<div class="card">
+<h2>Analise de Nichos</h2>
+<div id="nicheAnalysis"></div>
+</div>
+</div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* =====================================================
+   DADOS (localStorage)
+   ===================================================== */
+function getGroups() { try { return JSON.parse(localStorage.getItem('trk_groups') || '[]'); } catch(e) { return []; } }
+function saveGroups(g) { try { localStorage.setItem('trk_groups', JSON.stringify(g)); } catch(e) {} }
+function getClicks() { try { return JSON.parse(localStorage.getItem('trk_clicks') || '{}'); } catch(e) { return {}; } }
+function saveClicks(c) { try { localStorage.setItem('trk_clicks', JSON.stringify(c)); } catch(e) {} }
+
+var selectedGroupId = null;
+
+/* =====================================================
+   CRUD GRUPOS
+   ===================================================== */
+function addGrupo() {
+  var nome = document.getElementById('grpNome').value.trim();
+  var membros = parseInt(document.getElementById('grpMembros').value) || 0;
+  var cat = document.getElementById('grpCat').value;
+  var link = document.getElementById('grpLink').value.trim();
+  if (!nome) { toast('Digite o nome do grupo'); return; }
+
+  var groups = getGroups();
+  groups.push({ id: Date.now(), nome: nome, membros: membros, categoria: cat, link: link });
+  saveGroups(groups);
+
+  document.getElementById('grpNome').value = '';
+  document.getElementById('grpMembros').value = '';
+  document.getElementById('grpLink').value = '';
+  renderAll();
+  toast('Grupo adicionado!');
+}
+
+function removeGrupo(id) {
+  if (!confirm('Remover este grupo?')) return;
+  var groups = getGroups().filter(function(g) { return g.id !== id; });
+  saveGroups(groups);
+  var clicks = getClicks();
+  delete clicks[id];
+  saveClicks(clicks);
+  if (selectedGroupId === id) selectedGroupId = null;
+  renderAll();
+  toast('Grupo removido');
+}
+
+function selectGrupo(id) {
+  selectedGroupId = id;
+  renderRanking();
+}
+
+function registrarClique() {
+  if (!selectedGroupId) { toast('Selecione um grupo primeiro (clique na linha)'); return; }
+  var clicks = getClicks();
+  if (!clicks[selectedGroupId]) clicks[selectedGroupId] = [];
+  clicks[selectedGroupId].push({ ts: Date.now() });
+  saveClicks(clicks);
+  renderAll();
+  toast('+1 clique registrado!');
+}
+
+/* =====================================================
+   SCORING ALGORITHM
+   ===================================================== */
+function calcScores() {
+  var groups = getGroups();
+  var clicks = getClicks();
+  var now = Date.now();
+  var day7 = 7 * 24 * 60 * 60 * 1000;
+  var day14 = 14 * 24 * 60 * 60 * 1000;
+
+  var maxCliques = 0;
+  var scored = groups.map(function(g) {
+    var gc = clicks[g.id] || [];
+    var totalCliques = gc.length;
+    if (totalCliques > maxCliques) maxCliques = totalCliques;
+
+    // Cliques ultimos 7 dias
+    var recent7 = gc.filter(function(c) { return now - c.ts < day7; }).length;
+    // Cliques 7-14 dias atras
+    var prev7 = gc.filter(function(c) { return now - c.ts >= day7 && now - c.ts < day14; }).length;
+
+    // Tendencia
+    var tendencia = prev7 === 0 ? (recent7 > 0 ? 100 : 50) : Math.min(100, (recent7 / prev7) * 50);
+
+    // Consistencia (desvio padrao dos cliques por dia nos ultimos 14 dias)
+    var dailyBuckets = {};
+    gc.forEach(function(c) {
+      var dayKey = Math.floor(c.ts / (24*60*60*1000));
+      dailyBuckets[dayKey] = (dailyBuckets[dayKey] || 0) + 1;
+    });
+    var vals = Object.values(dailyBuckets);
+    // Fill empty days
+    for (var i = 0; i < 14; i++) {
+      var dk = Math.floor((now - i * 24*60*60*1000) / (24*60*60*1000));
+      if (!dailyBuckets[dk]) vals.push(0);
+    }
+    var mean = vals.reduce(function(a,b){return a+b;},0) / (vals.length || 1);
+    var variance = vals.reduce(function(a,v){return a + (v-mean)*(v-mean);},0) / (vals.length || 1);
+    var stdDev = Math.sqrt(variance);
+    var consistencia = Math.max(0, 100 - stdDev * 20);
+
+    // CTR (cliques / membros * 10000)
+    var ctr = g.membros > 0 ? (totalCliques / g.membros) * 10000 : 0;
+
+    return {
+      id: g.id, nome: g.nome, membros: g.membros, categoria: g.categoria, link: g.link,
+      totalCliques: totalCliques, ctr: ctr, tendencia: tendencia, consistencia: consistencia,
+      recent7: recent7, prev7: prev7
+    };
+  });
+
+  // Normalizar cliques e CTR
+  var maxCTR = Math.max.apply(null, scored.map(function(s){return s.ctr;})) || 1;
+  if (maxCliques === 0) maxCliques = 1;
+
+  scored.forEach(function(s) {
+    var cliquesNorm = (s.totalCliques / maxCliques) * 100;
+    var ctrNorm = (s.ctr / maxCTR) * 100;
+    s.score = Math.round(
+      cliquesNorm * 0.40 +
+      ctrNorm * 0.30 +
+      s.tendencia * 0.20 +
+      s.consistencia * 0.10
+    );
+    s.score = Math.min(100, Math.max(0, s.score));
+    s.tier = s.score >= 80 ? 'S' : s.score >= 60 ? 'A' : s.score >= 35 ? 'B' : 'C';
+    var trendDiff = s.recent7 - s.prev7;
+    s.trendLabel = trendDiff > 0 ? '+' + trendDiff : trendDiff === 0 ? '=' : '' + trendDiff;
+    s.trendClass = trendDiff > 0 ? 'trend-up' : trendDiff < 0 ? 'trend-down' : 'trend-flat';
+  });
+
+  scored.sort(function(a, b) { return b.score - a.score; });
+  return scored;
+}
+
+/* =====================================================
+   RENDERING
+   ===================================================== */
+function renderAll() {
+  renderRanking();
+  renderStats();
+  renderLinks();
+  renderCharts();
+  renderNicheAnalysis();
+}
+
+function renderStats() {
+  var groups = getGroups();
+  var clicks = getClicks();
+  var totalCliques = 0;
+  Object.values(clicks).forEach(function(arr) { totalCliques += arr.length; });
+  var scored = calcScores();
+
+  document.getElementById('statGrupos').textContent = groups.length;
+  document.getElementById('statCliques').textContent = totalCliques;
+  document.getElementById('statTierS').textContent = scored.filter(function(s){return s.tier==='S';}).length;
+  document.getElementById('statTierA').textContent = scored.filter(function(s){return s.tier==='A';}).length;
+}
+
+function renderRanking() {
+  var scored = calcScores();
+  var el = document.getElementById('rankingTable');
+
+  if (scored.length === 0) {
+    el.innerHTML = '<div class="empty-state">Nenhum grupo cadastrado. Adicione grupos acima para comecar o tracking.</div>';
+    return;
+  }
+
+  var html = '<table><thead><tr>' +
+    '<th>#</th><th>Grupo</th><th>Membros</th><th>Cliques</th><th>CTR</th><th>Score</th><th>Tier</th><th>Tend.</th><th></th>' +
+    '</tr></thead><tbody>';
+
+  scored.forEach(function(s, i) {
+    var sel = s.id === selectedGroupId ? 'background:var(--bg-card-hover);' : '';
+    html += '<tr style="cursor:pointer;' + sel + '" onclick="selectGrupo(' + s.id + ')">' +
+      '<td>' + (i + 1) + '</td>' +
+      '<td><strong>' + s.nome + '</strong><br><span style="font-size:.7rem;color:var(--text-muted)">' + s.categoria + '</span></td>' +
+      '<td>' + (s.membros ? s.membros.toLocaleString('pt-BR') : '-') + '</td>' +
+      '<td>' + s.totalCliques + '</td>' +
+      '<td>' + s.ctr.toFixed(1) + '</td>' +
+      '<td><strong>' + s.score + '</strong></td>' +
+      '<td><span class="tier tier-' + s.tier + '">' + s.tier + '</span></td>' +
+      '<td><span class="' + s.trendClass + '">' + s.trendLabel + '</span></td>' +
+      '<td><button class="btn btn-danger btn-sm" onclick="event.stopPropagation();removeGrupo(' + s.id + ')">X</button></td>' +
+      '</tr>';
+  });
+
+  html += '</tbody></table>';
+  el.innerHTML = html;
+}
+
+function renderLinks() {
+  var groups = getGroups();
+  var base = document.getElementById('linkBase').value.trim();
+  var el = document.getElementById('linksList');
+
+  if (groups.length === 0) {
+    el.innerHTML = '<div class="empty-state">Adicione grupos primeiro.</div>';
+    return;
+  }
+
+  var html = '';
+  groups.forEach(function(g) {
+    var slug = g.nome.toLowerCase().replace(/[^a-z0-9]+/g, '-').substring(0, 30);
+    var url = base + '?utm_source=facebook&utm_medium=grupo&utm_campaign=nle&utm_group=' + encodeURIComponent(slug);
+    html += '<div style="margin-bottom:12px">' +
+      '<label>' + g.nome + '</label>' +
+      '<div class="link-output" id="link-' + g.id + '">' + url + '</div>' +
+      '<button class="btn btn-outline btn-sm" onclick="copiarLink(' + g.id + ')">Copiar</button>' +
+      '</div>';
+  });
+  el.innerHTML = html;
+}
+
+function copiarLink(id) {
+  var el = document.getElementById('link-' + id);
+  if (!el) return;
+  navigator.clipboard.writeText(el.textContent).then(function() { toast('Link copiado!'); }).catch(function() {
+    var ta = document.createElement('textarea'); ta.value = el.textContent; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); toast('Link copiado!');
+  });
+}
+
+/* =====================================================
+   CHARTS (Canvas)
+   ===================================================== */
+function renderCharts() {
+  renderBarChart();
+  renderTierChart();
+}
+
+function renderBarChart() {
+  var canvas = document.getElementById('barChart');
+  var ctx = canvas.getContext('2d');
+  var scored = calcScores().slice(0, 15);
+
+  var dpr = window.devicePixelRatio || 1;
+  canvas.width = 800 * dpr;
+  canvas.height = 400 * dpr;
+  canvas.style.width = '800px';
+  canvas.style.height = '400px';
+  ctx.scale(dpr, dpr);
+
+  ctx.fillStyle = '#111827';
+  ctx.fillRect(0, 0, 800, 400);
+
+  if (scored.length === 0) {
+    ctx.fillStyle = '#5a6a7a';
+    ctx.font = '14px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('Sem dados. Adicione grupos e registre cliques.', 400, 200);
+    return;
+  }
+
+  var marginLeft = 40, marginBottom = 80, marginTop = 20, marginRight = 20;
+  var chartW = 800 - marginLeft - marginRight;
+  var chartH = 400 - marginTop - marginBottom;
+  var maxScore = 100;
+  var barW = (chartW / scored.length) - 6;
+
+  // Axes
+  ctx.strokeStyle = '#2a3a4e';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(marginLeft, marginTop);
+  ctx.lineTo(marginLeft, 400 - marginBottom);
+  ctx.lineTo(800 - marginRight, 400 - marginBottom);
+  ctx.stroke();
+
+  // Y labels
+  ctx.fillStyle = '#5a6a7a';
+  ctx.font = '11px sans-serif';
+  ctx.textAlign = 'right';
+  for (var y = 0; y <= 100; y += 20) {
+    var yPos = marginTop + chartH - (y / maxScore * chartH);
+    ctx.fillText(y, marginLeft - 6, yPos + 4);
+    ctx.strokeStyle = '#1a2332';
+    ctx.beginPath(); ctx.moveTo(marginLeft, yPos); ctx.lineTo(800 - marginRight, yPos); ctx.stroke();
+  }
+
+  // Bars
+  scored.forEach(function(s, i) {
+    var x = marginLeft + i * (barW + 6) + 3;
+    var h = (s.score / maxScore) * chartH;
+    var y = marginTop + chartH - h;
+
+    var colors = { S: '#fbbf24', A: '#10b981', B: '#3b82f6', C: '#5a6a7a' };
+    ctx.fillStyle = colors[s.tier] || '#3b82f6';
+    ctx.fillRect(x, y, barW, h);
+
+    // Score on top
+    ctx.fillStyle = '#e8ecf1';
+    ctx.font = 'bold 11px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(s.score, x + barW / 2, y - 4);
+
+    // Name below
+    ctx.fillStyle = '#8899aa';
+    ctx.font = '10px sans-serif';
+    ctx.save();
+    ctx.translate(x + barW / 2, 400 - marginBottom + 10);
+    ctx.rotate(Math.PI / 4);
+    ctx.textAlign = 'left';
+    ctx.fillText(s.nome.substring(0, 15), 0, 0);
+    ctx.restore();
+  });
+}
+
+function renderTierChart() {
+  var canvas = document.getElementById('tierChart');
+  var ctx = canvas.getContext('2d');
+  var scored = calcScores();
+
+  var dpr = window.devicePixelRatio || 1;
+  canvas.width = 400 * dpr;
+  canvas.height = 200 * dpr;
+  canvas.style.width = '400px';
+  canvas.style.height = '200px';
+  ctx.scale(dpr, dpr);
+
+  ctx.fillStyle = '#111827';
+  ctx.fillRect(0, 0, 400, 200);
+
+  var tiers = { S: 0, A: 0, B: 0, C: 0 };
+  scored.forEach(function(s) { tiers[s.tier]++; });
+  var total = scored.length || 1;
+
+  var colors = { S: '#fbbf24', A: '#10b981', B: '#3b82f6', C: '#5a6a7a' };
+  var labels = { S: 'Tier S', A: 'Tier A', B: 'Tier B', C: 'Tier C' };
+  var y = 20;
+
+  ['S', 'A', 'B', 'C'].forEach(function(t) {
+    var pct = (tiers[t] / total) * 100;
+    var barW = (pct / 100) * 280;
+
+    ctx.fillStyle = '#8899aa';
+    ctx.font = '12px sans-serif';
+    ctx.textAlign = 'right';
+    ctx.fillText(labels[t], 60, y + 16);
+
+    ctx.fillStyle = colors[t];
+    ctx.fillRect(70, y + 2, Math.max(barW, 2), 24);
+
+    ctx.fillStyle = '#e8ecf1';
+    ctx.font = 'bold 11px sans-serif';
+    ctx.textAlign = 'left';
+    ctx.fillText(tiers[t] + ' (' + Math.round(pct) + '%)', 70 + barW + 8, y + 18);
+
+    y += 40;
+  });
+}
+
+/* =====================================================
+   NICHE ANALYSIS
+   ===================================================== */
+function renderNicheAnalysis() {
+  var scored = calcScores();
+  var el = document.getElementById('nicheAnalysis');
+
+  if (scored.length === 0) {
+    el.innerHTML = '<div class="empty-state">Sem dados suficientes para analise.</div>';
+    return;
+  }
+
+  var niches = {};
+  scored.forEach(function(s) {
+    if (!niches[s.categoria]) niches[s.categoria] = { grupos: 0, cliques: 0, membros: 0 };
+    niches[s.categoria].grupos++;
+    niches[s.categoria].cliques += s.totalCliques;
+    niches[s.categoria].membros += s.membros;
+  });
+
+  var nicheArr = Object.keys(niches).map(function(cat) {
+    var n = niches[cat];
+    return {
+      categoria: cat,
+      grupos: n.grupos,
+      cliques: n.cliques,
+      cliquesPorGrupo: n.grupos > 0 ? (n.cliques / n.grupos).toFixed(1) : 0,
+      ctr: n.membros > 0 ? ((n.cliques / n.membros) * 10000).toFixed(1) : 0
+    };
+  });
+  nicheArr.sort(function(a, b) { return parseFloat(b.cliquesPorGrupo) - parseFloat(a.cliquesPorGrupo); });
+
+  var maxCpg = Math.max.apply(null, nicheArr.map(function(n){return parseFloat(n.cliquesPorGrupo);})) || 1;
+
+  var html = '<h3>Performance por Categoria</h3>';
+  nicheArr.forEach(function(n) {
+    var pct = (parseFloat(n.cliquesPorGrupo) / maxCpg) * 100;
+    html += '<div style="margin-bottom:12px">' +
+      '<div style="display:flex;justify-content:space-between;font-size:.85rem;margin-bottom:4px">' +
+      '<span><strong>' + n.categoria + '</strong> (' + n.grupos + ' grupos)</span>' +
+      '<span>' + n.cliquesPorGrupo + ' cliques/grupo | CTR: ' + n.ctr + '</span></div>' +
+      '<div class="niche-bar" style="width:' + pct + '%;background:var(--accent)"></div></div>';
+  });
+
+  if (nicheArr.length > 0) {
+    html += '<div class="algo-section" style="margin-top:16px"><strong>Recomendacao:</strong> A categoria <strong>"' +
+      nicheArr[0].categoria + '"</strong> traz mais resultados por grupo (' + nicheArr[0].cliquesPorGrupo +
+      ' cliques/grupo). Busque mais grupos desse nicho para escalar resultados.</div>';
+  }
+
+  el.innerHTML = html;
+}
+
+/* =====================================================
+   TABS & UI
+   ===================================================== */
+function showTab(id, el) {
+  document.querySelectorAll('.tab-content').forEach(function(t) { t.classList.remove('active'); });
+  document.querySelectorAll('.tab').forEach(function(t) { t.classList.remove('active'); });
+  document.getElementById('tab-' + id).classList.add('active');
+  if (el) el.classList.add('active');
+  if (id === 'chart') renderCharts();
+  if (id === 'algo') renderNicheAnalysis();
+  if (id === 'links') renderLinks();
+}
+
+function toast(msg) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(function() { t.classList.remove('show'); }, 2000);
+}
+
+document.getElementById('linkBase').addEventListener('input', function() { renderLinks(); });
+
+/* INIT */
+renderAll();
+</script>
+</body>
+</html>
