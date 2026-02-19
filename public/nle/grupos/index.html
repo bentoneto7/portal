@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NLE - Grupos & Performance</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0f1c;--bg2:#111827;--card:#1a2332;--card-h:#1f2b3d;--brd:#2a3a4e;--t1:#e8ecf1;--t2:#8899aa;--t3:#5a6a7a;--acc:#3b82f6;--ok:#10b981;--warn:#f59e0b;--err:#ef4444;--purp:#8b5cf6;--font:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;--r:8px}
+body{font-family:var(--font);background:var(--bg);color:var(--t1);min-height:100vh;padding:20px}
+h1{font-size:1.5rem;font-weight:700;margin-bottom:4px}
+h2{font-size:1.15rem;font-weight:600;margin-bottom:12px;color:var(--acc)}
+h3{font-size:.95rem;font-weight:600;margin-bottom:8px}
+.sub{color:var(--t2);font-size:.85rem;margin-bottom:24px}
+.container{max-width:1200px;margin:0 auto}
+.card{background:var(--card);border:1px solid var(--brd);border-radius:var(--r);padding:20px;margin-bottom:16px}
+.row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.row>*{flex:1;min-width:130px}
+label{display:block;font-size:.78rem;color:var(--t2);margin-bottom:4px;font-weight:500}
+input,select,textarea{width:100%;padding:9px 12px;background:var(--bg2);border:1px solid var(--brd);border-radius:var(--r);color:var(--t1);font-size:.88rem;font-family:var(--font)}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--acc)}
+textarea{resize:vertical;min-height:60px}
+.btn{padding:9px 18px;border:none;border-radius:var(--r);font-size:.85rem;font-weight:600;cursor:pointer;transition:all .2s}
+.btn-p{background:var(--acc);color:#fff}.btn-p:hover{background:#2563eb}
+.btn-ok{background:var(--ok);color:#fff}.btn-ok:hover{background:#059669}
+.btn-err{background:var(--err);color:#fff}
+.btn-purp{background:var(--purp);color:#fff}
+.btn-warn{background:var(--warn);color:#000}
+.btn-o{background:transparent;border:1px solid var(--brd);color:var(--t2)}.btn-o:hover{border-color:var(--acc);color:var(--acc)}
+.btn-sm{padding:5px 12px;font-size:.78rem}
+.btn-g{display:flex;gap:8px;flex-wrap:wrap}
+table{width:100%;border-collapse:collapse;font-size:.83rem}
+th{text-align:left;padding:8px 10px;background:var(--bg2);border-bottom:2px solid var(--brd);color:var(--t2);font-weight:600;font-size:.78rem}
+td{padding:8px 10px;border-bottom:1px solid var(--brd)}
+tr:hover td{background:var(--card-h)}
+.badge{display:inline-block;padding:2px 8px;border-radius:12px;font-size:.7rem;font-weight:600}
+.b-ok{background:rgba(16,185,129,.15);color:var(--ok)}
+.b-warn{background:rgba(245,158,11,.15);color:var(--warn)}
+.b-err{background:rgba(239,68,68,.15);color:var(--err)}
+.b-acc{background:rgba(59,130,246,.15);color:var(--acc)}
+.b-purp{background:rgba(139,92,246,.15);color:var(--purp)}
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin-bottom:20px}
+.stat{background:var(--bg2);border:1px solid var(--brd);border-radius:var(--r);padding:14px;text-align:center}
+.stat .n{font-size:1.4rem;font-weight:700;color:var(--acc)}
+.stat .l{font-size:.72rem;color:var(--t3);margin-top:4px}
+.tabs{display:flex;gap:4px;margin-bottom:16px;flex-wrap:wrap}
+.tab{padding:8px 16px;background:var(--bg2);border:1px solid var(--brd);border-radius:var(--r);color:var(--t2);cursor:pointer;font-size:.8rem;font-weight:500;transition:all .2s}
+.tab.active{background:var(--acc);border-color:var(--acc);color:#fff}
+.tab:hover:not(.active){border-color:var(--acc);color:var(--acc)}
+.tp{display:none}.tp.active{display:block}
+.link-box{background:var(--bg2);border:1px solid var(--brd);border-radius:var(--r);padding:10px 14px;font-family:monospace;font-size:.75rem;word-break:break-all;margin:6px 0;color:var(--ok);cursor:pointer;transition:background .2s}
+.link-box:hover{background:var(--card-h)}
+.empty{text-align:center;padding:32px;color:var(--t3);font-size:.9rem}
+canvas{max-width:100%;border-radius:var(--r)}
+.info{background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.2);border-radius:var(--r);padding:14px;font-size:.85rem;color:var(--t2);line-height:1.6;margin-bottom:16px}
+.reco{background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);border-radius:var(--r);padding:14px;font-size:.85rem;color:#6ee7b7;line-height:1.6;margin-bottom:16px}
+.tag{display:inline-block;padding:4px 10px;margin:3px;border-radius:var(--r);font-size:.78rem;background:var(--bg2);border:1px solid var(--brd);color:var(--t2)}
+.toast{position:fixed;bottom:24px;right:24px;background:var(--ok);color:#fff;padding:12px 20px;border-radius:var(--r);font-size:.85rem;font-weight:600;transform:translateY(100px);opacity:0;transition:all .3s;z-index:999}
+.toast.show{transform:translateY(0);opacity:1}
+.modal-bg{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.6);z-index:100;display:none;align-items:center;justify-content:center}
+.modal-bg.show{display:flex}
+.modal{background:var(--card);border:1px solid var(--brd);border-radius:var(--r);padding:24px;max-width:500px;width:90%;max-height:80vh;overflow-y:auto}
+.modal h2{margin-bottom:16px}
+@media(max-width:768px){.stats-row{grid-template-columns:1fr 1fr}.row{flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Grupos & Performance</h1>
+<p class="sub">Gerencie grupos do Facebook, rastreie leads por origem e escale para comunidades similares.</p>
+
+<div class="stats-row" id="stats"></div>
+
+<div class="tabs">
+<div class="tab active" onclick="showTab('grupos',this)">Meus Grupos</div>
+<div class="tab" onclick="showTab('leads',this)">Leads</div>
+<div class="tab" onclick="showTab('perf',this)">Performance</div>
+<div class="tab" onclick="showTab('expandir',this)">Expandir</div>
+<div class="tab" onclick="showTab('config',this)">Config</div>
+</div>
+
+<!-- ========== GRUPOS ========== -->
+<div class="tp active" id="tp-grupos">
+<div class="info">
+<strong>Como funciona o rastreamento:</strong> Cada grupo recebe um link unico do WhatsApp com uma mensagem que identifica a origem.
+Quando o lead manda a mensagem, voce sabe de qual grupo ele veio. Registre o lead na aba "Leads" e acompanhe a performance.
+</div>
+<div class="card">
+<h2>Adicionar Grupo</h2>
+<div class="row">
+<div><label>Nome do grupo</label><input id="gNome" placeholder="Ex: Negativados Brasil"></div>
+<div><label>Tipo</label>
+<select id="gTipo">
+<option value="negativados">Negativados/Nome Sujo</option>
+<option value="credito">Credito/Financas</option>
+<option value="mei">MEI/Empreendedores</option>
+<option value="emprego">Emprego/Renda</option>
+<option value="imoveis">Imoveis/Aluguel</option>
+<option value="mulheres">Mulheres/Maes</option>
+<option value="cidade">Cidade/Regiao</option>
+<option value="geral">Geral</option>
+</select></div>
+</div>
+<div class="row">
+<div><label>Cidade/Regiao</label><input id="gCidade" placeholder="Ex: Sao Paulo, Nacional"></div>
+<div><label>Membros (estimativa)</label><input id="gMembros" type="number" placeholder="Ex: 50000"></div>
+</div>
+<div class="row">
+<div><label>URL do grupo</label><input id="gUrl" placeholder="https://facebook.com/groups/..."></div>
+</div>
+<div class="btn-g">
+<button class="btn btn-p" onclick="addGrupo()">Adicionar Grupo</button>
+</div>
+</div>
+
+<div class="card">
+<h2>Meus Grupos <span id="grupoCount" style="font-size:.8rem;color:var(--t3)"></span></h2>
+<div class="row" style="margin-bottom:8px">
+<div><input id="gFiltro" placeholder="Filtrar por nome, tipo ou cidade..." oninput="renderGrupos()"></div>
+<div style="max-width:150px"><select id="gFiltroStatus" onchange="renderGrupos()">
+<option value="">Todos</option>
+<option value="ativo">Ativos</option>
+<option value="pausado">Pausados</option>
+<option value="banido">Banidos</option>
+</select></div>
+</div>
+<div id="gruposTable"></div>
+</div>
+</div>
+
+<!-- ========== LEADS ========== -->
+<div class="tp" id="tp-leads">
+<div class="card">
+<h2>Registrar Lead</h2>
+<div class="info">Quando receber uma mensagem no WhatsApp, identifique o grupo pela mensagem (ex: "Vi no grupo Negativados Brasil...") e registre aqui.</div>
+<div class="row">
+<div><label>Grupo de origem</label>
+<select id="lGrupo"><option value="">-- Selecione o grupo --</option></select></div>
+<div><label>Nome do lead (opcional)</label><input id="lNome" placeholder="Ex: Maria"></div>
+</div>
+<div class="row">
+<div><label>Telefone (opcional)</label><input id="lTel" placeholder="11999999999"></div>
+<div><label>Status</label>
+<select id="lStatus">
+<option value="novo">Novo</option>
+<option value="conversando">Em conversa</option>
+<option value="convertido">Convertido</option>
+<option value="perdido">Perdido</option>
+</select></div>
+</div>
+<div class="row">
+<div><label>Notas (opcional)</label><input id="lNotas" placeholder="Ex: Tem 3 negativacoes no Serasa"></div>
+</div>
+<div class="btn-g">
+<button class="btn btn-ok" onclick="addLead()">Registrar Lead</button>
+</div>
+</div>
+
+<div class="card">
+<h2>Leads Recentes</h2>
+<div id="leadsTable"></div>
+<div class="btn-g" style="margin-top:12px">
+<button class="btn btn-o btn-sm" onclick="exportLeadsCSV()">Exportar CSV</button>
+</div>
+</div>
+</div>
+
+<!-- ========== PERFORMANCE ========== -->
+<div class="tp" id="tp-perf">
+<div class="card">
+<h2>Leads por Grupo (Top 15)</h2>
+<canvas id="chartGrupos" width="900" height="380"></canvas>
+</div>
+<div class="card">
+<h2>Leads por Tipo de Grupo</h2>
+<canvas id="chartTipos" width="900" height="300"></canvas>
+</div>
+<div class="card">
+<h2>Leads por Cidade</h2>
+<canvas id="chartCidades" width="900" height="300"></canvas>
+</div>
+<div class="card">
+<h2>Leads nos Ultimos 14 Dias</h2>
+<canvas id="chartTimeline" width="900" height="300"></canvas>
+</div>
+<div id="recoBox"></div>
+</div>
+
+<!-- ========== EXPANDIR ========== -->
+<div class="tp" id="tp-expandir">
+<div id="inteligencia"></div>
+
+<div class="card">
+<h2>Pipeline de Grupos</h2>
+<div class="info">Adicione grupos que voce encontrou e quer entrar. Acompanhe o status de cada solicitacao.</div>
+<div class="row">
+<div><label>Nome do grupo</label><input id="aNome" placeholder="Ex: SPC Limpo Brasil"></div>
+<div><label>Tipo</label>
+<select id="aTipo">
+<option value="negativados">Negativados/Nome Sujo</option>
+<option value="credito">Credito/Financas</option>
+<option value="mei">MEI/Empreendedores</option>
+<option value="emprego">Emprego/Renda</option>
+<option value="imoveis">Imoveis/Aluguel</option>
+<option value="mulheres">Mulheres/Maes</option>
+<option value="cidade">Cidade/Regiao</option>
+<option value="geral">Geral</option>
+</select></div>
+</div>
+<div class="row">
+<div><label>URL</label><input id="aUrl" placeholder="https://facebook.com/groups/..."></div>
+<div><label>Membros (estimativa)</label><input id="aMembros" type="number" placeholder="50000"></div>
+</div>
+<div class="btn-g">
+<button class="btn btn-purp" onclick="addAlvo()">Adicionar ao Pipeline</button>
+</div>
+</div>
+
+<div class="card">
+<h2>Grupos no Pipeline</h2>
+<div id="alvosTable"></div>
+</div>
+</div>
+
+<!-- ========== CONFIG ========== -->
+<div class="tp" id="tp-config">
+<div class="card">
+<h2>Configuracoes</h2>
+<div class="row">
+<div><label>Numero WhatsApp (com DDI)</label><input id="cfgNum" placeholder="5511999999999"></div>
+</div>
+<div class="row">
+<div><label>Modelo da mensagem (use {GRUPO} para o nome do grupo)</label>
+<textarea id="cfgMsg" rows="3">Oi! Vi uma informacao no grupo {GRUPO} e queria saber mais sobre como regularizar meu CPF.</textarea></div>
+</div>
+<div class="btn-g">
+<button class="btn btn-p" onclick="saveConfig()">Salvar Configuracoes</button>
+</div>
+</div>
+<div class="card">
+<h2>Dados</h2>
+<div class="btn-g">
+<button class="btn btn-o" onclick="exportAll()">Exportar Tudo (JSON)</button>
+<button class="btn btn-o" onclick="importAll()">Importar Dados</button>
+<button class="btn btn-err btn-sm" onclick="limparTudo()">Limpar Tudo</button>
+</div>
+<input type="file" id="importFile" style="display:none" accept=".json" onchange="handleImport(event)">
+</div>
+</div>
+</div>
+
+<!-- MODAL LINK -->
+<div class="modal-bg" id="modalBg" onclick="fecharModal()">
+<div class="modal" onclick="event.stopPropagation()">
+<h2 id="modalTitle">Link do WhatsApp</h2>
+<p style="font-size:.85rem;color:var(--t2);margin-bottom:12px">Copie este link e poste no grupo. Quando alguem clicar, o WhatsApp abre com uma mensagem que identifica a origem.</p>
+<div class="link-box" id="modalLink" onclick="copiarModal()"></div>
+<p style="font-size:.78rem;color:var(--t3);margin-bottom:8px">A mensagem que o lead vai enviar:</p>
+<div style="background:var(--bg2);border:1px solid var(--brd);border-radius:var(--r);padding:12px;font-size:.85rem;color:var(--ok);margin-bottom:16px;white-space:pre-wrap" id="modalPreview"></div>
+<div class="btn-g">
+<button class="btn btn-ok" onclick="copiarModal()">Copiar Link</button>
+<button class="btn btn-o" onclick="fecharModal()">Fechar</button>
+</div>
+</div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ================================================
+   STORAGE
+   ================================================ */
+function getGrupos(){try{return JSON.parse(localStorage.getItem('nle_grupos')||'[]')}catch(e){return[]}}
+function saveGrupos(d){localStorage.setItem('nle_grupos',JSON.stringify(d))}
+function getLeads(){try{return JSON.parse(localStorage.getItem('nle_leads')||'[]')}catch(e){return[]}}
+function saveLeads(d){localStorage.setItem('nle_leads',JSON.stringify(d))}
+function getAlvos(){try{return JSON.parse(localStorage.getItem('nle_alvos')||'[]')}catch(e){return[]}}
+function saveAlvos(d){localStorage.setItem('nle_alvos',JSON.stringify(d))}
+function getCfg(){try{return JSON.parse(localStorage.getItem('nle_cfg')||'{}')}catch(e){return{}}}
+function saveCfg(d){localStorage.setItem('nle_cfg',JSON.stringify(d))}
+
+/* ================================================
+   GRUPOS CRUD
+   ================================================ */
+function addGrupo(){
+  var nome=document.getElementById('gNome').value.trim();
+  var tipo=document.getElementById('gTipo').value;
+  var cidade=document.getElementById('gCidade').value.trim();
+  var membros=parseInt(document.getElementById('gMembros').value)||0;
+  var url=document.getElementById('gUrl').value.trim();
+  if(!nome){toast('Digite o nome do grupo');return}
+  var g=getGrupos();
+  g.push({id:uid(),nome:nome,tipo:tipo,cidade:cidade,membros:membros,url:url,status:'ativo',entrou:new Date().toISOString().slice(0,10)});
+  saveGrupos(g);
+  document.getElementById('gNome').value='';
+  document.getElementById('gCidade').value='';
+  document.getElementById('gMembros').value='';
+  document.getElementById('gUrl').value='';
+  renderAll();
+  toast('Grupo adicionado!');
+}
+
+function toggleStatus(id){
+  var g=getGrupos();
+  var gr=g.find(function(x){return x.id===id});
+  if(!gr)return;
+  var order=['ativo','pausado','banido'];
+  var i=(order.indexOf(gr.status)+1)%order.length;
+  gr.status=order[i];
+  saveGrupos(g);
+  renderGrupos();
+  toast('Status: '+gr.status);
+}
+
+function delGrupo(id){
+  if(!confirm('Remover este grupo? Os leads serao mantidos.'))return;
+  saveGrupos(getGrupos().filter(function(x){return x.id!==id}));
+  renderAll();
+  toast('Grupo removido');
+}
+
+function mostrarLink(id){
+  var g=getGrupos().find(function(x){return x.id===id});
+  if(!g)return;
+  var cfg=getCfg();
+  var num=(cfg.whatsapp||'').replace(/\D/g,'');
+  if(!num){toast('Configure seu numero WhatsApp na aba Config primeiro!');showTab('config',document.querySelectorAll('.tab')[4]);return}
+  var msgTemplate=cfg.mensagem||'Oi! Vi uma informacao no grupo {GRUPO} e queria saber mais sobre como regularizar meu CPF.';
+  var msg=msgTemplate.replace(/\{GRUPO\}/g,g.nome);
+  var ref=g.nome.toLowerCase().replace(/[^a-z0-9]+/g,'-').substring(0,25);
+  msg+=' [ref:'+ref+']';
+  var waUrl='https://wa.me/'+num+'?text='+encodeURIComponent(msg);
+  document.getElementById('modalTitle').textContent='Link — '+g.nome;
+  document.getElementById('modalLink').textContent=waUrl;
+  document.getElementById('modalPreview').textContent=msg;
+  document.getElementById('modalBg').classList.add('show');
+}
+
+function copiarModal(){
+  var url=document.getElementById('modalLink').textContent;
+  navigator.clipboard.writeText(url).then(function(){toast('Link copiado!')}).catch(function(){
+    var ta=document.createElement('textarea');ta.value=url;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);toast('Link copiado!');
+  });
+}
+
+function fecharModal(){document.getElementById('modalBg').classList.remove('show')}
+
+/* ================================================
+   LEADS CRUD
+   ================================================ */
+function addLead(){
+  var grupoId=document.getElementById('lGrupo').value;
+  if(!grupoId){toast('Selecione o grupo de origem');return}
+  var nome=document.getElementById('lNome').value.trim();
+  var tel=document.getElementById('lTel').value.trim();
+  var status=document.getElementById('lStatus').value;
+  var notas=document.getElementById('lNotas').value.trim();
+  var leads=getLeads();
+  leads.push({id:uid(),grupoId:grupoId,data:new Date().toISOString(),nome:nome,tel:tel,status:status,notas:notas});
+  saveLeads(leads);
+  document.getElementById('lNome').value='';
+  document.getElementById('lTel').value='';
+  document.getElementById('lNotas').value='';
+  document.getElementById('lStatus').value='novo';
+  renderAll();
+  toast('Lead registrado!');
+}
+
+function updateLeadStatus(id,newStatus){
+  var leads=getLeads();
+  var lead=leads.find(function(x){return x.id===id});
+  if(lead){lead.status=newStatus;saveLeads(leads);renderLeads();renderStats()}
+}
+
+function delLead(id){
+  if(!confirm('Remover este lead?'))return;
+  saveLeads(getLeads().filter(function(x){return x.id!==id}));
+  renderAll();
+}
+
+/* ================================================
+   ALVOS (PIPELINE) CRUD
+   ================================================ */
+function addAlvo(){
+  var nome=document.getElementById('aNome').value.trim();
+  var tipo=document.getElementById('aTipo').value;
+  var url=document.getElementById('aUrl').value.trim();
+  var membros=parseInt(document.getElementById('aMembros').value)||0;
+  if(!nome){toast('Digite o nome do grupo');return}
+  var a=getAlvos();
+  a.push({id:uid(),nome:nome,tipo:tipo,url:url,membros:membros,status:'alvo',criado:new Date().toISOString().slice(0,10)});
+  saveAlvos(a);
+  document.getElementById('aNome').value='';
+  document.getElementById('aUrl').value='';
+  document.getElementById('aMembros').value='';
+  renderAlvos();
+  toast('Grupo adicionado ao pipeline!');
+}
+
+function updateAlvoStatus(id,st){
+  var a=getAlvos();
+  var alvo=a.find(function(x){return x.id===id});
+  if(!alvo)return;
+  if(st==='promover'){
+    // Move to active groups
+    var g=getGrupos();
+    g.push({id:uid(),nome:alvo.nome,tipo:alvo.tipo,cidade:'',membros:alvo.membros,url:alvo.url,status:'ativo',entrou:new Date().toISOString().slice(0,10)});
+    saveGrupos(g);
+    saveAlvos(a.filter(function(x){return x.id!==id}));
+    renderAll();
+    toast('Grupo promovido para Meus Grupos!');
+    return;
+  }
+  alvo.status=st;
+  saveAlvos(a);
+  renderAlvos();
+}
+
+function delAlvo(id){
+  saveAlvos(getAlvos().filter(function(x){return x.id!==id}));
+  renderAlvos();
+}
+
+/* ================================================
+   CONFIG
+   ================================================ */
+function saveConfig(){
+  var num=document.getElementById('cfgNum').value.trim().replace(/\D/g,'');
+  var msg=document.getElementById('cfgMsg').value.trim();
+  if(!num||num.length<10){toast('Numero WhatsApp invalido');return}
+  saveCfg({whatsapp:num,mensagem:msg});
+  toast('Configuracoes salvas!');
+}
+
+function loadConfig(){
+  var cfg=getCfg();
+  if(cfg.whatsapp)document.getElementById('cfgNum').value=cfg.whatsapp;
+  if(cfg.mensagem)document.getElementById('cfgMsg').value=cfg.mensagem;
+}
+
+/* ================================================
+   RENDERING
+   ================================================ */
+function renderAll(){
+  renderStats();
+  renderGrupos();
+  renderLeads();
+  renderLeadGroupSelect();
+}
+
+function renderStats(){
+  var g=getGrupos().filter(function(x){return x.status==='ativo'});
+  var leads=getLeads();
+  var hoje=new Date().toISOString().slice(0,10);
+  var day7=Date.now()-7*864e5;
+  var lHoje=leads.filter(function(x){return x.data.slice(0,10)===hoje}).length;
+  var l7=leads.filter(function(x){return new Date(x.data).getTime()>day7}).length;
+  var conv=leads.filter(function(x){return x.status==='convertido'}).length;
+  var taxa=leads.length>0?Math.round(conv/leads.length*100):0;
+  document.getElementById('stats').innerHTML=
+    '<div class="stat"><div class="n">'+g.length+'</div><div class="l">Grupos Ativos</div></div>'+
+    '<div class="stat"><div class="n">'+leads.length+'</div><div class="l">Leads Total</div></div>'+
+    '<div class="stat"><div class="n" style="color:var(--ok)">'+lHoje+'</div><div class="l">Leads Hoje</div></div>'+
+    '<div class="stat"><div class="n" style="color:var(--warn)">'+l7+'</div><div class="l">Ultimos 7 Dias</div></div>'+
+    '<div class="stat"><div class="n" style="color:var(--purp)">'+conv+'</div><div class="l">Convertidos</div></div>'+
+    '<div class="stat"><div class="n" style="color:'+(taxa>=20?'var(--ok)':'var(--t2)')+'">'+taxa+'%</div><div class="l">Taxa Conversao</div></div>';
+}
+
+function renderGrupos(){
+  var g=getGrupos();
+  var leads=getLeads();
+  var filtro=(document.getElementById('gFiltro').value||'').toLowerCase();
+  var fStatus=document.getElementById('gFiltroStatus').value;
+
+  // Count leads per group
+  var byGroup={};
+  leads.forEach(function(l){byGroup[l.grupoId]=(byGroup[l.grupoId]||0)+1});
+
+  // Filter
+  var filtered=g.filter(function(x){
+    if(fStatus&&x.status!==fStatus)return false;
+    if(filtro&&x.nome.toLowerCase().indexOf(filtro)<0&&x.tipo.toLowerCase().indexOf(filtro)<0&&(x.cidade||'').toLowerCase().indexOf(filtro)<0)return false;
+    return true;
+  });
+
+  // Sort by leads count desc
+  filtered.sort(function(a,b){return(byGroup[b.id]||0)-(byGroup[a.id]||0)});
+
+  document.getElementById('grupoCount').textContent='('+filtered.length+' de '+g.length+')';
+
+  if(!filtered.length){
+    document.getElementById('gruposTable').innerHTML='<div class="empty">Nenhum grupo encontrado. Adicione grupos acima.</div>';
+    return;
+  }
+
+  var statusBadge={ativo:'b-ok',pausado:'b-warn',banido:'b-err'};
+  var tipoLabel={negativados:'Negativados',credito:'Credito',mei:'MEI/Empreend.',emprego:'Emprego',imoveis:'Imoveis',mulheres:'Mulheres',cidade:'Cidade',geral:'Geral'};
+
+  var html='<table><thead><tr><th>#</th><th>Grupo</th><th>Tipo</th><th>Cidade</th><th>Membros</th><th>Leads</th><th>Status</th><th>Acoes</th></tr></thead><tbody>';
+  filtered.forEach(function(x,i){
+    var lc=byGroup[x.id]||0;
+    html+='<tr>'+
+      '<td>'+(i+1)+'</td>'+
+      '<td><strong>'+esc(x.nome)+'</strong>'+(x.url?'<br><a href="'+esc(x.url)+'" target="_blank" style="font-size:.7rem;color:var(--acc)">abrir grupo</a>':'')+'</td>'+
+      '<td><span class="badge b-acc">'+(tipoLabel[x.tipo]||x.tipo)+'</span></td>'+
+      '<td style="font-size:.8rem;color:var(--t3)">'+(x.cidade||'-')+'</td>'+
+      '<td>'+(x.membros?x.membros.toLocaleString('pt-BR'):'-')+'</td>'+
+      '<td><strong style="color:'+(lc>0?'var(--ok)':'var(--t3)')+'">'+lc+'</strong></td>'+
+      '<td><span class="badge '+statusBadge[x.status]+'" style="cursor:pointer" onclick="toggleStatus(\''+x.id+'\')">'+x.status+'</span></td>'+
+      '<td><div class="btn-g">'+
+        '<button class="btn btn-ok btn-sm" onclick="mostrarLink(\''+x.id+'\')" title="Link WhatsApp">Link</button>'+
+        '<button class="btn btn-err btn-sm" onclick="delGrupo(\''+x.id+'\')">X</button>'+
+      '</div></td></tr>';
+  });
+  html+='</tbody></table>';
+  document.getElementById('gruposTable').innerHTML=html;
+}
+
+function renderLeadGroupSelect(){
+  var g=getGrupos().filter(function(x){return x.status==='ativo'});
+  var sel=document.getElementById('lGrupo');
+  var val=sel.value;
+  sel.innerHTML='<option value="">-- Selecione o grupo --</option>';
+  g.forEach(function(x){
+    sel.innerHTML+='<option value="'+x.id+'">'+esc(x.nome)+'</option>';
+  });
+  if(val)sel.value=val;
+}
+
+function renderLeads(){
+  var leads=getLeads().slice().sort(function(a,b){return new Date(b.data)-new Date(a.data)});
+  var grupos=getGrupos();
+  var grupoMap={};
+  grupos.forEach(function(g){grupoMap[g.id]=g.nome});
+
+  var el=document.getElementById('leadsTable');
+  if(!leads.length){el.innerHTML='<div class="empty">Nenhum lead registrado. Quando receber uma mensagem no WhatsApp, registre aqui.</div>';return}
+
+  var statusBadge={novo:'b-acc',conversando:'b-warn',convertido:'b-ok',perdido:'b-err'};
+  var statusOpts=['novo','conversando','convertido','perdido'];
+
+  var html='<table><thead><tr><th>Data</th><th>Grupo</th><th>Nome</th><th>Status</th><th>Notas</th><th></th></tr></thead><tbody>';
+  leads.slice(0,50).forEach(function(l){
+    var d=new Date(l.data);
+    var grupoNome=grupoMap[l.grupoId]||'(grupo removido)';
+    html+='<tr>'+
+      '<td style="font-size:.8rem;white-space:nowrap">'+d.toLocaleDateString('pt-BR')+'<br>'+d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})+'</td>'+
+      '<td><strong>'+esc(grupoNome)+'</strong></td>'+
+      '<td>'+(l.nome?esc(l.nome):'-')+'</td>'+
+      '<td><select style="padding:4px 6px;font-size:.75rem;background:var(--bg2);color:var(--t1);border:1px solid var(--brd);border-radius:4px" onchange="updateLeadStatus(\''+l.id+'\',this.value)">'+
+        statusOpts.map(function(s){return'<option value="'+s+'"'+(l.status===s?' selected':'')+'>'+s+'</option>'}).join('')+
+      '</select></td>'+
+      '<td style="font-size:.78rem;color:var(--t3);max-width:200px;overflow:hidden;text-overflow:ellipsis">'+(l.notas||'-')+'</td>'+
+      '<td><button class="btn btn-err btn-sm" onclick="delLead(\''+l.id+'\')">X</button></td></tr>';
+  });
+  html+='</tbody></table>';
+  if(leads.length>50)html+='<p style="text-align:center;font-size:.8rem;color:var(--t3);margin-top:8px">Mostrando 50 de '+leads.length+' leads</p>';
+  el.innerHTML=html;
+}
+
+function renderAlvos(){
+  var alvos=getAlvos();
+  var el=document.getElementById('alvosTable');
+  if(!alvos.length){el.innerHTML='<div class="empty">Nenhum grupo no pipeline. Use as sugestoes de busca acima ou adicione manualmente.</div>';return}
+
+  var statusBadge={alvo:'b-purp',solicitado:'b-warn',aceito:'b-ok',rejeitado:'b-err'};
+  var html='<table><thead><tr><th>Grupo</th><th>Tipo</th><th>Membros</th><th>Status</th><th>Acoes</th></tr></thead><tbody>';
+  alvos.forEach(function(a){
+    html+='<tr>'+
+      '<td><strong>'+esc(a.nome)+'</strong>'+(a.url?'<br><a href="'+esc(a.url)+'" target="_blank" style="font-size:.7rem;color:var(--acc)">abrir</a>':'')+'</td>'+
+      '<td><span class="badge b-acc">'+(a.tipo||'-')+'</span></td>'+
+      '<td>'+(a.membros?a.membros.toLocaleString('pt-BR'):'-')+'</td>'+
+      '<td><span class="badge '+(statusBadge[a.status]||'b-acc')+'">'+a.status+'</span></td>'+
+      '<td><div class="btn-g">';
+    if(a.status==='alvo')html+='<button class="btn btn-warn btn-sm" onclick="updateAlvoStatus(\''+a.id+'\',\'solicitado\')">Solicitei</button>';
+    if(a.status==='solicitado')html+='<button class="btn btn-ok btn-sm" onclick="updateAlvoStatus(\''+a.id+'\',\'aceito\')">Aceito</button><button class="btn btn-err btn-sm" onclick="updateAlvoStatus(\''+a.id+'\',\'rejeitado\')">Rejeitado</button>';
+    if(a.status==='aceito')html+='<button class="btn btn-purp btn-sm" onclick="updateAlvoStatus(\''+a.id+'\',\'promover\')">Mover p/ Meus Grupos</button>';
+    html+='<button class="btn btn-o btn-sm" onclick="delAlvo(\''+a.id+'\')">X</button></div></td></tr>';
+  });
+  html+='</tbody></table>';
+  el.innerHTML=html;
+}
+
+/* ================================================
+   CHARTS (Canvas)
+   ================================================ */
+function renderCharts(){
+  renderChartGrupos();
+  renderChartTipos();
+  renderChartCidades();
+  renderChartTimeline();
+  renderRecommendations();
+  renderIntelligence();
+}
+
+function setupCanvas(id,w,h){
+  var c=document.getElementById(id);
+  var ctx=c.getContext('2d');
+  var dpr=window.devicePixelRatio||1;
+  c.width=w*dpr;c.height=h*dpr;
+  c.style.width=w+'px';c.style.height=h+'px';
+  ctx.scale(dpr,dpr);
+  ctx.fillStyle='#111827';ctx.fillRect(0,0,w,h);
+  return ctx;
+}
+
+function drawBars(canvasId,labels,values,colors,w,h){
+  var ctx=setupCanvas(canvasId,w,h);
+  if(!labels.length){ctx.fillStyle='#5a6a7a';ctx.font='14px sans-serif';ctx.textAlign='center';ctx.fillText('Sem dados suficientes',w/2,h/2);return}
+  var max=Math.max.apply(null,values)||1;
+  var ml=50,mr=20,mt=20,mb=80;
+  var cw=w-ml-mr,ch=h-mt-mb;
+  var bw=Math.min(60,(cw/labels.length)-6);
+  var offset=(cw-labels.length*(bw+6))/2;
+
+  // Grid
+  ctx.strokeStyle='#1a2332';ctx.lineWidth=1;
+  for(var y=0;y<=4;y++){
+    var yy=mt+ch-(y/4)*ch;
+    ctx.beginPath();ctx.moveTo(ml,yy);ctx.lineTo(w-mr,yy);ctx.stroke();
+    ctx.fillStyle='#5a6a7a';ctx.font='11px sans-serif';ctx.textAlign='right';
+    ctx.fillText(Math.round(max*y/4),ml-8,yy+4);
+  }
+
+  labels.forEach(function(lbl,i){
+    var x=ml+offset+i*(bw+6)+3;
+    var hh=(values[i]/max)*ch;
+    var y=mt+ch-hh;
+    ctx.fillStyle=colors?colors[i%colors.length]:'#3b82f6';
+    ctx.fillRect(x,y,bw,hh||2);
+    if(values[i]>0){ctx.fillStyle='#e8ecf1';ctx.font='bold 11px sans-serif';ctx.textAlign='center';ctx.fillText(values[i],x+bw/2,y-6)}
+    ctx.fillStyle='#8899aa';ctx.font='10px sans-serif';ctx.save();ctx.translate(x+bw/2,mt+ch+10);ctx.rotate(Math.PI/5);ctx.textAlign='left';ctx.fillText(lbl.substring(0,18),0,0);ctx.restore();
+  });
+}
+
+function renderChartGrupos(){
+  var leads=getLeads(),grupos=getGrupos();
+  var byG={};leads.forEach(function(l){byG[l.grupoId]=(byG[l.grupoId]||0)+1});
+  var data=grupos.map(function(g){return{nome:g.nome,count:byG[g.id]||0}}).filter(function(x){return x.count>0}).sort(function(a,b){return b.count-a.count}).slice(0,15);
+  drawBars('chartGrupos',data.map(function(x){return x.nome}),data.map(function(x){return x.count}),null,900,380);
+}
+
+function renderChartTipos(){
+  var leads=getLeads(),grupos=getGrupos();
+  var grupoMap={};grupos.forEach(function(g){grupoMap[g.id]=g});
+  var byT={};leads.forEach(function(l){var g=grupoMap[l.grupoId];if(g){byT[g.tipo]=(byT[g.tipo]||0)+1}});
+  var data=Object.keys(byT).map(function(t){return{tipo:t,count:byT[t]}}).sort(function(a,b){return b.count-a.count});
+  var colors=['#3b82f6','#10b981','#f59e0b','#ef4444','#8b5cf6','#ec4899','#06b6d4','#84cc16'];
+  drawBars('chartTipos',data.map(function(x){return x.tipo}),data.map(function(x){return x.count}),colors,900,300);
+}
+
+function renderChartCidades(){
+  var leads=getLeads(),grupos=getGrupos();
+  var grupoMap={};grupos.forEach(function(g){grupoMap[g.id]=g});
+  var byC={};leads.forEach(function(l){var g=grupoMap[l.grupoId];if(g){var c=g.cidade||'Sem cidade';byC[c]=(byC[c]||0)+1}});
+  var data=Object.keys(byC).map(function(c){return{cidade:c,count:byC[c]}}).sort(function(a,b){return b.count-a.count}).slice(0,10);
+  var colors=['#8b5cf6','#ec4899','#06b6d4','#84cc16','#f59e0b','#3b82f6','#10b981','#ef4444'];
+  drawBars('chartCidades',data.map(function(x){return x.cidade}),data.map(function(x){return x.count}),colors,900,300);
+}
+
+function renderChartTimeline(){
+  var leads=getLeads();
+  var ctx=setupCanvas('chartTimeline',900,300);
+  var days=[];var now=new Date();
+  for(var i=13;i>=0;i--){var d=new Date(now);d.setDate(d.getDate()-i);days.push(d.toISOString().slice(0,10))}
+  var byDay={};days.forEach(function(d){byDay[d]=0});
+  leads.forEach(function(l){var dk=l.data.slice(0,10);if(byDay[dk]!==undefined)byDay[dk]++});
+  var vals=days.map(function(d){return byDay[d]});
+  var max=Math.max.apply(null,vals)||1;
+  var ml=50,mr=20,mt=20,mb=50;
+  var cw=900-ml-mr,ch=300-mt-mb;
+  var bw=(cw/14)-4;
+
+  ctx.strokeStyle='#1a2332';ctx.lineWidth=1;
+  for(var y=0;y<=4;y++){
+    var yy=mt+ch-(y/4)*ch;
+    ctx.beginPath();ctx.moveTo(ml,yy);ctx.lineTo(900-mr,yy);ctx.stroke();
+    ctx.fillStyle='#5a6a7a';ctx.font='11px sans-serif';ctx.textAlign='right';
+    ctx.fillText(Math.round(max*y/4),ml-8,yy+4);
+  }
+
+  vals.forEach(function(v,i){
+    var x=ml+i*(bw+4)+2;
+    var h=(v/max)*ch;
+    var y=mt+ch-h;
+    ctx.fillStyle=v>0?'#10b981':'#1a2332';
+    ctx.fillRect(x,y,bw,h||2);
+    if(v>0){ctx.fillStyle='#e8ecf1';ctx.font='bold 11px sans-serif';ctx.textAlign='center';ctx.fillText(v,x+bw/2,y-6)}
+    ctx.fillStyle='#5a6a7a';ctx.font='10px sans-serif';ctx.textAlign='center';
+    ctx.fillText(days[i].slice(5),x+bw/2,mt+ch+16);
+  });
+}
+
+/* ================================================
+   INTELLIGENCE & RECOMMENDATIONS
+   ================================================ */
+function renderRecommendations(){
+  var leads=getLeads(),grupos=getGrupos();
+  var el=document.getElementById('recoBox');
+  if(leads.length<3){el.innerHTML='<div class="info">Registre pelo menos 3 leads para ver recomendacoes.</div>';return}
+
+  var grupoMap={};grupos.forEach(function(g){grupoMap[g.id]=g});
+
+  // Best group
+  var byG={};leads.forEach(function(l){byG[l.grupoId]=(byG[l.grupoId]||0)+1});
+  var bestGId=Object.keys(byG).sort(function(a,b){return byG[b]-byG[a]})[0];
+  var bestG=grupoMap[bestGId];
+
+  // Best type
+  var byT={};leads.forEach(function(l){var g=grupoMap[l.grupoId];if(g)byT[g.tipo]=(byT[g.tipo]||0)+1});
+  var bestT=Object.keys(byT).sort(function(a,b){return byT[b]-byT[a]})[0];
+
+  // Best city
+  var byC={};leads.forEach(function(l){var g=grupoMap[l.grupoId];if(g&&g.cidade)byC[g.cidade]=(byC[g.cidade]||0)+1});
+  var bestC=Object.keys(byC).sort(function(a,b){return byC[b]-byC[a]})[0];
+
+  // Efficiency (leads per member)
+  var efficiency=grupos.map(function(g){
+    var lc=byG[g.id]||0;
+    return{nome:g.nome,tipo:g.tipo,membros:g.membros,leads:lc,ratio:g.membros>0?lc/g.membros*10000:0};
+  }).filter(function(x){return x.leads>0}).sort(function(a,b){return b.ratio-a.ratio});
+
+  var html='<div class="reco"><strong>Recomendacoes baseadas nos seus dados:</strong><br><br>';
+  if(bestG)html+='<strong>Melhor grupo:</strong> '+esc(bestG.nome)+' ('+byG[bestGId]+' leads). Priorize posts nesse grupo.<br>';
+  if(bestT)html+='<strong>Melhor tipo:</strong> "'+bestT+'" ('+byT[bestT]+' leads). Busque MAIS grupos desse tipo na aba Expandir.<br>';
+  if(bestC)html+='<strong>Melhor cidade:</strong> '+esc(bestC)+' ('+byC[bestC]+' leads). Concentre esforcos nessa regiao.<br>';
+  if(efficiency.length>0&&efficiency[0].ratio>0){
+    html+='<br><strong>Grupo mais eficiente (leads/membro):</strong> '+esc(efficiency[0].nome)+
+      ' ('+efficiency[0].leads+' leads de '+efficiency[0].membros.toLocaleString('pt-BR')+' membros = '+efficiency[0].ratio.toFixed(1)+' leads/10k membros).'+
+      ' Grupos menores mas engajados podem ser mais valiosos que grupos enormes!<br>';
+  }
+  html+='</div>';
+  el.innerHTML=html;
+}
+
+function renderIntelligence(){
+  var leads=getLeads(),grupos=getGrupos();
+  var el=document.getElementById('inteligencia');
+
+  if(leads.length<2){
+    el.innerHTML='<div class="info"><strong>Inteligencia de Expansao</strong><br>Registre leads para ativar recomendacoes automaticas de novos grupos para entrar.</div>';
+    return;
+  }
+
+  var grupoMap={};grupos.forEach(function(g){grupoMap[g.id]=g});
+
+  // Analyze patterns
+  var byG={};leads.forEach(function(l){byG[l.grupoId]=(byG[l.grupoId]||0)+1});
+  var byT={};var byC={};var bySize={};
+  leads.forEach(function(l){
+    var g=grupoMap[l.grupoId];
+    if(!g)return;
+    byT[g.tipo]=(byT[g.tipo]||0)+1;
+    if(g.cidade)byC[g.cidade]=(byC[g.cidade]||0)+1;
+    var sizeRange=g.membros<10000?'pequeno (< 10k)':g.membros<50000?'medio (10k-50k)':'grande (50k+)';
+    bySize[sizeRange]=(bySize[sizeRange]||0)+1;
+  });
+
+  var topTipos=Object.keys(byT).sort(function(a,b){return byT[b]-byT[a]}).slice(0,3);
+  var topCidades=Object.keys(byC).sort(function(a,b){return byC[b]-byC[a]}).slice(0,3);
+  var topSize=Object.keys(bySize).sort(function(a,b){return bySize[b]-bySize[a]})[0];
+
+  var tipoLabel={negativados:'Negativados/Nome Sujo',credito:'Credito/Financas',mei:'MEI/Empreendedores',emprego:'Emprego/Renda',imoveis:'Imoveis/Aluguel',mulheres:'Mulheres/Maes',cidade:'Cidade/Regiao',geral:'Geral'};
+
+  var html='<div class="reco"><strong>Inteligencia de Expansao</strong><br><br>';
+  html+='Baseado nos seus <strong>'+leads.length+' leads</strong> de <strong>'+grupos.length+' grupos</strong>, o perfil ideal de grupo para entrar e:<br><br>';
+  html+='<strong>Tipo:</strong> ';topTipos.forEach(function(t){html+='<span class="tag">'+esc(tipoLabel[t]||t)+' ('+byT[t]+' leads)</span> '});html+='<br>';
+  if(topCidades.length)html+='<strong>Cidade:</strong> ';topCidades.forEach(function(c){html+='<span class="tag">'+esc(c)+' ('+byC[c]+' leads)</span> '});html+='<br>';
+  if(topSize)html+='<strong>Tamanho:</strong> <span class="tag">'+topSize+'</span><br>';
+  html+='</div>';
+
+  // Search suggestions
+  html+='<div class="card"><h2>Termos de Busca no Facebook</h2>';
+  html+='<p style="font-size:.85rem;color:var(--t2);margin-bottom:12px">Copie estes termos e busque no Facebook para encontrar grupos similares aos seus melhores:</p>';
+
+  var terms=[];
+  topTipos.forEach(function(t){
+    var keywords={
+      negativados:['negativados','nome sujo','serasa','spc','nome limpo','limpar nome','score baixo','credito negado'],
+      credito:['credito pessoal','emprestimo','financiamento','score serasa','cartao credito aprovado'],
+      mei:['mei','microempreendedor','pequeno negocio','empreendedor','abrir empresa'],
+      emprego:['vagas emprego','procurando emprego','renda extra','trabalho','freelancer'],
+      imoveis:['aluguel','imoveis','financiamento imovel','morar','casa propria'],
+      mulheres:['mulheres empreendedoras','maes','financas femininas','independencia financeira'],
+      cidade:['comunidade','bairro','regiao','moradores'],
+      geral:['financas pessoais','dinheiro','economia','dicas financeiras']
+    };
+    (keywords[t]||[]).forEach(function(k){
+      if(terms.indexOf(k)<0)terms.push(k);
+    });
+  });
+
+  topCidades.forEach(function(c){
+    topTipos.forEach(function(t){
+      var tkw={negativados:'negativados',credito:'credito',mei:'mei',emprego:'emprego',imoveis:'imoveis',mulheres:'mulheres empreendedoras',cidade:'comunidade',geral:'financas'};
+      var term=(tkw[t]||t)+' '+c;
+      if(terms.indexOf(term)<0)terms.push(term);
+    });
+  });
+
+  terms.forEach(function(t){
+    html+='<span class="tag" style="cursor:pointer" onclick="copiarTermo(\''+esc(t)+'\')">'+esc(t)+'</span> ';
+  });
+  html+='<p style="font-size:.78rem;color:var(--t3);margin-top:8px">Clique em um termo para copiar.</p></div>';
+
+  el.innerHTML=html;
+}
+
+function copiarTermo(t){
+  navigator.clipboard.writeText(t).then(function(){toast('Termo copiado: '+t)}).catch(function(){toast('Erro ao copiar')});
+}
+
+/* ================================================
+   EXPORT / IMPORT
+   ================================================ */
+function exportLeadsCSV(){
+  var leads=getLeads(),grupos=getGrupos();
+  var gm={};grupos.forEach(function(g){gm[g.id]=g.nome});
+  if(!leads.length){toast('Sem leads para exportar');return}
+  var csv='Data,Grupo,Nome,Telefone,Status,Notas\n';
+  leads.forEach(function(l){
+    csv+=new Date(l.data).toLocaleDateString('pt-BR')+','+(gm[l.grupoId]?'"'+gm[l.grupoId]+'"':'?')+','+(l.nome?'"'+l.nome+'"':'')+','+(l.tel||'')+','+l.status+','+(l.notas?'"'+l.notas+'"':'')+'\n';
+  });
+  download(csv,'nle-leads-'+new Date().toISOString().slice(0,10)+'.csv','text/csv');
+  toast('CSV exportado!');
+}
+
+function exportAll(){
+  var data={grupos:getGrupos(),leads:getLeads(),alvos:getAlvos(),config:getCfg(),exportedAt:new Date().toISOString()};
+  download(JSON.stringify(data,null,2),'nle-backup-'+new Date().toISOString().slice(0,10)+'.json','application/json');
+  toast('Backup exportado!');
+}
+
+function importAll(){document.getElementById('importFile').click()}
+function handleImport(e){
+  var file=e.target.files[0];if(!file)return;
+  var reader=new FileReader();
+  reader.onload=function(ev){
+    try{
+      var data=JSON.parse(ev.target.result);
+      if(data.grupos)saveGrupos(data.grupos);
+      if(data.leads)saveLeads(data.leads);
+      if(data.alvos)saveAlvos(data.alvos);
+      if(data.config)saveCfg(data.config);
+      loadConfig();
+      renderAll();
+      toast('Dados importados!');
+    }catch(ex){toast('Erro ao importar: arquivo invalido')}
+  };
+  reader.readAsText(file);
+  e.target.value='';
+}
+
+function limparTudo(){
+  if(!confirm('Apagar TODOS os dados (grupos, leads, alvos, config)?'))return;
+  if(!confirm('Tem certeza? Essa acao NAO pode ser desfeita.'))return;
+  localStorage.removeItem('nle_grupos');
+  localStorage.removeItem('nle_leads');
+  localStorage.removeItem('nle_alvos');
+  renderAll();
+  toast('Tudo limpo');
+}
+
+function download(content,filename,type){
+  var blob=new Blob([content],{type:type+';charset=utf-8'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=filename;a.click();
+}
+
+/* ================================================
+   UTILS
+   ================================================ */
+function uid(){return Date.now().toString(36)+Math.random().toString(36).substr(2,6)}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function toast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(function(){t.classList.remove('show')},2500)}
+
+function showTab(id,el){
+  document.querySelectorAll('.tp').forEach(function(t){t.classList.remove('active')});
+  document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active')});
+  document.getElementById('tp-'+id).classList.add('active');
+  if(el)el.classList.add('active');
+  if(id==='perf')renderCharts();
+  if(id==='expandir'){renderIntelligence();renderAlvos()}
+  if(id==='leads'){renderLeads();renderLeadGroupSelect()}
+}
+
+/* ================================================
+   MIGRATE - import data from old tracker if exists
+   ================================================ */
+function migrateFromTracker(){
+  var oldGroups=[];
+  try{oldGroups=JSON.parse(localStorage.getItem('trk_groups')||'[]')}catch(e){}
+  if(!oldGroups.length)return;
+  var current=getGrupos();
+  if(current.length>0)return; // already has data, don't overwrite
+  var migrated=oldGroups.map(function(og){
+    return{id:String(og.id),nome:og.nome,tipo:og.categoria||'geral',cidade:'',membros:og.membros||0,url:og.link||'',status:'ativo',entrou:new Date().toISOString().slice(0,10)};
+  });
+  saveGrupos(migrated);
+}
+
+/* ================================================
+   INIT
+   ================================================ */
+migrateFromTracker();
+loadConfig();
+renderAll();
+</script>
+</body>
+</html>
